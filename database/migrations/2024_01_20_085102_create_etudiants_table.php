@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('etudiants', function (Blueprint $table) {
             $table->id();
-            $table->string('INE'); //N01662320222
+            $table->string('INE')->unique(); //N01662320222
             $table->enum('sexe',['Homme','Femme']);
             $table->enum('status',['actif','inactif'])->default('actif');
             $table->string('date_naissance');
