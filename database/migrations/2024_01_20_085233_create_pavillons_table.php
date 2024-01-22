@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('libelle');
             $table->enum('type_pavillon',['Mixte','Homme','Femme']);
             $table->integer('nombres_etages');
-            $table->string('nombres_chambres');
+            $table->bigInteger('nombres_chambres');
             $table->timestamps();
         });
     }

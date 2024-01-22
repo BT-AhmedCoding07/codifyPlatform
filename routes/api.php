@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PavillonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,3 +38,12 @@ Route::group([
 Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiant');
 Route::post('ajoutProfil', '\App\Http\Controllers\UserController@ajoutProfil');
 
+//Pavillon
+Route::controller(PavillonController::class)->group(function () {
+
+    Route::get('pavillons', 'index');
+    Route::post('pavillon/create', 'store');
+    Route::put('pavillon/update/{id}', 'update');
+    Route::get('pavillon/read/{id}', 'show');
+    Route::delete('pavillon/delete/{id}', 'destroy');
+});
