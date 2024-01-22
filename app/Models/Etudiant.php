@@ -22,4 +22,8 @@ class Etudiant extends Model
     public function beneficiaires(){
         return $this->hasMany(Beneficiaire::class);
     }
+    public function statuts()
+    {
+        return $this->belongsTo(Statut::class);
+    }
 }

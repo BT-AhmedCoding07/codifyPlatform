@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Etudiant;
-use App\Http\Requests\StoreEtudiantRequest;
-use App\Http\Requests\UpdateEtudiantRequest;
+use App\Models\Statut;
+use App\Http\Requests\StoreStatutRequest;
+use App\Http\Requests\UpdateStatutRequest;
 
-class EtudiantController extends Controller
+class StatutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class EtudiantController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreEtudiantRequest $request)
+    public function store(StoreStatutRequest $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class EtudiantController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Etudiant $etudiant)
+    public function show(Statut $statut)
     {
         //
     }
@@ -43,7 +43,7 @@ class EtudiantController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Etudiant $etudiant)
+    public function edit(Statut $statut)
     {
         //
     }
@@ -51,7 +51,7 @@ class EtudiantController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateEtudiantRequest $request, Etudiant $etudiant)
+    public function update(UpdateStatutRequest $request, Statut $statut)
     {
         //
     }
@@ -59,7 +59,7 @@ class EtudiantController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Etudiant $etudiant)
+    public function destroy(Statut $statut)
     {
         //
     }

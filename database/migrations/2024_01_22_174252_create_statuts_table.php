@@ -11,13 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chambres', function (Blueprint $table) {
+        Schema::create('statuts', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
-            $table->enum('type_chambre',['Individuelle','Partagée']);
-            $table->Integer('nombres_lits');
-            $table->Integer('nombres_limites')->max(12);
-            $table->unsignedBigInteger('pavillons_id');
+            $table->string('type');
             $table->timestamps();
         });
     }
@@ -27,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chambres');
+        Schema::dropIfExists('statuts');
     }
 };

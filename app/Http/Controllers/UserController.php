@@ -70,6 +70,8 @@ class UserController extends Controller
         }
     }
 
+
+
     //Ajout un profil Ex:Chef de pavillon, chef de service pédagogique
     public function ajoutProfil(Request $request)
     {

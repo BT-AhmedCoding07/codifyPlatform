@@ -15,13 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('INE')->unique(); //N01662320222
             $table->enum('sexe',['Homme','Femme']);
-            $table->enum('status',['actif','inactif'])->default('actif');
+            $table->boolean('estAttribue')->default(0);
             $table->string('date_naissance');
             $table->string('lieu_naissance');
             $table->string('adresse')->nullable();
             $table->string('niveau_etudes')->nullable();
             $table->string('filiere');
             $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('statuts_id');
             $table->timestamps();
         });
     }
