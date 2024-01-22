@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PavillonController;
 
@@ -35,7 +36,10 @@ Route::group([
     Route::post('me', '\App\Http\Controllers\AuthController@me');
 
 });
+//Ajouter un étudiant
 Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiant');
+
+//Ajouter un profil utilisateur
 Route::post('ajoutProfil', '\App\Http\Controllers\UserController@ajoutProfil');
 
 //Pavillon
@@ -46,4 +50,14 @@ Route::controller(PavillonController::class)->group(function () {
     Route::put('pavillon/update/{id}', 'update');
     Route::get('pavillon/read/{id}', 'show');
     Route::delete('pavillon/delete/{id}', 'destroy');
+});
+
+//Chambre
+Route::controller(ChambreController::class)->group(function () {
+
+    Route::get('chambres', 'index');
+    Route::post('chambre/create', 'store');
+    Route::put('chambre/update/{id}', 'update');
+    Route::get('chambre/read/{id}', 'show');
+    Route::delete('chambre/delete/{id}', 'destroy');
 });

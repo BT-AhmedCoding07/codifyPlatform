@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Pavillon;
 use Illuminate\Http\Request;
-use App\Http\Requests\StorePavillonRequest;
-use App\Http\Requests\UpdatePavillonRequest;
+
 
 class PavillonController extends Controller
 {
@@ -52,7 +51,7 @@ class PavillonController extends Controller
 
             return response([
 
-                'Message: ' => 'We could not create a new product.',
+                'Message: ' => 'We could not create a new pavillon.',
 
             ], 500);
         }
