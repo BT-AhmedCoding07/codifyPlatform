@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('beneficiaires', function (Blueprint $table) {
             $table->id();
+            $table->boolean('estAttribue')->default(0);
             $table->date('date_debut');
             $table->date('date_fin');
             $table->unsignedBigInteger('chambres_id');
