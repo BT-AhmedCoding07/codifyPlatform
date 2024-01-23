@@ -30,24 +30,26 @@ class ChambreController extends Controller
     public function store(Request  $request)
     {
         $pavillon = Pavillon::find($request->pavillons_id);
+
+
+
+
         if (!$pavillon) {
             return response()->json([
                 'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
             ], 404);
-        } else{
+        }
+        else{
             $input = $request->validate([
                 'libelle' => ['required'],
                 'type_chambre' => ['required'],
                 'nombres_lits' => ['required'],
-                'nombres_limites' => ['required:max:'] ,
+                'nombres_limites' => ['required', 'numeric', 'max:12'] ,
                 'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
             ]);
-
             $chambre = Chambre::create($input);
 
-            if ($chambre ->save()){
-
-
+            if($chambre ->save()){
                 return response()->json([
                     'Message: ' => 'Success!',
                     'Room created: ' =>  $chambre
@@ -61,13 +63,8 @@ class ChambreController extends Controller
 
                 ], 500);
             }
-
-        }
-
+           }
     }
-
-
-
 
     /**
      * Display the specified resource.
@@ -102,49 +99,58 @@ class ChambreController extends Controller
 
         $chambre = Chambre::find($id);
 
-        if($chambre){
+        $pavillon = Pavillon::find($request->pavillons_id);
+        if (!$pavillon) {
+            return response()->json([
+                'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
+            ], 404);
+        }else{
+            if($chambre){
 
-           $input = $request->validate([
-                'libelle' => ['required'],
-                'type_chambre' => ['required'],
-                'nombres_lits' => ['required'],
-                'nombres_limites' => ['required'] ,
-                'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-            ]);
+                $input = $request->validate([
+                     'libelle' => ['required'],
+                     'type_chambre' => ['required'],
+                     'nombres_lits' => ['required'],
+                     'nombres_limites' => ['required', 'numeric', 'max:12'] ,
+                     'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
+                 ]);
 
-            $chambre->libelle = $input['libelle'];
-            $chambre->type_chambre = $input['type_chambre'];
-            $chambre->nombres_lits = $input['nombres_lits'];
-            $chambre->nombres_lits = $input['nombres_limites'];
-            $chambre->pavillons_id = $input['pavillons_id'];
+                 $chambre->libelle = $input['libelle'];
+                 $chambre->type_chambre = $input['type_chambre'];
+                 $chambre->nombres_lits = $input['nombres_lits'];
+                 $chambre->nombres_lits = $input['nombres_limites'];
+                 $chambre->pavillons_id = $input['pavillons_id'];
 
-            if($chambre->save()){
+                 if($chambre->save()){
 
-                return response()->json([
+                     return response()->json([
 
-                    'Message: ' => 'Chambre updated with success.',
-                    'Chambre: ' => $chambre
+                         'Message: ' => 'Chambre updated with success.',
+                         'Chambre: ' => $chambre
 
-                ], 200);
+                     ], 200);
 
 
-            }else {
+                 }else {
 
-                return response([
+                     return response([
 
-                    'Message: ' => 'We could not update the room.',
+                         'Message: ' => 'We could not update the room.',
 
-                ], 500);
+                     ], 500);
 
-            }
-        }else {
+                 }
+             }else {
 
-            return response([
+                 return response([
 
-                'Message: ' => 'We could not find the room.',
+                     'Message: ' => 'We could not find the room.',
 
-            ], 500);
+                 ], 500);
+             }
         }
+
+
 
     }
 
