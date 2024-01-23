@@ -133,6 +133,10 @@ class UserController extends Controller
     }
 
 
+
+
+
+
     //Ajout un profil Ex:Chef de pavillon, chef de service pédagogique
     public function ajoutProfil(Request $request)
     {
@@ -166,6 +170,30 @@ class UserController extends Controller
             } else {
                 $user->delete();
                 return response()->json(["message" => "impossible d'ajouter  un profil"]);
+            }
+        } catch (ValidationException $e) {
+            return response()->json([
+                'errors' => $e->errors(),
+            ], 422);
+        }
+    }
+    //Changer l'status de l'utilisateur
+    public function ModifierProfil(Request $request, $userId)
+    {
+        try {
+            $request->validate([
+                'status' => 'required|in:Actif,Inactif',
+            ]);
+
+            $user = User::findOrFail($userId);
+
+            if ($user->update(['status' => $request->input('status')])) {
+                return response()->json([
+                    "message" => "Statut du profil modifié avec succès",
+                    "profil" => [$user],
+                ]);
+            } else {
+                return response()->json(["message" => "Impossible de modifier le statut du profil"]);
             }
         } catch (ValidationException $e) {
             return response()->json([

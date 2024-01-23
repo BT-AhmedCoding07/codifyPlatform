@@ -44,9 +44,11 @@ Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiant
 //Ajouter un profil utilisateur
 Route::post('ajoutProfil', '\App\Http\Controllers\UserController@ajoutProfil');
 
+//Modifier l'status d' un profil utilisateur
+Route::put('/modifierProfil/{id}', '\App\Http\Controllers\UserController@ModifierProfil');
+
 //Pavillon
 Route::controller(PavillonController::class)->group(function () {
-
     Route::get('pavillons', 'index');
     Route::post('pavillon/create', 'store');
     Route::put('pavillon/update/{id}', 'update');
@@ -56,7 +58,6 @@ Route::controller(PavillonController::class)->group(function () {
 
 //Chambre
 Route::controller(ChambreController::class)->group(function () {
-
     Route::get('chambres', 'index');
     Route::post('chambre/create', 'store');
     Route::put('chambre/update/{id}', 'update');
