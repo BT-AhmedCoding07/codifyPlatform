@@ -11,9 +11,9 @@ class Chambre extends Model
     protected $fillable = [
         'libelle',
         'type_chambre',
-        'password',
         'nombres_lits',
-        'pavillons_id'
+        'pavillons_id',
+        'nombres_limites'
     ];
 
     public function etudiants(){

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->boolean('estAttribue')->default(0);
             $table->string('date_naissance');
             $table->string('lieu_naissance');
-            $table->string('adresse')->nullable();
-            $table->string('niveau_etudes')->nullable();
+            $table->string('adresse');
+            $table->string('niveau_etudes');
             $table->string('filiere');
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('statuts_id');

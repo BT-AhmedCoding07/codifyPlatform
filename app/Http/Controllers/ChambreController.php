@@ -29,38 +29,41 @@ class ChambreController extends Controller
      */
     public function store(Request  $request)
     {
-
-        $input = $request->validate([
-            'libelle' => ['required'],
-            'type_chambre' => ['required'],
-            'nombres_lits' => ['required'],
-            'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-        ]);
-            $pavillon = Pavillon::find($request->pavillons_id);
-
+        $pavillon = Pavillon::find($request->pavillons_id);
         if (!$pavillon) {
             return response()->json([
                 'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
             ], 404);
+        } else{
+            $input = $request->validate([
+                'libelle' => ['required'],
+                'type_chambre' => ['required'],
+                'nombres_lits' => ['required'],
+                'nombres_limites' => ['required:max:'] ,
+                'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
+            ]);
+
+            $chambre = Chambre::create($input);
+
+            if ($chambre ->save()){
+
+
+                return response()->json([
+                    'Message: ' => 'Success!',
+                    'Room created: ' =>  $chambre
+                ], 200);
+
+            }else {
+
+                return response([
+
+                    'Message: ' => 'We could not create a new room.',
+
+                ], 500);
+            }
+
         }
-        $chambre = Chambre::create($input);
 
-        if ($chambre ->save()){
-
-
-            return response()->json([
-                'Message: ' => 'Success!',
-                'Room created: ' =>  $chambre
-            ], 200);
-
-        }else {
-
-            return response([
-
-                'Message: ' => 'We could not create a new room.',
-
-            ], 500);
-        }
     }
 
 
@@ -105,12 +108,14 @@ class ChambreController extends Controller
                 'libelle' => ['required'],
                 'type_chambre' => ['required'],
                 'nombres_lits' => ['required'],
-                'pavillons_id' => ['required'],
+                'nombres_limites' => ['required'] ,
+                'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
             ]);
 
             $chambre->libelle = $input['libelle'];
             $chambre->type_chambre = $input['type_chambre'];
             $chambre->nombres_lits = $input['nombres_lits'];
+            $chambre->nombres_lits = $input['nombres_limites'];
             $chambre->pavillons_id = $input['pavillons_id'];
 
             if($chambre->save()){

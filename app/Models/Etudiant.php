@@ -16,6 +16,7 @@ class Etudiant extends Model
         'sexe',
         'niveau_etudes',
         'filiere',
+        'statuts_id',
         'users_id'
     ];
 

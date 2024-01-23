@@ -13,4 +13,8 @@ class Reclamation extends Model
     {
         return $this->belongsTo(Beneficiaire::class);
     }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

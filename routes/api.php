@@ -37,7 +37,9 @@ Route::group([
 
 });
 //Ajouter un étudiant
-Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiant');
+Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiantMerite');
+//Ajouter étudiant cas social
+Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
 
 //Ajouter un profil utilisateur
 Route::post('ajoutProfil', '\App\Http\Controllers\UserController@ajoutProfil');
