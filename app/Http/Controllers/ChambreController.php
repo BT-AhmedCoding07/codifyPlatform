@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Chambre;
+use App\Models\Etudiant;
 use App\Models\Pavillon;
 use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
 
+use Illuminate\Validation\Rule;
 use App\Http\Requests\UpdateChambreRequest;
 
 class ChambreController extends Controller
@@ -16,6 +17,7 @@ class ChambreController extends Controller
      */
     public function index()
     {
+
         $chambres = Chambre::all();
 
           return response()->json([
@@ -27,44 +29,92 @@ class ChambreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request  $request)
-    {
-        $pavillon = Pavillon::find($request->pavillons_id);
+    // public function store(Request  $request)
+    // {
+    //     $pavillon = Pavillon::find($request->pavillons_id);
+    //     $etudiant = Etudiant::find($request->etudiants_id);
+    //     $input = $request->validate([
+    //         'libelle' => ['required'],
+    //         'type_chambre' => ['required'],
+    //         'nombres_lits' => ['required'],
+    //         'nombres_limites' => ['required', 'numeric', 'max:12'] ,
+    //         'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
+    //         'etudiants_id'=> ['required', Rule::exists('etudiants', 'id')],
+    //     ]);
+    //     if(!$etudiant){
+    //         return response()->json([
+    //             'message' => 'L\'étudiant d\'ID saisi n\'existe pas.',
+    //         ], 404);
+    //     }
+    //     elseif (!$pavillon) {
+    //         return response()->json([
+    //             'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
+    //         ], 404);
+    //     }
+    //     elseif($request->etudiants_id > 12){
+    //         return response()->json([
+    //             'Message: ' => 'Le nombre limite de la chambre est atteind',
+    //         ], 404);
+    //     }
+    //     else{
+    //         $chambre = Chambre::create($input);
 
+    //         if($chambre ->save()){
+    //             return response()->json([
+    //                 'Message: ' => 'Success!',
+    //                 'Room created: ' =>  $chambre
+    //             ], 200);
 
+    //         }else {
+    //             return response([
+    //                 'Message: ' => 'We could not create a new room.',
+    //             ], 500);
+    //         }
+    //        }
+    // }
 
+    public function store(Request $request)
+{
+    $pavillon = Pavillon::find($request->pavillons_id);
+    $etudiant = Etudiant::find($request->etudiants_id);
 
-        if (!$pavillon) {
+    $input = $request->validate([
+        'libelle' => ['required'],
+        'type_chambre' => ['required'],
+        'nombres_lits' => ['required'],
+        'nombres_limites' => ['required', 'numeric', 'max:12'],
+        'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
+        'etudiants_id' => ['required', Rule::exists('etudiants', 'id')],
+    ]);
+
+    if (!$etudiant) {
+        return response()->json([
+            'message' => 'L\'étudiant d\'ID saisi n\'existe pas.',
+        ], 404);
+    } elseif (!$pavillon) {
+        return response()->json([
+            'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
+        ], 404);
+    } elseif ($request->nombres_limites > 12) {
+        return response()->json([
+            'Message: ' => 'Le nombre limite de la chambre ne doit pas dépasser 12.',
+        ], 404);
+    } else {
+        $chambre = Chambre::create($input);
+
+        if ($chambre->save()) {
             return response()->json([
-                'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
-            ], 404);
+                'Message: ' => 'Success!',
+                'Room created: ' => $chambre
+            ], 200);
+        } else {
+            return response([
+                'Message: ' => 'We could not create a new room.',
+            ], 500);
         }
-        else{
-            $input = $request->validate([
-                'libelle' => ['required'],
-                'type_chambre' => ['required'],
-                'nombres_lits' => ['required'],
-                'nombres_limites' => ['required', 'numeric', 'max:12'] ,
-                'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-            ]);
-            $chambre = Chambre::create($input);
-
-            if($chambre ->save()){
-                return response()->json([
-                    'Message: ' => 'Success!',
-                    'Room created: ' =>  $chambre
-                ], 200);
-
-            }else {
-
-                return response([
-
-                    'Message: ' => 'We could not create a new room.',
-
-                ], 500);
-            }
-           }
     }
+}
+
 
     /**
      * Display the specified resource.

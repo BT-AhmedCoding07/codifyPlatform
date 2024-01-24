@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Chambre;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Etudiant extends Model
 {
@@ -17,14 +18,17 @@ class Etudiant extends Model
         'niveau_etudes',
         'filiere',
         'statuts_id',
-        'users_id'
+        'users_id',
+        'estAttribue',
     ];
 
-    public function beneficiaires(){
-        return $this->hasMany(Beneficiaire::class);
-    }
+
     public function statuts()
     {
         return $this->belongsTo(Statut::class);
+    }
+    public function chambres()
+    {
+        return $this->hasMany(Chambre::class);
     }
 }

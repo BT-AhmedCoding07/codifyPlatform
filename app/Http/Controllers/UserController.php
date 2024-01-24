@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Chambre;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
@@ -177,7 +178,7 @@ class UserController extends Controller
             ], 422);
         }
     }
-    //Changer l'status de l'utilisateur
+    //Changer l'status de l'utilisateur en Inactif
     public function ModifierProfil(Request $request, $userId)
     {
         try {
@@ -201,5 +202,69 @@ class UserController extends Controller
             ], 422);
         }
     }
+
+    //Valider un Etudiant
+    // public function ValiderEtudiant(Request $request, $EtudiantId){
+    //     try {
+    //         $request->validate([
+    //             'estAttribue' => 'integer',
+    //         ]);
+
+    //         $etudiant = Etudiant::findOrFail($EtudiantId);
+
+    //         if ( $etudiant->update(['estAttribue' => $request->input('estAttribue')])) {
+    //             return response()->json([
+    //                 "message" => "Chambre est attribué à un étudiant",
+    //                 "profil" => [ $etudiant],
+    //             ]);
+    //         } else {
+    //             return response()->json(["message" => "Impossible d'attribuer une chambre à un étudiant"]);
+    //         }
+    //     } catch (ValidationException $e) {
+    //         return response()->json([
+    //             'errors' => $e->errors(),
+    //         ], 422);
+    //     }
+    // }
+
+    // public function ValiderEtudiant(Request $request, $EtudiantId, $ChambreId){
+    //     try {
+    //         $request->validate([
+    //             'chambres_id' => 'required|exists:chambres,id',
+    //             'etudiants_id'=> 'required|exists:etudiants,id',
+    //             'estAttribue' => 'integer',
+    //         ]);
+
+    //         $etudiant = Etudiant::findOrFail($EtudiantId);
+    //         $Chambre = Chambre::findOrFail( $ChambreId);
+
+    //         // Vérifier si l'étudiant est déjà attribué à une chambre
+    //         if ($etudiant->estAttribue) {
+    //             return response()->json(["message" => "Cet étudiant est déjà attribué à une chambre."]);
+    //         }
+
+    //         $nombreMaxEtudiantsParChambre = 12;
+    //         $nombreEtudiantsAttribues = Etudiant::where('estAttribue', true)->count();
+
+    //         // Vérifier si le maximun est atteind
+    //         if ($nombreEtudiantsAttribues >= $nombreMaxEtudiantsParChambre) {
+    //             return response()->json(["message" => "Le nombre maximum d'étudiants attribués à une chambre est atteint."]);
+    //         }
+
+    //         if ($etudiant->update(['estAttribue' => $request->input('estAttribue')])) {
+    //             return response()->json([
+    //                 "message" => "Chambre attribuée à l'étudiant avec succès",
+    //                 "profil" => [$etudiant],
+    //             ]);
+    //         } else {
+    //             return response()->json(["message" => "Impossible d'attribuer une chambre à l'étudiant"]);
+    //         }
+    //     } catch (ValidationException $e) {
+    //         return response()->json([
+    //             'errors' => $e->errors(),
+    //         ], 422);
+    //     }
+    // }
+
 
 }

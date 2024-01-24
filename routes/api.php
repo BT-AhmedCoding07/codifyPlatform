@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BeneficiaireController;
 use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PavillonController;
@@ -37,9 +38,9 @@ Route::group([
 
 });
 //Ajouter un étudiant
-Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiantMerite');
+Route::post('ajoutEtudiants', '\App\Http\Controllers\UserController@ajoutEtudiantMerite');
 //Ajouter étudiant cas social
-Route::post('ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
+Route::post('ajoutEtudiants', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
 
 //Ajouter un profil utilisateur
 Route::post('ajoutProfil', '\App\Http\Controllers\UserController@ajoutProfil');
@@ -64,3 +65,5 @@ Route::controller(ChambreController::class)->group(function () {
     Route::get('chambre/read/{id}', 'show');
     Route::delete('chambre/delete/{id}', 'destroy');
 });
+
+//Beneficiaires

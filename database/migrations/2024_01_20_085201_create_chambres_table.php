@@ -18,6 +18,7 @@ return new class extends Migration
             $table->Integer('nombres_lits');
             $table->Integer('nombres_limites')->max(12);
             $table->unsignedBigInteger('pavillons_id');
+            $table->unsignedBigInteger('etudiants_id');
             $table->timestamps();
         });
     }
