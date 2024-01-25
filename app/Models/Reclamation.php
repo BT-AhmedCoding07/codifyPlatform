@@ -2,19 +2,23 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Chambre;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Reclamation extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'objet',
+        'message',
+        'chambres_id'
+    ];
 
-    public function reclamations()
+
+
+    public function chambres()
     {
-        return $this->belongsTo(Beneficiaire::class);
-    }
-    public function users()
-    {
-        return $this->hasMany(User::class);
+        return $this->belongsTo(Chambre::class);
     }
 }

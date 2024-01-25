@@ -19,7 +19,6 @@ class ChambreController extends Controller
     {
 
         $chambres = Chambre::all();
-
           return response()->json([
               'Chambre: ' =>  $chambres,
           ]);
@@ -74,53 +73,53 @@ class ChambreController extends Controller
     // }
 
     public function store(Request $request)
-{
-    $pavillon = Pavillon::find($request->pavillons_id);
-    $etudiant = Etudiant::find($request->etudiants_id);
+    {
+        $pavillon = Pavillon::find($request->pavillons_id);
+        $etudiant = Etudiant::find($request->etudiants_id);
 
-    $input = $request->validate([
-        'libelle' => ['required'],
-        'type_chambre' => ['required'],
-        'nombres_lits' => ['required'],
-        'nombres_limites' => ['required', 'numeric', 'max:12'],
-        'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-        'etudiants_id' => ['required', Rule::exists('etudiants', 'id')],
-    ]);
+        $input = $request->validate([
+            'libelle' => ['required'],
+            'type_chambre' => ['required'],
+            'nombres_lits' => ['required'],
+            'nombres_limites' => ['required', 'numeric', 'max:12'],
+            'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
+            'etudiants_id' => ['required', Rule::exists('etudiants', 'id')],
+        ]);
 
-    if (!$etudiant) {
-        return response()->json([
-            'message' => 'L\'étudiant d\'ID saisi n\'existe pas.',
-        ], 404);
-    } elseif (!$pavillon) {
-        return response()->json([
-            'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
-        ], 404);
-    } elseif ($request->nombres_limites > 12) {
-        return response()->json([
-            'Message: ' => 'Le nombre limite de la chambre ne doit pas dépasser 12.',
-        ], 404);
-    } else {
-        $chambre = Chambre::create($input);
-
-        if ($chambre->save()) {
+        if (!$etudiant) {
             return response()->json([
-                'Message: ' => 'Success!',
-                'Room created: ' => $chambre
-            ], 200);
+                'message' => 'L\'étudiant d\'ID saisi n\'existe pas.',
+            ], 404);
+        } elseif (!$pavillon) {
+            return response()->json([
+                'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
+            ], 404);
+        } elseif ($request->nombres_limites > 12) {
+            return response()->json([
+                'Message: ' => 'Le nombre limite de la chambre ne doit pas dépasser 12.',
+            ], 404);
         } else {
-            return response([
-                'Message: ' => 'We could not create a new room.',
-            ], 500);
+            $chambre = Chambre::create($input);
+
+            if ($chambre->save()) {
+                return response()->json([
+                    'Message: ' => 'Success!',
+                    'Room created: ' => $chambre
+                ], 200);
+            } else {
+                return response([
+                    'Message: ' => 'We could not create a new room.',
+                ], 500);
+            }
         }
     }
-}
 
 
     /**
      * Display the specified resource.
      */
 
-     public function show(string $id){
+    public function show(string $id){
 
         $chambre = Chambre::find($id);
 
@@ -163,8 +162,8 @@ class ChambreController extends Controller
                      'nombres_lits' => ['required'],
                      'nombres_limites' => ['required', 'numeric', 'max:12'] ,
                      'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-                 ]);
-
+                     'etudiants_id' => ['required', Rule::exists('etudiants', 'id')],
+                    ]);
                  $chambre->libelle = $input['libelle'];
                  $chambre->type_chambre = $input['type_chambre'];
                  $chambre->nombres_lits = $input['nombres_lits'];

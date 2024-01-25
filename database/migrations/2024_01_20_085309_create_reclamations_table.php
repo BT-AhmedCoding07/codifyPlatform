@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('reclamations', function (Blueprint $table) {
             $table->id();
+            $table->string('objet');
             $table->string('message');
-            $table->enum('status',['En cours de traitement','Traitement terminé']);
-            $table->unsignedBigInteger('beneficiaires_id');
-            $table->unsignedBigInteger('users_id');
+            $table->enum('status',['En cours de traitement','Traitement terminé'])->default('En cours de traitement');
+            $table->unsignedBigInteger('chambres_id');
             $table->timestamps();
         });
     }

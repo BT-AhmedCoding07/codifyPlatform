@@ -7,6 +7,7 @@ use App\Http\Controllers\BeneficiaireController;
 use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PavillonController;
+use App\Http\Controllers\ReclamationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,4 +67,11 @@ Route::controller(ChambreController::class)->group(function () {
     Route::delete('chambre/delete/{id}', 'destroy');
 });
 
-//Beneficiaires
+//Reclamations
+Route::controller(ReclamationController::class)->group(function () {
+    Route::get('listesDesReclamations', 'index');
+    Route::post('faireReclamations', 'store');
+    Route::get('detailReclamation/read/{id}', 'show');
+    Route::delete('reclamations/delete/{id}', 'destroy');
+});
+

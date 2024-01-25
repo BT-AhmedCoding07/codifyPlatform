@@ -2,8 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Etudiant;
+use App\Models\Pavillon;
+use App\Models\Reclamation;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Chambre extends Model
 {
@@ -25,4 +28,9 @@ class Chambre extends Model
     {
         return $this->belongsTo(Pavillon::class);
     }
+    public function reclamations()
+    {
+        return $this->belongsTo(Reclamation::class);
+    }
+
 }

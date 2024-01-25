@@ -25,6 +25,7 @@ class UserController extends Controller
                 'roles_id' => 'integer', Rule::exists('roles','id'),
                 'telephone' => 'nullable|numeric|unique:users|regex:/^[0-9]{9}$/',
                 'photo_profile' => '',
+                'moyennes' => 'required',
                 'INE'=> 'required|string|max:13|unique:etudiants',
                 'date_naissance'=> 'date',
                 'lieu_naissance'=> 'required|string|max:255',
@@ -50,6 +51,7 @@ class UserController extends Controller
             $etudiant->lieu_naissance  = $request->input('lieu_naissance');
             $etudiant->adresse  = $request->input('adresse');
             $etudiant->sexe  = $request->input('sexe');
+            $etudiant->moyennes  = $request->input('moyennes');
             $etudiant->niveau_etudes  = $request->input('niveau_etudes');
             $etudiant->filiere  = $request->input('filiere');
             $etudiant->statuts_id = $request->input('statuts_id');
@@ -150,7 +152,7 @@ class UserController extends Controller
                 'password' => 'required|string|min:6',
                 'roles_id' => 'integer', Rule::exists('roles','id'),
                 'telephone' => 'nullable|numeric|regex:/^[0-9]{9}$/',
-                'photo_profile' => '',
+                'photo_profile' => 'image|mimes:jpeg,png,jpg.svg',
             ]);
 
             $user = new User();
@@ -178,6 +180,16 @@ class UserController extends Controller
             ], 422);
         }
     }
+
+    // private function AjoutImage($image){
+    //     return $image->store('photo_profile', 'public');
+    // }
+    // //Gerer l'image
+    // if($request->hash_file('photo_profile')){
+    //     $imagePath = $this->storeImage($request->file('photo_profile'));
+    //     $input['photo_profile'] = $imagePath;
+    // }
+
     //Changer l'status de l'utilisateur en Inactif
     public function ModifierProfil(Request $request, $userId)
     {
@@ -268,3 +280,4 @@ class UserController extends Controller
 
 
 }
+

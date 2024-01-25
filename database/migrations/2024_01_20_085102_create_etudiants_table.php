@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('adresse');
             $table->string('niveau_etudes');
             $table->string('filiere');
+            $table->float('moyennes')->nullable();
             $table->boolean('estAttribue')->default(0);
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('statuts_id');
