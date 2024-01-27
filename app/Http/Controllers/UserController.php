@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Statut;
 use App\Models\Chambre;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
@@ -74,7 +75,7 @@ class UserController extends Controller
             ], 422);
         }
     }
-    //Ajout d'un etudiant type = mérite
+    //Ajout d'un etudiant type = cas social
     public function ajoutEtudiantCasSocial(Request $request)
     {
         // dd($request->all());
@@ -134,12 +135,6 @@ class UserController extends Controller
             ], 422);
         }
     }
-
-
-
-
-
-
     //Ajout un profil Ex:Chef de pavillon, chef de service pédagogique
     public function ajoutProfil(Request $request)
     {
@@ -180,7 +175,7 @@ class UserController extends Controller
             ], 422);
         }
     }
-
+    //Function Ajout Image
     // private function AjoutImage($image){
     //     return $image->store('photo_profile', 'public');
     // }
@@ -216,68 +211,37 @@ class UserController extends Controller
     }
 
     //Valider un Etudiant
-    // public function ValiderEtudiant(Request $request, $EtudiantId){
-    //     try {
-    //         $request->validate([
-    //             'estAttribue' => 'integer',
-    //         ]);
+    /*
+    Algorithme: Valider un étudiant
+    Le chef de Service Pédagogique insère les étudiants par ordre de mérite
+    Le chef de Service d'hébergement listes les étudiant par ordre de mérite
+    Valider les étudiant par ordre de mérite
+    */
+      //Valider un Etudiant
+    public function validerEtudiant(){
 
-    //         $etudiant = Etudiant::findOrFail($EtudiantId);
+    }
+      //Lister un/les etudiant(s)
+    public function listesEtudiantsMerites(){
+            $etudiants =Etudiant::where('statuts_id', 1)->get();
+            return response()->json([
+                'Etudiants: ' =>   $etudiants
+            ],201);
+    }
+    public function listesEtudiantsCasSocial(){
+        $etudiants =Etudiant::where('statuts_id', 2)->get();
+        return response()->json([
+            'Etudiants: ' =>   $etudiants
+        ],201);
+    }
+    // public function detailEtudiant(){
+    //     $etudiant
 
-    //         if ( $etudiant->update(['estAttribue' => $request->input('estAttribue')])) {
-    //             return response()->json([
-    //                 "message" => "Chambre est attribué à un étudiant",
-    //                 "profil" => [ $etudiant],
-    //             ]);
-    //         } else {
-    //             return response()->json(["message" => "Impossible d'attribuer une chambre à un étudiant"]);
-    //         }
-    //     } catch (ValidationException $e) {
-    //         return response()->json([
-    //             'errors' => $e->errors(),
-    //         ], 422);
-    //     }
     // }
+    //Lister un/les utilisateur(s)
+    public function listesProfils(){
 
-    // public function ValiderEtudiant(Request $request, $EtudiantId, $ChambreId){
-    //     try {
-    //         $request->validate([
-    //             'chambres_id' => 'required|exists:chambres,id',
-    //             'etudiants_id'=> 'required|exists:etudiants,id',
-    //             'estAttribue' => 'integer',
-    //         ]);
-
-    //         $etudiant = Etudiant::findOrFail($EtudiantId);
-    //         $Chambre = Chambre::findOrFail( $ChambreId);
-
-    //         // Vérifier si l'étudiant est déjà attribué à une chambre
-    //         if ($etudiant->estAttribue) {
-    //             return response()->json(["message" => "Cet étudiant est déjà attribué à une chambre."]);
-    //         }
-
-    //         $nombreMaxEtudiantsParChambre = 12;
-    //         $nombreEtudiantsAttribues = Etudiant::where('estAttribue', true)->count();
-
-    //         // Vérifier si le maximun est atteind
-    //         if ($nombreEtudiantsAttribues >= $nombreMaxEtudiantsParChambre) {
-    //             return response()->json(["message" => "Le nombre maximum d'étudiants attribués à une chambre est atteint."]);
-    //         }
-
-    //         if ($etudiant->update(['estAttribue' => $request->input('estAttribue')])) {
-    //             return response()->json([
-    //                 "message" => "Chambre attribuée à l'étudiant avec succès",
-    //                 "profil" => [$etudiant],
-    //             ]);
-    //         } else {
-    //             return response()->json(["message" => "Impossible d'attribuer une chambre à l'étudiant"]);
-    //         }
-    //     } catch (ValidationException $e) {
-    //         return response()->json([
-    //             'errors' => $e->errors(),
-    //         ], 422);
-    //     }
-    // }
-
+    }
 
 }
 

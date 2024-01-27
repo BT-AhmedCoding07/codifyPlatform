@@ -17,11 +17,10 @@ class ChambreController extends Controller
      */
     public function index()
     {
-
-        $chambres = Chambre::all();
-          return response()->json([
-              'Chambre: ' =>  $chambres,
-          ]);
+            $chambres = Chambre::all();
+              return response()->json([
+                  'Chambre: ' =>  $chambres,
+            ]);
     }
 
 

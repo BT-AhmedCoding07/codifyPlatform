@@ -25,7 +25,7 @@ class Etudiant extends Model
 
     public function statuts()
     {
-        return $this->belongsTo(Statut::class);
+        return $this->belongsTo(Statut::class, "statuts_id", "type");
     }
     public function chambres()
     {

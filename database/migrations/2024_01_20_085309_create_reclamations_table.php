@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('objet');
             $table->string('message');
-            $table->enum('status',['En cours de traitement','Traitement terminé'])->default('En cours de traitement');
+            $table->enum('status',['En cours','Traité'])->default('En cours');
             $table->unsignedBigInteger('chambres_id');
             $table->timestamps();
         });

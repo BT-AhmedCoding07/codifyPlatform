@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('pavillons', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
+            $table->string('libelle')->unique();
             $table->enum('type_pavillon',['Mixte','Homme','Femme']);
             $table->integer('nombres_etages');
             $table->bigInteger('nombres_chambres');

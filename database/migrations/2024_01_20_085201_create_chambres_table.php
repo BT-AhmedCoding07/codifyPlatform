@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('chambres', function (Blueprint $table) {
             $table->id();
-            $table->string('libelle');
+            $table->string('libelle')->unique();
             $table->enum('type_chambre',['Individuelle','Partagée']);
             $table->Integer('nombres_lits');
             $table->string('echeances')->default('1 ans');

@@ -9,6 +9,7 @@ use App\Models\Reclamation;
 
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class ReclamationController extends Controller
 {
@@ -30,7 +31,6 @@ class ReclamationController extends Controller
     public function store(Request $request)
     {
         $chambre = Chambre::find($request->chambres_id);
-
         $input = $request->validate([
             'objet' => ['required'],
             'message' => ['required'],
@@ -66,76 +66,16 @@ class ReclamationController extends Controller
         if ($reclamation){
 
             return response()->json([
-                'Message: ' => 'Chambre found.',
-                'Chambre: ' => $reclamation
+                'Message: ' => 'Reclamation trouvé.',
+                'Reclamation: ' => $reclamation
             ], 200);
 
         } else {
             return response([
-                'Message: ' => 'We could not find the room.',
+                'Message: ' => 'We could not find the reclamation.',
             ], 500);
         }
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(Request $request, string $id){
-
-    //     $reclamation = Reclamation::find($id);
-
-    //     $etudiant = Etudiant::find($request->etudiants_id);
-    //     if (!$etudiant) {
-    //         return response()->json([
-    //             'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
-    //         ], 404);
-    //     }else{
-    //         if($chambre){
-
-    //             $input = $request->validate([
-    //                  'libelle' => ['required'],
-    //                  'type_chambre' => ['required'],
-    //                  'nombres_lits' => ['required'],
-    //                  'nombres_limites' => ['required', 'numeric', 'max:12'] ,
-    //                  'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-    //                  'etudiants_id' => ['required', Rule::exists('etudiants', 'id')],
-    //                 ]);
-    //              $chambre->libelle = $input['libelle'];
-    //              $chambre->type_chambre = $input['type_chambre'];
-    //              $chambre->nombres_lits = $input['nombres_lits'];
-    //              $chambre->nombres_lits = $input['nombres_limites'];
-    //              $chambre->pavillons_id = $input['pavillons_id'];
-
-    //              if($chambre->save()){
-
-    //                  return response()->json([
-
-    //                      'Message: ' => 'Chambre updated with success.',
-    //                      'Chambre: ' => $chambre
-
-    //                  ], 200);
-
-
-    //              }else {
-
-    //                  return response([
-
-    //                      'Message: ' => 'We could not update the room.',
-
-    //                  ], 500);
-
-    //              }
-    //          }else {
-
-    //              return response([
-
-    //                  'Message: ' => 'We could not find the room.',
-
-    //              ], 500);
-    //          }
-    //     }
-    // }
-
     /**
      * Remove the specified resource from storage.
      */
@@ -143,4 +83,25 @@ class ReclamationController extends Controller
     {
         //
     }
+    public function traiterUneReclamation(Request $request, $chambreId){
+        try {
+            $request->validate([
+                'status' => 'required|in:En Cours,Traité',
+            ]);
+            $chambre = Chambre::findOrFail($chambreId);
+            if ($chambre->update(['status' => $request->input('status')])) {
+                return response()->json([
+                    "message" => "Statut de la réclamation modifié avec succès",
+                    "profil" => [$chambre],
+                ]);
+            } else {
+                return response()->json(["message" => "Impossible de modifier le statut de réclamation"]);
+            }
+        } catch (ValidationException $e) {
+            return response()->json([
+                'errors' => $e->errors(),
+            ], 422);
+        }
+    }
+
 }
