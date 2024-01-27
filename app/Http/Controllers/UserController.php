@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserController extends Controller
 {
@@ -234,10 +235,18 @@ class UserController extends Controller
             'Etudiants: ' =>   $etudiants
         ],201);
     }
-    // public function detailEtudiant(){
-    //     $etudiant
+    public function detailEtudiant($id){
+        try {
+            $etudiant = Etudiant::findOrFail($id);
 
-    // }
+            return response()->json([
+                'Etudiant: ' => $etudiant
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(["message" => "Étudiant non trouvé"], 404);
+        }
+
+    }
     //Lister un/les utilisateur(s)
     public function listesProfils(){
 

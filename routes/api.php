@@ -44,6 +44,8 @@ Route::get('pavillon/delete/{id}', '\App\Http\Controllers\PavillonController@des
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 //Liste les étudiants par cas social
 Route::get('/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@listesEtudiantsCasSocial');
+//Liste en detail un etudiant
+Route::get('/detailEtudiant/{id}','\App\Http\Controllers\UserController@detailEtudiant');
 });
 
 Route::middleware(['auth:api','role'])->group(function(){
@@ -53,6 +55,10 @@ Route::post('ajoutEtudiants', '\App\Http\Controllers\UserController@ajoutEtudian
 Route::put('ModifierEtudiantsMerites', '\App\Http\Controllers\UserController@modifierEtudiantMerite');
 //Lister les étudiants par mérite
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
+
+
+//Lister les étudiants par mérite
+Route::get('/detailEtudiant{id}','\App\Http\Controllers\UserController@detailEtudiant');
 
 });
 
