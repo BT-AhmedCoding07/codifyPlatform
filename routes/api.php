@@ -46,8 +46,10 @@ Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@liste
 Route::get('/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@listesEtudiantsCasSocial');
 //Liste en detail un etudiant
 Route::get('/detailEtudiant/{id}','\App\Http\Controllers\UserController@detailEtudiant');
+//Lister les profils
+Route::get('/Utilisateurs','\App\Http\Controllers\UserController@listesProfils');
 });
-
+//Role = Chef de Service Pédagogique
 Route::middleware(['auth:api','role'])->group(function(){
 //Ajouter un étudiant
 Route::post('ajoutEtudiants', '\App\Http\Controllers\UserController@ajoutEtudiantMerite');

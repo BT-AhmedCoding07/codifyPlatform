@@ -249,7 +249,10 @@ class UserController extends Controller
     }
     //Lister un/les utilisateur(s)
     public function listesProfils(){
-
+        $user =User::whereIn('roles_id', [2,3])->get();
+        return response()->json([
+            'Utilisateurs: ' =>   $user
+        ],201);
     }
 
 }
