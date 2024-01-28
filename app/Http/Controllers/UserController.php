@@ -8,10 +8,12 @@ use App\Models\Chambre;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
+use Illuminate\Support\Str;
 class UserController extends Controller
 {
     //Ajout d'un etudiant type = mérite
@@ -122,6 +124,7 @@ class UserController extends Controller
             $etudiant->users_id = $user->id;
 
             if ($etudiant->save()) {
+                $etudiant->update(['estAttribue' => 1]);
                 return response()->json([
                     "message" => " Etudiant ajouté avec success",
                     "Etudiant" => array_merge(array($etudiant), array($user))
@@ -211,16 +214,25 @@ class UserController extends Controller
         }
     }
 
-    //Valider un Etudiant
-    /*
-    Algorithme: Valider un étudiant
-    Le chef de Service Pédagogique insère les étudiants par ordre de mérite
-    Le chef de Service d'hébergement listes les étudiant par ordre de mérite
-    Valider les étudiant par ordre de mérite
-    */
-      //Valider un Etudiant
-    public function validerEtudiant(){
+    public function validerEtudiant($etudiantId){
+    try {
+        $etudiant = Etudiant::findOrFail($etudiantId);
+        if ($etudiant->estAttribue == 1) {
+            return response()->json([
+                "message" => "L'étudiant a déjà été attribué."
+            ], 400);
+        }
+        $etudiant->update(['estAttribue' => 1]);
 
+        // Envoyer un e-mail à l'étudiant (vous devrez ajouter la logique d'envoi d'e-mail ici)
+
+        return response()->json([
+            "message" => "Étudiant validé avec succès."
+        ], 200);
+
+    } catch (ModelNotFoundException $e) {
+        return response()->json(["message" => "Étudiant non trouvé"], 404);
+    }
     }
       //Lister un/les etudiant(s)
     public function listesEtudiantsMerites(){
@@ -254,6 +266,39 @@ class UserController extends Controller
             'Utilisateurs: ' =>   $user
         ],201);
     }
+
+    //Envoie mail validation
+    public function SendMailValidation($email){
+        if(auth()->user()){
+
+            $user = User::where('email', $email)->get();
+            if(count($user) > 0 ){
+                $random = Str::random(40);
+                $domain = URL::to('/');
+                $url = $domain. '/'.$random;
+
+                $data['url']= $url;
+                $data['email']=$email;
+                $data['title'] = "Email Validation";
+                $data['body'] = "Please click here to below to to verify your mail";
+
+                Mail::send('verifyMail', ['data'=> $data],function($message) use ($data){
+                    $message->to($data['email'])->subject($data['title']);
+                });
+
+                $user = User::find($user[0]['id']);
+                $user->remember_token = $random;
+                $user->save();
+
+                return response()->json([
+                    "succes" => true,
+                    "msg" => "Mail to Send Successfully"
+                ]);
+            }
+
+        }
+    }
+
 
 }
 

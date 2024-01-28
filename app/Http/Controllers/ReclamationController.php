@@ -89,9 +89,10 @@ class ReclamationController extends Controller
                 'status' => 'required|in:En Cours,Traité',
             ]);
             $chambre = Chambre::findOrFail($chambreId);
+
             if ($chambre->update(['status' => $request->input('status')])) {
                 return response()->json([
-                    "message" => "Statut de la réclamation modifié avec succès",
+                    "message" => "Statut de la réclamation traité avec succès",
                     "profil" => [$chambre],
                 ]);
             } else {

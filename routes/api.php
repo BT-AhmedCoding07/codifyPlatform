@@ -48,6 +48,9 @@ Route::get('/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@lis
 Route::get('/detailEtudiant/{id}','\App\Http\Controllers\UserController@detailEtudiant');
 //Lister les profils
 Route::get('/Utilisateurs','\App\Http\Controllers\UserController@listesProfils');
+//Valider un étudiant non attribuer
+Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@validerEtudiant');
+
 });
 //Role = Chef de Service Pédagogique
 Route::middleware(['auth:api','role'])->group(function(){
@@ -62,6 +65,9 @@ Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@liste
 //Lister les étudiants par mérite
 Route::get('/detailEtudiant{id}','\App\Http\Controllers\UserController@detailEtudiant');
 
+//Validation mail
+Route::get('/Validation/{email}','\App\Http\Controllers\UserController@SendMailValidation');
+
 });
 
 Route::middleware(['auth:api','profil'])->group(function(){
@@ -72,11 +78,14 @@ Route::put('chambre/update/{id}', '\App\Http\Controllers\ChambreController@updat
 Route::get('chambre/read/{id}', '\App\Http\Controllers\ChambreController@show');
 Route::delete('chambre/delete/{id}', '\App\Http\Controllers\ChambreController@destroy');
 //Lister un/les reclamation(s)
-Route::get('listerDesReclamations', '\App\Http\Controllers\ReclamationController@index');
-Route::get('detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationController@show');
+Route::get('/listerDesReclamations', '\App\Http\Controllers\ReclamationController@index');
+Route::get('/detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationController@show');
 
-//Traitement à faire
-Route::get('traiterReclamation/read/{id}', '\App\Http\Controllers\ReclamationController@traiterReclamation');
+//Traiter une réclamation
+Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationController@traiterUneReclamation');
+
+//Supprimer les reclamations
+Route::delete('Supprimer/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 
 });
 
