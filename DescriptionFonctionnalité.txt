@@ -1,0 +1,194 @@
+***Modules***
+#Gestion d'Utilisateurs
+
+-Ajouter l'utilisateur Chef de pavillon
+-Ajouter l'utilisateur chef de Pédagogique
+-Ajouter Etudiant
+
+-Connexion Chef de pavillon
+-Connexion chef de Pédagogique
+-Connexion Etudiant
+
+
+
+-Déconnexion Chef de pavillon
+-Déconnexion chef de Pédagogique
+-Déconnexion Etudiant
+
+
+-Voir profil
+--Voir profil etudiant
+--Voir profil chef de pavillon
+--Voir profil chef de Service Pédagogique
+--Voir profil chef de Service d'hebergement
+
+
+
+#Gestion de pavillon
+
+-Ajouter pavillon
+-Supprimer pavillon
+-Modifier pavillon
+-Lister pavillon
+
+#Gestion de chambre
+-Ajouter chambre
+-Supprimer chambre
+-Modifier chambre
+-Lister chambre
+
+`Perspectives`
+`#Gestion de Demande
+-Faire une demande
+-Accepter une demande
+-Refuser une demande
+
+
+#Gestion de réclamation
+-Faire une réclamation
+-Traiter une reclamation par mail
+
+
+#Gestion de paiement
+-Faire un paiement
+-Envoyer un rappel de paiement par mail //admin
+
+***Acteurs***
+- Admin == Chef de Service d'hebergement il ne s'inscrit pas
+- Etudiant
+- Chef de Pavillon
+- Chef de service Pédagogique
+
+***Fonctionnalité****
+`Chef de Service d'hebergement ` == admin
+{
+    Gestion des pavillons
+    Gestion des Bénéficiaires
+      ---Lister les etudiants quotas mérites
+
+      ---Ajouter les etudiants quotas cas sociaux
+    Gestion des Utilisateurs (Attribuer un profil à un utilisateur (Chef de pavillon, chef de Service Pédagogique, Etudiant quotas cas social))
+    Gestion de paiement
+}
+
+
+
+Chef de pavillon  == role Utilisateur
+{
+    Gestion des chambres
+        -Ajouter chambre
+        -Supprimer chambre
+        -Modifier chambre
+        -Lister chambre
+    Gestion des reclamations
+}
+Chef de service Pédagogique  == profil Utilisateur
+{
+    Gestion des étudiants
+        -Ajouter un/des étudiants
+        -Supprimer un/des étudiants
+        -Modifier un/des étudiants
+        -Lister un/des étudiants
+}
+Etudiant == profil Etudiant
+{
+    //Faire une demande
+    - Faire une demande
+    - Devenir Bénéficiaire
+
+
+    - Faire une réclamation
+}
+
+`Admin`
+-prenom
+-nom
+-email
+-password
+-telephone
+-adresse
+-photo_profile
+
+`Etudiant `
+-prenom
+-nom
+-date_naissance
+-lieu_naissance
+-telephone
+-adresse
+-email_professionnel
+-password
+-INE
+-niveau_etude
+-filiere
+
+
+`Chef de pavillon `
+-prenom
+-nom
+-email
+-password
+-telephone
+-adresse
+-photo_profile
+
+
+`Chef de Service de Pédagogique `
+-prenom
+-nom
+-email
+-password
+-telephone
+-adresse
+-photo_profile
+
+
+`Pavillon`
+-id
+-libelle
+-nombres_etages
+-nombres_chambres
+-type_pavillon  Ex: "Mixte","Femme","Homme"
+
+`Chambre`
+-id
+-libelle
+-nombres_lits_disponibles
+-type_chambre  Ex: "Individuel","Partagée"
+
+
+
+`Bénéficiaire`
+-id
+-date_debut
+-date_fin
+-idEtudiant
+-idChambre
+
+
+//Faire une réclamation
+`Reclamation`
+-id
+-idEtudiant
+-Objet
+-message
+-date
+//Traiter une réclamation
+
+`Reclamation`
+-id
+-idChefPavillon
+-Objet
+-message
+-date
+
+***VERSION V2
+`Demande`
+-id
+-INE //INE de l'etudiant inscrit
+-status Ex: "Demande accepté" ou "Demande refusé"
+
+
+
+********************Description du projet
+Cette plateforme de vise à mettre

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 /**
  * @OA\Tag(
@@ -22,7 +23,7 @@ class AuthController extends Controller
     }
     /**
      * @OA\Post(
-     *     path="/api/auth/login",
+     *     path="/api/login",
      *     summary="Authentification de l'utilisateur",
      *     @OA\RequestBody(
      *         required=true,
@@ -44,17 +45,20 @@ class AuthController extends Controller
      */
     public function login()
     {
+        $email=request(['email']);
+        $user = User::where('email',$email['email'])->first();
         $credentials = request(['email', 'password']);
-
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
-
-        return $this->respondWithToken($token);
+        return $this->respondWithToken([
+        'access_token' => $token,
+        'User connecté' => $user
+     ]);
     }
     /**
      * @OA\Get(
-     *     path="/api/auth/me",
+     *     path="/api/me",
      *     summary="Récupérer les informations de l'utilisateur authentifié",
      *     security={{ "bearerAuth": {} }},
      *     @OA\Response(response="200", description="Informations de l'utilisateur"),
@@ -68,7 +72,7 @@ class AuthController extends Controller
 
     /**
      * @OA\Post(
-     *     path="/api/auth/logout",
+     *     path="/api/logout",
      *     summary="Déconnexion de l'utilisateur (Invalidation du token)",
      *     security={{ "bearerAuth": {} }},
      *     @OA\Response(response="200", description="Déconnexion réussie"),
@@ -83,7 +87,7 @@ class AuthController extends Controller
 
    /**
      * @OA\Post(
-     *     path="/api/auth/refresh",
+     *     path="/api/refresh",
      *     summary="Actualiser le token",
      *     security={{ "bearerAuth": {} }},
      *     @OA\Response(response="200", description="Token actualisé avec succès"),
@@ -104,9 +108,10 @@ class AuthController extends Controller
     protected function respondWithToken($token)
     {
         return response()->json([
-            'access_token' => $token,
+            'Results' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
+            'expires_in' => auth()->factory()->getTTL() * 60,
+            'message' => "vous vous êtes avec succés"
         ]);
     }
 }

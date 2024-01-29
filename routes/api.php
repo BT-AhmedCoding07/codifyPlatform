@@ -20,13 +20,11 @@ use Illuminate\Support\Facades\Auth;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
-
 // Route::middleware('auth')->get('/user', function (Request $request) {
 //     $user = auth()->user();
 //     $userRole = Role::where("id",$user->roles_id )->first();
 //     return response()->json($userRole->nomRole);
 // });
-
 Route::middleware(['auth:api','admin'])->group(function(){
 //Ajouter étudiant cas social
 Route::post('/ajoutEtudiant/CasSocial', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
@@ -50,7 +48,6 @@ Route::get('/detailEtudiant/{id}','\App\Http\Controllers\UserController@detailEt
 Route::get('/Utilisateurs','\App\Http\Controllers\UserController@listesProfils');
 //Valider un étudiant non attribuer
 Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@validerEtudiant');
-
 });
 //Role = Chef de Service Pédagogique
 Route::middleware(['auth:api','role'])->group(function(){
@@ -60,14 +57,10 @@ Route::post('/ajoutEtudiant/Merite', '\App\Http\Controllers\UserController@ajout
 Route::put('/ModifierEtudiantsMerites', '\App\Http\Controllers\UserController@modifierEtudiantMerite');
 //Lister les étudiants par mérite
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
-
-
 //Lister les étudiants par mérite
 Route::get('/detailEtudiant{id}','\App\Http\Controllers\UserController@detailEtudiant');
-
 //Validation mail
 Route::get('/Validation/{email}','\App\Http\Controllers\UserController@SendMailValidation');
-
 });
 //Chef de pavillon
 Route::middleware(['auth:api','profil'])->group(function(){
@@ -80,13 +73,10 @@ Route::delete('/chambre/delete/{id}', '\App\Http\Controllers\ChambreController@d
 //Lister un/les reclamation(s)
 Route::get('/listerDesReclamations', '\App\Http\Controllers\ReclamationController@index');
 Route::get('/detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationController@show');
-
 //Traiter une réclamation
 Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationController@traiterUneReclamation');
-
 //Supprimer les reclamations
 Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
-
 });
 //Etudiant
 Route::middleware(['auth:api','etudiant'])->group(function(){
@@ -94,10 +84,7 @@ Route::middleware(['auth:api','etudiant'])->group(function(){
 Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@store');
 Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 });
-
-
-
-Route::group(['middleware' => 'api'], function ($router) {
+Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 Route::post('login', '\App\Http\Controllers\AuthController@login');
 Route::post('logout', '\App\Http\Controllers\AuthController@logout');
 Route::post('refresh', '\App\Http\Controllers\AuthController@refresh');
