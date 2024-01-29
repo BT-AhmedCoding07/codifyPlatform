@@ -8,12 +8,21 @@ use App\Models\Pavillon;
 use Illuminate\Http\Request;
 
 use Illuminate\Validation\Rule;
-use App\Http\Requests\UpdateChambreRequest;
 
+/**
+ * @OA\Tag(
+ *     name="Chambres",
+ *     description="Endpoints pour la gestion des chambres."
+ * )
+ */
 class ChambreController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     *     path="/api/chambres",
+     *     summary="Récupérer la liste des chambres.",
+     *     @OA\Response(response="200", description="Liste des chambres."),
+     * )
      */
     public function index()
     {
@@ -22,55 +31,26 @@ class ChambreController extends Controller
                   'Chambre: ' =>  $chambres,
             ]);
     }
-
-
-    /**
-     * Store a newly created resource in storage.
+      /**
+     * @OA\Post(
+     *     path="/api/chambre/create",
+     *     summary="Créer une nouvelle chambre.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"libelle", "type_chambre", "nombres_lits", "nombres_limites", "pavillons_id", "etudiants_id"},
+     *             @OA\Property(property="libelle", type="string"),
+     *             @OA\Property(property="type_chambre", type="string"),
+     *             @OA\Property(property="nombres_lits", type="integer"),
+     *             @OA\Property(property="nombres_limites", type="integer"),
+     *             @OA\Property(property="pavillons_id", type="integer"),
+     *             @OA\Property(property="etudiants_id", type="integer"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Chambre créée avec succès."),
+     *     @OA\Response(response="404", description="Erreur lors de la création de la chambre."),
+     * )
      */
-    // public function store(Request  $request)
-    // {
-    //     $pavillon = Pavillon::find($request->pavillons_id);
-    //     $etudiant = Etudiant::find($request->etudiants_id);
-    //     $input = $request->validate([
-    //         'libelle' => ['required'],
-    //         'type_chambre' => ['required'],
-    //         'nombres_lits' => ['required'],
-    //         'nombres_limites' => ['required', 'numeric', 'max:12'] ,
-    //         'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-    //         'etudiants_id'=> ['required', Rule::exists('etudiants', 'id')],
-    //     ]);
-    //     if(!$etudiant){
-    //         return response()->json([
-    //             'message' => 'L\'étudiant d\'ID saisi n\'existe pas.',
-    //         ], 404);
-    //     }
-    //     elseif (!$pavillon) {
-    //         return response()->json([
-    //             'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
-    //         ], 404);
-    //     }
-    //     elseif($request->etudiants_id > 12){
-    //         return response()->json([
-    //             'Message: ' => 'Le nombre limite de la chambre est atteind',
-    //         ], 404);
-    //     }
-    //     else{
-    //         $chambre = Chambre::create($input);
-
-    //         if($chambre ->save()){
-    //             return response()->json([
-    //                 'Message: ' => 'Success!',
-    //                 'Room created: ' =>  $chambre
-    //             ], 200);
-
-    //         }else {
-    //             return response([
-    //                 'Message: ' => 'We could not create a new room.',
-    //             ], 500);
-    //         }
-    //        }
-    // }
-
     public function store(Request $request)
     {
         $pavillon = Pavillon::find($request->pavillons_id);
@@ -112,12 +92,15 @@ class ChambreController extends Controller
             }
         }
     }
-
-
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/chambre/read/{id}",
+     *     summary="Récupérer les détails d'une chambre spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la chambre", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Chambre trouvée."),
+     *     @OA\Response(response="500", description="Erreur lors de la recherche de la chambre."),
+     * )
      */
-
     public function show(string $id){
 
         $chambre = Chambre::find($id);
@@ -139,9 +122,26 @@ class ChambreController extends Controller
         }
     }
 
-
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/chambre/update/{id}",
+     *     summary="Mettre à jour les détails d'une chambre spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la chambre", @OA\Schema(type="string")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"libelle", "type_chambre", "nombres_lits", "nombres_limites", "pavillons_id", "etudiants_id"},
+     *             @OA\Property(property="libelle", type="string"),
+     *             @OA\Property(property="type_chambre", type="string"),
+     *             @OA\Property(property="nombres_lits", type="integer"),
+     *             @OA\Property(property="nombres_limites", type="integer"),
+     *             @OA\Property(property="pavillons_id", type="integer"),
+     *             @OA\Property(property="etudiants_id", type="integer"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Chambre mise à jour avec succès."),
+     *     @OA\Response(response="500", description="Erreur lors de la mise à jour de la chambre."),
+     * )
      */
     public function update(Request $request, string $id){
 
@@ -202,8 +202,14 @@ class ChambreController extends Controller
 
     }
 
-    /**
-     * Remove the specified resource from storage.
+   /**
+     * @OA\Delete(
+     *     path="/api/chambre/delete/{id}",
+     *     summary="Supprimer une chambre spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la chambre", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Chambre supprimée avec succès."),
+     *     @OA\Response(response="500", description="Erreur lors de la suppression de la chambre."),
+     * )
      */
     public function destroy(string $id){
 

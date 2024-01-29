@@ -4,14 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Pavillon;
 use Illuminate\Http\Request;
-
+/**
+ * @OA\Tag(
+ *     name="Pavillons",
+ *     description="Endpoints pour la gestion des pavillons."
+ * )
+ */
 
 class PavillonController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     * lister tous les pavillons
-     * listesPavillons = index
+   /**
+     * @OA\Get(
+     *     path="/api/pavillons",
+     *     summary="Récupérer la liste des pavillons.",
+     *     @OA\Response(response="200", description="Liste des pavillons."),
+     * )
      */
 
     public function index()
@@ -25,9 +32,23 @@ class PavillonController extends Controller
 
 
     /**
-     * Store a newly created resource in storage.
-     * ajoutePavillon = store
-     */
+         * @OA\Post(
+         *     path="/api/pavillon/create",
+         *     summary="Créer un nouveau pavillon.",
+         *     @OA\RequestBody(
+         *         required=true,
+         *         @OA\JsonContent(
+         *             required={"libelle", "type_pavillon", "nombres_etages", "nombres_chambres"},
+         *             @OA\Property(property="libelle", type="string"),
+         *             @OA\Property(property="type_pavillon", type="string"),
+         *             @OA\Property(property="nombres_etages", type="integer"),
+         *             @OA\Property(property="nombres_chambres", type="integer"),
+         *         ),
+         *     ),
+         *     @OA\Response(response="200", description="Pavillon créé avec succès."),
+         *     @OA\Response(response="500", description="Erreur lors de la création du pavillon."),
+         * )
+    */
 
     public function store(Request  $request)
     {
@@ -58,7 +79,13 @@ class PavillonController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * @OA\Get(
+     *     path="/api/pavillon/read/{id}",
+     *     summary="Récupérer les détails d'un pavillon spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID du pavillon", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Pavillon trouvé."),
+     *     @OA\Response(response="500", description="Erreur lors de la recherche du pavillon."),
+     * )
      */
     public function show(string $id){
 
@@ -81,12 +108,24 @@ class PavillonController extends Controller
         }
     }
     /**
-     * Update the specified resource in storage.
+     * @OA\Put(
+     *     path="/api/pavillon/update/{id}",
+     *     summary="Mettre à jour les détails d'un pavillon spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID du pavillon", @OA\Schema(type="string")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"libelle", "type_pavillon", "nombres_etages", "nombres_chambres"},
+     *             @OA\Property(property="libelle", type="string"),
+     *             @OA\Property(property="type_pavillon", type="string"),
+     *             @OA\Property(property="nombres_etages", type="integer"),
+     *             @OA\Property(property="nombres_chambres", type="integer"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Pavillon mis à jour avec succès."),
+     *     @OA\Response(response="500", description="Erreur lors de la mise à jour du pavillon."),
+     * )
      */
-    // public function update(UpdatePavillonRequest $request, Pavillon $pavillon)
-    // {
-    //     //
-    // }
     public function update(Request $request, string $id){
 
         $pavillon = Pavillon::find($id);
@@ -136,7 +175,13 @@ class PavillonController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/api/pavillon/delete/{id}",
+     *     summary="Supprimer un pavillon spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID du pavillon", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Pavillon supprimé avec succès."),
+     *     @OA\Response(response="500", description="Erreur lors de la suppression du pavillon."),
+     * )
      */
     public function destroy(string $id){
 

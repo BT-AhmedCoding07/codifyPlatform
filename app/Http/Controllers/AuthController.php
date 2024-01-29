@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+/**
+ * @OA\Tag(
+ *     name="Authentification de l'utilisateur",
+ *     description="Endpoints pour l'authentification."
+ * )
+ */
 class AuthController extends Controller
 {
      /**
@@ -15,6 +20,22 @@ class AuthController extends Controller
     {
         $this->middleware('auth:api', ['except' => ['login']]);
     }
+    /**
+     * @OA\Post(
+     *     path="/api/auth/login",
+     *     summary="Authentification de l'utilisateur",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email", "password"},
+     *             @OA\Property(property="email", type="string", format="email", example="btidiane004@example.com"),
+     *             @OA\Property(property="password", type="string", example="secret"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Authentification réussie"),
+     *     @OA\Response(response="401", description="Échec de l'authentification"),
+     * )
+     */
 
     /**
      * Get a JWT via given credentials.
@@ -31,21 +52,27 @@ class AuthController extends Controller
 
         return $this->respondWithToken($token);
     }
-
     /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Get(
+     *     path="/api/auth/me",
+     *     summary="Récupérer les informations de l'utilisateur authentifié",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Response(response="200", description="Informations de l'utilisateur"),
+     * )
      */
+
     public function me()
     {
         return response()->json(auth()->user());
     }
 
     /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
+     * @OA\Post(
+     *     path="/api/auth/logout",
+     *     summary="Déconnexion de l'utilisateur (Invalidation du token)",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Response(response="200", description="Déconnexion réussie"),
+     * )
      */
     public function logout()
     {
@@ -54,10 +81,13 @@ class AuthController extends Controller
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
+   /**
+     * @OA\Post(
+     *     path="/api/auth/refresh",
+     *     summary="Actualiser le token",
+     *     security={{ "bearerAuth": {} }},
+     *     @OA\Response(response="200", description="Token actualisé avec succès"),
+     * )
      */
     public function refresh()
     {

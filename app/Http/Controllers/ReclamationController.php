@@ -10,11 +10,20 @@ use App\Models\Reclamation;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\ValidationException;
-
+/**
+ * @OA\Tag(
+ *     name="Réclamations",
+ *     description="Endpoints pour la gestion des réclamations."
+ * )
+ */
 class ReclamationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
+     /**
+     * @OA\Get(
+     *     path="/api/listerDesReclamations",
+     *     summary="Récupérer la liste des réclamations.",
+     *     @OA\Response(response="201", description="Liste des réclamations."),
+     * )
      */
     public function index()
     {
@@ -25,8 +34,23 @@ class ReclamationController extends Controller
         ],201);
     }
 
-    /**
-     * Store a newly created resource in storage.
+   /**
+     * @OA\Post(
+     *     path="/api/faireReclamations",
+     *     summary="Créer une nouvelle réclamation.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"objet", "message", "chambres_id"},
+     *             @OA\Property(property="objet", type="string"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="chambres_id", type="integer"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Réclamation créée avec succès."),
+     *     @OA\Response(response="404", description="Erreur lors de la création de la réclamation."),
+     *     @OA\Response(response="500", description="Erreur lors de la création de la réclamation."),
+     * )
      */
     public function store(Request $request)
     {
@@ -56,8 +80,14 @@ class ReclamationController extends Controller
             }
         }
     }
-    /**
-     * Display the specified resource.
+     /**
+     * @OA\Get(
+     *     path="/api/detailReclamation/read/{id}",
+     *     summary="Récupérer les détails d'une réclamation spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la réclamation", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Réclamation trouvée."),
+     *     @OA\Response(response="500", description="Erreur lors de la recherche de la réclamation."),
+     * )
      */
     public function show(string $id){
 
@@ -77,12 +107,56 @@ class ReclamationController extends Controller
         }
     }
     /**
-     * Remove the specified resource from storage.
+     * @OA\Delete(
+     *     path="/SupprimerReclamation/delete/{id}",
+     *     summary="Supprimer une reclamation spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la reclamation", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="reclamation supprimée avec succès."),
+     *     @OA\Response(response="500", description="Erreur lors de la suppression de la réclamation."),
+     * )
      */
-    public function destroy(Reclamation $reclamation)
+    public function destroy(Reclamation $id)
     {
-        //
+        $reclamation = Reclamation::find($id);
+
+
+        if($reclamation){
+
+            $reclamation->delete();
+
+            return response()->json([
+
+                'Message: ' => ' deleted with success.',
+
+            ], 200);
+
+        }else {
+
+            return response([
+
+                'Message: ' => 'We could not find the reclamation.',
+
+            ], 500);
+        }
     }
+       /**
+     * @OA\Post(
+     *     path="/api/traiterReclamation/{id}",
+     *     summary="Traiter une réclamation pour une chambre spécifique.",
+     *     @OA\Parameter(name="chambreId", in="path", required=true, description="ID de la chambre", @OA\Schema(type="integer")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"status"},
+     *             @OA\Property(property="status", type="string", enum={"En Cours", "Traité"}),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Statut de la réclamation modifié avec succès."),
+     *     @OA\Response(response="422", description="Erreur de validation."),
+     *     @OA\Response(response="404", description="La chambre spécifiée n'existe pas."),
+     *     @OA\Response(response="500", description="Erreur lors de la modification du statut de la réclamation."),
+     * )
+     */
     public function traiterUneReclamation(Request $request, $chambreId){
         try {
             $request->validate([

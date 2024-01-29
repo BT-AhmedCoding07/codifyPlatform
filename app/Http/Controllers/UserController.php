@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Statut;
 use App\Models\Chambre;
+use App\Mail\Validation;
 use App\Models\Etudiant;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\URL;
@@ -13,10 +15,37 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Str;
+
 class UserController extends Controller
 {
-    //Ajout d'un etudiant type = mérite
+     /**
+     * @OA\Post(
+     *     path="/api/ajoutEtudiant/Merite",
+     *     summary="Ajouter un etudiant par mérite.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"nom", "prenom", "email", "password", "roles_id", "telephone","photo_profile","moyennes","INE","date_naissance","filiere","lieu_naissance","adresse","sexe","niveau_etudes","statuts_id"},
+     *             @OA\Property(property="nom", type="string"),
+     *             @OA\Property(property="prenom", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="roles_id", type="integer"),
+     *             @OA\Property(property="telephone", type="string"),
+     *             @OA\Property(property="photo_profile", type="string"),
+     *             @OA\Property(property="moyennes", type="string"),
+     *             @OA\Property(property="INE", type="string"),
+     *             @OA\Property(property="date_naissance", type="date"),
+     *             @OA\Property(property="filiere", type="string"),
+     *             @OA\Property(property="sexe", type="string", enum={"homme", "femme"}),
+     *             @OA\Property(property="niveau_etudes", type="string"),
+     *             @OA\Property(property="statuts_id", type="integer"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Etudiant ajouté avec succès."),
+     *     @OA\Response(response="402", description="Erreur lors de l'ajout de l'étudiant."),
+     * )
+     */
     public function ajoutEtudiantMerite(Request $request)
     {
         // dd($request->all());
@@ -78,7 +107,34 @@ class UserController extends Controller
             ], 422);
         }
     }
-    //Ajout d'un etudiant type = cas social
+    /**
+     * @OA\Post(
+     *     path="/api/ajoutEtudiant/CasSocial",
+     *     summary="Ajouter un etudiant par mérite.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"nom", "prenom", "email", "password", "roles_id", "telephone","photo_profile","moyennes","INE","date_naissance","filiere","lieu_naissance","adresse","sexe","niveau_etudes","statuts_id"},
+     *             @OA\Property(property="nom", type="string"),
+     *             @OA\Property(property="prenom", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="roles_id", type="integer"),
+     *             @OA\Property(property="telephone", type="string"),
+     *             @OA\Property(property="photo_profile", type="string"),
+     *             @OA\Property(property="moyennes", type="string"),
+     *             @OA\Property(property="INE", type="string"),
+     *             @OA\Property(property="date_naissance", type="date"),
+     *             @OA\Property(property="filiere", type="string"),
+     *             @OA\Property(property="sexe", type="enum"),
+     *             @OA\Property(property="niveau_etudes", type="string"),
+     *             @OA\Property(property="statuts_id", type="integer"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Etudiant ajouté avec succès."),
+     *     @OA\Response(response="422", description="Erreur lors de l'ajout de l'étudiant."),
+     * )
+     */
     public function ajoutEtudiantCasSocial(Request $request)
     {
         // dd($request->all());
@@ -139,7 +195,28 @@ class UserController extends Controller
             ], 422);
         }
     }
-    //Ajout un profil Ex:Chef de pavillon, chef de service pédagogique
+
+    /**
+     * @OA\Post(
+     *     path="/api/ajoutProfil",
+     *     summary="Ajouter un profil .",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"nom", "prenom", "email", "password", "roles_id", "telephone","photo_profile"},
+     *             @OA\Property(property="nom", type="string"),
+     *             @OA\Property(property="prenom", type="string"),
+     *             @OA\Property(property="email", type="string"),
+     *             @OA\Property(property="password", type="string"),
+     *             @OA\Property(property="roles_id", type="integer"),
+     *             @OA\Property(property="telephone", type="string"),
+     *             @OA\Property(property="photo_profile", type="string"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Utilisateur ajouté avec succès."),
+     *     @OA\Response(response="422", description="Erreur lors de l'ajout de l'utilisateur."),
+     * )
+    */
     public function ajoutProfil(Request $request)
     {
         //dd($request->all());
@@ -189,7 +266,21 @@ class UserController extends Controller
     //     $input['photo_profile'] = $imagePath;
     // }
 
-    //Changer l'status de l'utilisateur en Inactif
+    /**
+     * @OA\Put(
+     *     path="/api/modifierProfil/{id}",
+     *     summary="Modifier un profil utilisateur.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"status"},
+     *         @OA\Property(property="sexe", type="string", enum={"homme", "femme"}),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Statut  profil mise à jour  avec succès."),
+     *     @OA\Response(response="422", description="Erreur Impossible de  modifier l'statut du profil."),
+     * )
+    */
     public function ModifierProfil(Request $request, $userId)
     {
         try {
@@ -213,40 +304,81 @@ class UserController extends Controller
             ], 422);
         }
     }
+     /**
+     * @OA\Put(
+     *     path="/ValiderEtudiant/update/{id}",
+     *     summary="Mettre à jour les détails d'une chambre spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la Etudiant", @OA\Schema(type="string")),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"estAttribue"},
+     *             @OA\Property(property="estAttribue", type="boolean"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Etudiant avec succès."),
+     *     @OA\Response(response="500", description="Etudiant non trouvé."),
+     * )
+     */
 
     public function validerEtudiant($etudiantId){
-    try {
-        $etudiant = Etudiant::findOrFail($etudiantId);
-        if ($etudiant->estAttribue == 1) {
+
+        try {
+            $etudiant = Etudiant::findOrFail($etudiantId);
+            $user = User::where('id',$etudiant->users_id)->first();
+            if ($etudiant->estAttribue == 1) {
+                return response()->json([
+                    "message" => "L'étudiant a déjà été attribué."
+                ], 400);
+            }
+
+            $etudiant->update(['estAttribue' => 1]);
+            //logique mail
+            Mail::to($user->email)->send(new Validation());
             return response()->json([
-                "message" => "L'étudiant a déjà été attribué."
-            ], 400);
+                "message" => "Étudiant validé avec succès."
+            ], 200);
+
+        } catch (ModelNotFoundException $e) {
+                return response()->json(["message" => "Étudiant non trouvé"], 404);
         }
-        $etudiant->update(['estAttribue' => 1]);
-
-        // Envoyer un e-mail à l'étudiant (vous devrez ajouter la logique d'envoi d'e-mail ici)
-
-        return response()->json([
-            "message" => "Étudiant validé avec succès."
-        ], 200);
-
-    } catch (ModelNotFoundException $e) {
-        return response()->json(["message" => "Étudiant non trouvé"], 404);
     }
-    }
-      //Lister un/les etudiant(s)
+
+    /**
+     * @OA\Get(
+     *     path="/api/listesEtudiantsMerites",
+     *     summary="Récupérer la liste des étudiants par mérite.",
+     *     @OA\Response(response="200", description="Liste des étudiants."),
+     * )
+    */
     public function listesEtudiantsMerites(){
             $etudiants =Etudiant::where('statuts_id', 1)->get();
             return response()->json([
                 'Etudiants: ' =>   $etudiants
             ],201);
     }
+    /**
+     * @OA\Get(
+     *     path="/api/listesEtudiantsCasSocial",
+     *     summary="Récupérer la liste des étudiants par mérite.",
+     *     @OA\Response(response="200", description="Liste des étudiants."),
+     * )
+    */
     public function listesEtudiantsCasSocial(){
         $etudiants =Etudiant::where('statuts_id', 2)->get();
         return response()->json([
             'Etudiants: ' =>   $etudiants
         ],201);
     }
+     /**
+     * @OA\Get(
+     *     path="/detailEtudiant/{id}",
+     *     summary="Récupérer les détails d'un etudiant spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la chambre", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Chambre trouvée."),
+     *     @OA\Response(response="500", description="Erreur lors de la recherche de la chambre."),
+     * )
+     */
     public function detailEtudiant($id){
         try {
             $etudiant = Etudiant::findOrFail($id);
@@ -259,6 +391,13 @@ class UserController extends Controller
         }
 
     }
+      /**
+     * @OA\Get(
+     *     path="/api/Utilisateurs",
+     *     summary="Récupérer la liste des étudiants par mérite.",
+     *     @OA\Response(response="200", description="Liste des étudiants."),
+     * )
+    */
     //Lister un/les utilisateur(s)
     public function listesProfils(){
         $user =User::whereIn('roles_id', [2,3])->get();
@@ -267,38 +406,5 @@ class UserController extends Controller
         ],201);
     }
 
-    //Envoie mail validation
-    public function SendMailValidation($email){
-        if(auth()->user()){
-
-            $user = User::where('email', $email)->get();
-            if(count($user) > 0 ){
-                $random = Str::random(40);
-                $domain = URL::to('/');
-                $url = $domain. '/'.$random;
-
-                $data['url']= $url;
-                $data['email']=$email;
-                $data['title'] = "Email Validation";
-                $data['body'] = "Please click here to below to to verify your mail";
-
-                Mail::send('verifyMail', ['data'=> $data],function($message) use ($data){
-                    $message->to($data['email'])->subject($data['title']);
-                });
-
-                $user = User::find($user[0]['id']);
-                $user->remember_token = $random;
-                $user->save();
-
-                return response()->json([
-                    "succes" => true,
-                    "msg" => "Mail to Send Successfully"
-                ]);
-            }
-
-        }
-    }
-
 
 }
-

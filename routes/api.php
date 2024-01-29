@@ -29,17 +29,17 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware(['auth:api','admin'])->group(function(){
 //Ajouter étudiant cas social
-Route::post('/ajoutEtudiant', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
+Route::post('/ajoutEtudiant/CasSocial', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
 //Ajouter un profil utilisateur
 Route::post('/ajoutProfil', '\App\Http\Controllers\UserController@ajoutProfil');
 //Modifier l'status d' un profil utilisateur
 Route::put('/modifierProfil/{id}', '\App\Http\Controllers\UserController@ModifierProfil');
 //Pavillon
-Route::get('pavillons', '\App\Http\Controllers\PavillonController@index');
-Route::post('pavillon/create', '\App\Http\Controllers\PavillonController@store');
-Route::put('pavillon/update/{id}', '\App\Http\Controllers\PavillonController@update');
-Route::get('pavillon/read/{id}', '\App\Http\Controllers\PavillonController@show');
-Route::get('pavillon/delete/{id}', '\App\Http\Controllers\PavillonController@destroy');
+Route::get('/pavillons', '\App\Http\Controllers\PavillonController@index');
+Route::post('/pavillon/create', '\App\Http\Controllers\PavillonController@store');
+Route::put('/pavillon/update/{id}', '\App\Http\Controllers\PavillonController@update');
+Route::get('/pavillon/read/{id}', '\App\Http\Controllers\PavillonController@show');
+Route::get('/pavillon/delete/{id}', '\App\Http\Controllers\PavillonController@destroy');
 //Lister les etudiants par mérites
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 //Liste les étudiants par cas social
@@ -55,9 +55,9 @@ Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@
 //Role = Chef de Service Pédagogique
 Route::middleware(['auth:api','role'])->group(function(){
 //Ajouter un étudiant
-Route::post('ajoutEtudiants', '\App\Http\Controllers\UserController@ajoutEtudiantMerite');
+Route::post('/ajoutEtudiant/Merite', '\App\Http\Controllers\UserController@ajoutEtudiantMerite');
 //Modifier un étudiant
-Route::put('ModifierEtudiantsMerites', '\App\Http\Controllers\UserController@modifierEtudiantMerite');
+Route::put('/ModifierEtudiantsMerites', '\App\Http\Controllers\UserController@modifierEtudiantMerite');
 //Lister les étudiants par mérite
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 
@@ -69,14 +69,14 @@ Route::get('/detailEtudiant{id}','\App\Http\Controllers\UserController@detailEtu
 Route::get('/Validation/{email}','\App\Http\Controllers\UserController@SendMailValidation');
 
 });
-
+//Chef de pavillon
 Route::middleware(['auth:api','profil'])->group(function(){
  //Chambre
-Route::get('chambres', '\App\Http\Controllers\ChambreController@index');
-Route::post('chambre/create', '\App\Http\Controllers\ChambreController@store');
-Route::put('chambre/update/{id}', '\App\Http\Controllers\ChambreController@update');
-Route::get('chambre/read/{id}', '\App\Http\Controllers\ChambreController@show');
-Route::delete('chambre/delete/{id}', '\App\Http\Controllers\ChambreController@destroy');
+Route::get('/chambres', '\App\Http\Controllers\ChambreController@index');
+Route::post('/chambre/create', '\App\Http\Controllers\ChambreController@store');
+Route::put('/chambre/update/{id}', '\App\Http\Controllers\ChambreController@update');
+Route::get('/chambre/read/{id}', '\App\Http\Controllers\ChambreController@show');
+Route::delete('/chambre/delete/{id}', '\App\Http\Controllers\ChambreController@destroy');
 //Lister un/les reclamation(s)
 Route::get('/listerDesReclamations', '\App\Http\Controllers\ReclamationController@index');
 Route::get('/detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationController@show');
@@ -85,19 +85,19 @@ Route::get('/detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationCon
 Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationController@traiterUneReclamation');
 
 //Supprimer les reclamations
-Route::delete('Supprimer/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
+Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 
 });
-
+//Etudiant
 Route::middleware(['auth:api','etudiant'])->group(function(){
 //Reclamations
-Route::post('faireReclamations', '\App\Http\Controllers\ReclamationController@store');
-Route::delete('reclamations/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
+Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@store');
+Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 });
 
 
 
-Route::group(['middleware' => 'api','prefix' => 'auth'], function ($router) {
+Route::group(['middleware' => 'api'], function ($router) {
 Route::post('login', '\App\Http\Controllers\AuthController@login');
 Route::post('logout', '\App\Http\Controllers\AuthController@logout');
 Route::post('refresh', '\App\Http\Controllers\AuthController@refresh');

@@ -68,6 +68,7 @@ class Kernel extends HttpKernel
         'profil' => \App\Http\Middleware\ProfilMiddleware::class,
         'role' => \App\Http\Middleware\RoleMiddleware::class,
         'etudiant' => \App\Http\Middleware\EtudiantMiddleware::class,
+        'cors' => \App\Http\Middleware\Cors ::class,
 
 
 
