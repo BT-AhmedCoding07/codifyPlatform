@@ -53,7 +53,7 @@ class AuthController extends Controller
         }
         return $this->respondWithToken([
         'access_token' => $token,
-        'User connecté' => $user
+        'Utilisateur' => $user
      ]);
     }
     /**
