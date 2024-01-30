@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Role;
 use App\Models\User;
 use App\Models\Statut;
 use App\Models\Chambre;
@@ -195,11 +196,10 @@ class UserController extends Controller
             ], 422);
         }
     }
-
     /**
      * @OA\Post(
      *     path="/api/ajoutProfil",
-     *     summary="Ajouter un profil .",
+     *     summary="Ajouter un profil.",
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
@@ -216,7 +216,7 @@ class UserController extends Controller
      *     @OA\Response(response="200", description="Utilisateur ajouté avec succès."),
      *     @OA\Response(response="422", description="Erreur lors de l'ajout de l'utilisateur."),
      * )
-    */
+     */
     public function ajoutProfil(Request $request)
     {
         //dd($request->all());
@@ -379,9 +379,30 @@ class UserController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la recherche de la chambre."),
      * )
      */
-    public function detailEtudiant($id){
+    public function detailEtudiantCasSocial($id){
         try {
-            $etudiant = Etudiant::findOrFail($id);
+            $etudiant = Etudiant::where('statuts_id', 2)->get();
+
+            return response()->json([
+                'Etudiant: ' => $etudiant
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(["message" => "Étudiant non trouvé"], 404);
+        }
+
+    }
+         /**
+     * @OA\Get(
+     *     path="/detailEtudiant/{id}",
+     *     summary="Récupérer les détails d'un etudiant spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la chambre", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Chambre trouvée."),
+     *     @OA\Response(response="500", description="Erreur lors de la recherche de la chambre."),
+     * )
+     */
+    public function detailEtudiantMerite($id){
+        try {
+            $etudiant = Etudiant::where('statuts_id', 1)->get();
 
             return response()->json([
                 'Etudiant: ' => $etudiant
@@ -406,5 +427,30 @@ class UserController extends Controller
         ],201);
     }
 
+    //Ajout Role
+    public function ajoutRole(Request $request)
+    {
+        try {
+            $request->validate([
+                'nomRole' => 'required|string|max:255',
+            ]);
 
+            $role = new Role();
+            $role->nomRole = $request->input('nomRole');
+
+            if ($role->save()) {
+                return response()->json([
+                    "message" => "Role Ajouté  avec success",
+                    "Role" =>  array($role)
+                ]);
+            } else {
+                $role->delete();
+                return response()->json(["message" => "impossible d'ajouter un role"]);
+            }
+        } catch (ValidationException $e) {
+            return response()->json([
+                'errors' => $e->errors(),
+            ], 422);
+        }
+    }
 }

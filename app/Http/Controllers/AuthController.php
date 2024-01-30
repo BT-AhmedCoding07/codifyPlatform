@@ -114,4 +114,7 @@ class AuthController extends Controller
             'message' => "vous vous êtes avec succés"
         ]);
     }
+
+    //Ajouter un rôle aux utilisateurs
+
 }

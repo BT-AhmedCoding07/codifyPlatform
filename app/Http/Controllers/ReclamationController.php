@@ -115,30 +115,23 @@ class ReclamationController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la suppression de la réclamation."),
      * )
      */
-    public function destroy(Reclamation $id)
+    public function destroy($id)
     {
         $reclamation = Reclamation::find($id);
 
-
-        if($reclamation){
-
+        if ($reclamation) {
             $reclamation->delete();
 
             return response()->json([
-
-                'Message: ' => ' deleted with success.',
-
+                'Message' => 'Reclamation deleted with success.',
             ], 200);
-
-        }else {
-
-            return response([
-
-                'Message: ' => 'We could not find the reclamation.',
-
+        } else {
+            return response()->json([
+                'Message' => 'We could not find the reclamation.',
             ], 500);
         }
     }
+
        /**
      * @OA\Post(
      *     path="/api/traiterReclamation/{id}",
