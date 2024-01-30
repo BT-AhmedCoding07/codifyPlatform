@@ -354,7 +354,7 @@ class UserController extends Controller
     public function listesEtudiantsMerites(){
             $etudiants =Etudiant::where('statuts_id', 1)->get();
             return response()->json([
-                'Etudiants: ' =>   $etudiants
+               "Etudiants" =>   $etudiants
             ],201);
     }
     /**
@@ -367,7 +367,7 @@ class UserController extends Controller
     public function listesEtudiantsCasSocial(){
         $etudiants =Etudiant::where('statuts_id', 2)->get();
         return response()->json([
-            'Etudiants: ' =>   $etudiants
+            "Etudiants" =>   $etudiants
         ],201);
     }
      /**
@@ -384,7 +384,7 @@ class UserController extends Controller
             $etudiant = Etudiant::where('statuts_id', 2)->get();
 
             return response()->json([
-                'Etudiant: ' => $etudiant
+                "Etudiant" => $etudiant
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(["message" => "Étudiant non trouvé"], 404);
@@ -405,7 +405,7 @@ class UserController extends Controller
             $etudiant = Etudiant::where('statuts_id', 1)->get();
 
             return response()->json([
-                'Etudiant: ' => $etudiant
+                "Etudiant" => $etudiant
             ], 200);
         } catch (ModelNotFoundException $e) {
             return response()->json(["message" => "Étudiant non trouvé"], 404);
@@ -423,7 +423,7 @@ class UserController extends Controller
     public function listesProfils(){
         $user =User::whereIn('roles_id', [2,3])->get();
         return response()->json([
-            'Utilisateurs: ' =>   $user
+            "Utilisateurs" =>   $user
         ],201);
     }
 
@@ -432,7 +432,7 @@ class UserController extends Controller
     {
         try {
             $request->validate([
-                'nomRole' => 'required|string|max:255',
+                "nomRole" => 'required|string|max:255',
             ]);
 
             $role = new Role();
@@ -449,7 +449,7 @@ class UserController extends Controller
             }
         } catch (ValidationException $e) {
             return response()->json([
-                'errors' => $e->errors(),
+                "errors" => $e->errors(),
             ], 422);
         }
     }
