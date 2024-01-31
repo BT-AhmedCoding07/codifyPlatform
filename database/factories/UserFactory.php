@@ -21,11 +21,18 @@ class UserFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
     public function definition(): array
     {
+        $phoneNumber = '7'.fake()->unique()->numerify('########');
         return [
-            'name' => fake()->name(),
+            'prenom' => fake()->name(),
+            'nom' => fake()->name(),
+            "telephone"=>$phoneNumber,
             'email' => fake()->unique()->safeEmail(),
+            'status'=>"Actif",
+            'roles_id'=> 1,
+            'photo_profile'  => 'image.png',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),

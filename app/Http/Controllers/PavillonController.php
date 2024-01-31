@@ -62,7 +62,6 @@ class PavillonController extends Controller
         $pavillon = Pavillon::create($input);
 
         if ($pavillon->save()){
-
             return response()->json([
                 'Message: ' => 'Success!',
                 'Pavillon created: ' =>  $pavillon

@@ -26,6 +26,11 @@ use Illuminate\Support\Facades\Auth;
 //     return response()->json($userRole->nomRole);
 // });
 
+Route::get('/pavillons', '\App\Http\Controllers\PavillonController@index');
+
+Route::post('/pavillon/create', '\App\Http\Controllers\PavillonController@store');
+
+
 //Role Admin
 Route::middleware(['auth:api','admin'])->group(function(){
 //Ajouter étudiant cas social
@@ -38,9 +43,7 @@ Route::post('/AjouterRole', '\App\Http\Controllers\UserController@ajoutRole');
 //Modifier l'status d' un profil utilisateur
 Route::put('/modifierProfil/{id}', '\App\Http\Controllers\UserController@ModifierProfil');
 //Lister les Pavillon
-Route::get('/pavillons', '\App\Http\Controllers\PavillonController@index');
 //Ajouter un pavillon
-Route::post('/pavillon/create', '\App\Http\Controllers\PavillonController@store');
 //Modifier un pavillon
 Route::put('/pavillon/update/{id}', '\App\Http\Controllers\PavillonController@update');
 //Detail un pavillon
