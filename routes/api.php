@@ -53,7 +53,7 @@ Route::get('/pavillon/read/{id}', '\App\Http\Controllers\PavillonController@show
 //Supprimer un pavillon
 Route::delete('/pavillon/delete/{id}', '\App\Http\Controllers\PavillonController@destroy');
  //Lister les Chambre
- Route::get('/chambres', '\App\Http\Controllers\ChambreController@index');
+ Route::get('/ListesChambres', '\App\Http\Controllers\ChambreController@index');
 //Lister les etudiants par mérites
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 //Liste les étudiants par cas social
@@ -84,7 +84,7 @@ Route::get('/Validation/{email}','\App\Http\Controllers\UserController@SendMailV
 });
 //Role = Chef de pavillon
 Route::middleware(['auth:api','profil'])->group(function(){
- //Lister les Chambre
+//  //Lister les Chambre
 Route::get('/chambres', '\App\Http\Controllers\ChambreController@index');
 //Ajouter une chambre
 Route::post('/chambre/create', '\App\Http\Controllers\ChambreController@store');
