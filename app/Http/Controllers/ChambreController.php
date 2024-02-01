@@ -28,7 +28,7 @@ class ChambreController extends Controller
     {
             $chambres = Chambre::all();
               return response()->json([
-                  'Chambre: ' =>  $chambres,
+                  'Chambre' =>  $chambres,
             ]);
     }
       /**
@@ -75,19 +75,19 @@ class ChambreController extends Controller
             ], 404);
         } elseif ($request->nombres_limites > 12) {
             return response()->json([
-                'Message: ' => 'Le nombre limite de la chambre ne doit pas dépasser 12.',
+                'Message' => 'Le nombre limite de la chambre ne doit pas dépasser 12.',
             ], 404);
         } else {
             $chambre = Chambre::create($input);
 
             if ($chambre->save()) {
                 return response()->json([
-                    'Message: ' => 'Success!',
-                    'Room created: ' => $chambre
+                    'Message' => 'Success!',
+                    'Room created' => $chambre
                 ], 200);
             } else {
                 return response([
-                    'Message: ' => 'We could not create a new room.',
+                    'Message' => 'We could not create a new room.',
                 ], 500);
             }
         }
@@ -108,15 +108,15 @@ class ChambreController extends Controller
         if ($chambre){
 
             return response()->json([
-                'Message: ' => 'Chambre found.',
-                'Chambre: ' => $chambre
+                'Message' => 'Chambre found.',
+                'Chambre' => $chambre
             ], 200);
 
         } else {
 
             return response([
 
-                'Message: ' => 'We could not find the room.',
+                'Message' => 'We could not find the room.',
 
             ], 500);
         }
@@ -173,8 +173,8 @@ class ChambreController extends Controller
 
                      return response()->json([
 
-                         'Message: ' => 'Chambre updated with success.',
-                         'Chambre: ' => $chambre
+                         'Message' => 'Chambre updated with success.',
+                         'Chambre' => $chambre
 
                      ], 200);
 
@@ -183,7 +183,7 @@ class ChambreController extends Controller
 
                      return response([
 
-                         'Message: ' => 'We could not update the room.',
+                         'Message' => 'We could not update the room.',
 
                      ], 500);
 
@@ -192,7 +192,7 @@ class ChambreController extends Controller
 
                  return response([
 
-                     'Message: ' => 'We could not find the room.',
+                     'Message' => 'We could not find the room.',
 
                  ], 500);
              }
@@ -222,7 +222,7 @@ class ChambreController extends Controller
 
             return response()->json([
 
-                'Message: ' => 'chambre deleted with success.',
+                'Message' => 'chambre deleted with success.',
 
             ], 200);
 
@@ -230,7 +230,7 @@ class ChambreController extends Controller
 
             return response([
 
-                'Message: ' => 'We could not find the room.',
+                'Message' => 'We could not find the room.',
 
             ], 500);
         }

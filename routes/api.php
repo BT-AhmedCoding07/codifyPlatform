@@ -52,6 +52,8 @@ Route::put('/pavillon/update/{id}', '\App\Http\Controllers\PavillonController@up
 Route::get('/pavillon/read/{id}', '\App\Http\Controllers\PavillonController@show');
 //Supprimer un pavillon
 Route::delete('/pavillon/delete/{id}', '\App\Http\Controllers\PavillonController@destroy');
+ //Lister les Chambre
+ Route::get('/chambres', '\App\Http\Controllers\ChambreController@index');
 //Lister les etudiants par mérites
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 //Liste les étudiants par cas social

@@ -23,7 +23,7 @@ class AuthController extends Controller
     }
     /**
      * @OA\Post(
-     *     path="/api/login",
+     *     path="/api/auth/login",
      *     summary="Authentification de l'utilisateur",
      *     @OA\RequestBody(
      *         required=true,
