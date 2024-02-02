@@ -67,10 +67,10 @@ Route::get('/detailEtudiant/Merite/{id}','\App\Http\Controllers\UserController@d
 //Lister les profils
 Route::get('/Utilisateurs','\App\Http\Controllers\UserController@listesProfils');
 //Lister un profil chef de pavillon
-Route::get('/Utilisateurs/Pavillon/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPavillon');
+Route::get('/Utilisateurs/ChefPavillon/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPavillon');
 
 //Lister un profil chef pedagogique
-Route::get('/Utilisateurs/Pedagogique/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPedagogique');
+Route::get('/Utilisateurs/ChefPedagogique/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPedagogique');
 
 //Valider un étudiant non attribuer
 Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@validerEtudiant');
