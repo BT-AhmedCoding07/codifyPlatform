@@ -53,7 +53,7 @@ Route::get('/pavillon/read/{id}', '\App\Http\Controllers\PavillonController@show
 //Supprimer un pavillon
 Route::delete('/pavillon/delete/{id}', '\App\Http\Controllers\PavillonController@destroy');
  //Lister les Chambre
- Route::get('/ListesChambres', '\App\Http\Controllers\ChambreController@index');
+Route::get('/ListesChambres', '\App\Http\Controllers\ChambreController@index');
 //Lister les etudiants par mérites
 Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 //Liste les étudiants par cas social
@@ -68,6 +68,15 @@ Route::get('/detailEtudiant/Merite/{id}','\App\Http\Controllers\UserController@d
 Route::get('/Utilisateurs','\App\Http\Controllers\UserController@listesProfils');
 //Lister un profil chef de pavillon
 Route::get('/Utilisateurs/ChefPavillon/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPavillon');
+//Ajouter une chambre
+Route::post('/chambre/create', '\App\Http\Controllers\ChambreController@store');
+//Modifier une chambre
+Route::put('/chambre/update/{id}', '\App\Http\Controllers\ChambreController@update');
+//Detail chambre
+Route::get('/chambre/read/{id}', '\App\Http\Controllers\ChambreController@show');
+//Supprimer une chambre
+Route::delete('/chambre/delete/{id}', '\App\Http\Controllers\ChambreController@destroy');
+
 
 //Lister un profil chef pedagogique
 Route::get('/Utilisateurs/ChefPedagogique/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPedagogique');
@@ -90,16 +99,12 @@ Route::get('/Validation/{email}','\App\Http\Controllers\UserController@SendMailV
 });
 //Role = Chef de pavillon
 Route::middleware(['auth:api','profil'])->group(function(){
-//  //Lister les Chambre
+//Lister les Chambre
 Route::get('/chambres', '\App\Http\Controllers\ChambreController@index');
-//Ajouter une chambre
-Route::post('/chambre/create', '\App\Http\Controllers\ChambreController@store');
 //Modifier une chambre
-Route::put('/chambre/update/{id}', '\App\Http\Controllers\ChambreController@update');
+Route::put('/modifierChambre/update/{id}', '\App\Http\Controllers\ChambreController@update');
 //Detail chambre
-Route::get('/chambre/read/{id}', '\App\Http\Controllers\ChambreController@show');
-//Supprimer une chambre
-Route::delete('/chambre/delete/{id}', '\App\Http\Controllers\ChambreController@destroy');
+Route::get('/detailChambre/read/{id}', '\App\Http\Controllers\ChambreController@show');
 //Lister les reclamation(s)
 Route::get('/listerDesReclamations', '\App\Http\Controllers\ReclamationController@index');
 //Detail une reclamation
