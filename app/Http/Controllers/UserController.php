@@ -196,6 +196,9 @@ class UserController extends Controller
             ], 422);
         }
     }
+
+    // modifierEtudiantMerite
+    // modifierEtudiantCasSocial
     /**
      * @OA\Post(
      *     path="/api/ajoutProfil",
@@ -221,6 +224,8 @@ class UserController extends Controller
     {
         //dd($request->all());
         try {
+
+
             $request->validate([
                 'nom' => 'required|string|max:255',
                 'prenom' => 'required|string|max:255',
@@ -232,13 +237,14 @@ class UserController extends Controller
             ]);
 
             $user = new User();
+            //$logoPath = $request->file('photo_profile')->store('Image\photo_profile', 'public');
 
             $user->nom = $request->input('nom');
             $user->prenom = $request->input('prenom');
             $user->email = $request->input('email');
             $user->password = Hash::make($request->password);
             $user->telephone = $request->input('telephone');
-            $user->photo_profile = $request->input('photo_profile');
+            $user->photo_profile =$request->input('photo_profile');
             $user->roles_id = $request->input('roles_id');
 
             if ($user->save()) {
@@ -352,7 +358,10 @@ class UserController extends Controller
      * )
     */
     public function listesEtudiantsMerites(){
-            $etudiants =Etudiant::where('statuts_id', 1)->get();
+
+            // $etudiants =Etudiant::where('statuts_id', 1)->get();
+            $etudiants = Etudiant::with('users')->where('statuts_id', 1)->get();
+
             return response()->json([
                "Etudiants" =>   $etudiants
             ],201);
@@ -365,7 +374,8 @@ class UserController extends Controller
      * )
     */
     public function listesEtudiantsCasSocial(){
-        $etudiants =Etudiant::where('statuts_id', 2)->get();
+        // $etudiants =Etudiant::where('statuts_id', 2)->get();
+        $etudiants = Etudiant::with('users')->where('statuts_id', 2)->get();
         return response()->json([
             "Etudiants" =>   $etudiants
         ],201);
@@ -381,8 +391,8 @@ class UserController extends Controller
      */
     public function detailEtudiantCasSocial($id){
         try {
-            $etudiant = Etudiant::where('statuts_id', 2)->get();
-
+            // $etudiant = Etudiant::where('statuts_id', 2)->get();
+            $etudiant = Etudiant::with('users')->where('statuts_id', 2)->findOrFail($id);
             return response()->json([
                 "Etudiant" => $etudiant
             ], 200);
@@ -402,8 +412,8 @@ class UserController extends Controller
      */
     public function detailEtudiantMerite($id){
         try {
-            $etudiant = Etudiant::where('statuts_id', 1)->get();
-
+            // $etudiant = Etudiant::where('statuts_id', 1)->get();
+               $etudiant = Etudiant::with('users')->where('statuts_id', 1)->findOrFail($id);
             return response()->json([
                 "Etudiant" => $etudiant
             ], 200);

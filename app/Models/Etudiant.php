@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\User;
 use App\Models\Chambre;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -30,5 +31,9 @@ class Etudiant extends Model
     public function chambres()
     {
         return $this->hasMany(Chambre::class);
+    }
+    public function users()
+    {
+        return $this->belongsTo(User::class, 'users_id', 'id');
     }
 }

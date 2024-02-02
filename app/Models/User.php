@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Role;
+use App\Models\Etudiant;
 use Laravel\Sanctum\HasApiTokens;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Notifications\Notifiable;
@@ -36,6 +37,11 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Role::class, "roles_id", "nomRole");
     }
+    public function etudiants()
+    {
+        return $this->hasMany(Etudiant::class);
+    }
+
     /**
      * The attributes that should be hidden for serialization.
      *
