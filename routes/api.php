@@ -66,6 +66,12 @@ Route::get('/detailEtudiant/CasSocial/{id}','\App\Http\Controllers\UserControlle
 Route::get('/detailEtudiant/Merite/{id}','\App\Http\Controllers\UserController@detailEtudiantMerite');
 //Lister les profils
 Route::get('/Utilisateurs','\App\Http\Controllers\UserController@listesProfils');
+//Lister un profil chef de pavillon
+Route::get('/Utilisateurs/Pavillon/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPavillon');
+
+//Lister un profil chef pedagogique
+Route::get('/Utilisateurs/Pedagogique/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPedagogique');
+
 //Valider un étudiant non attribuer
 Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@validerEtudiant');
 });

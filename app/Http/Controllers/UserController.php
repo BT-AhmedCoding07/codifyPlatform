@@ -427,6 +427,45 @@ class UserController extends Controller
         ],201);
     }
 
+    //Lister un profil
+          /**
+     * @OA\Get(
+     *     path="/detailEtudiant/{id}",
+     *     summary="Récupérer les détails d'un etudiant spécifique.",
+     *     @OA\Parameter(name="id", in="path", required=true, description="ID de la chambre", @OA\Schema(type="string")),
+     *     @OA\Response(response="200", description="Chambre trouvée."),
+     *     @OA\Response(response="500", description="Erreur lors de la recherche de la chambre."),
+     * )
+     */
+    //
+    public function detailProfilUtilisateurPavillon($id){
+        try {
+            $user = User::where('roles_id', 2)->get();
+
+            return response()->json([
+                "Profil" => $user
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(["message" => "Utilisateur non trouvé"], 404);
+        }
+
+    }
+    public function detailProfilUtilisateurPedagogique($id){
+        try {
+            $user = User::where('roles_id', 3)->get();
+
+            return response()->json([
+                "Profil" => $user
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(["message" => "Utilisateur non trouvé"], 404);
+        }
+
+    }
+
+
+
+
     //Ajout Role
     public function ajoutRole(Request $request)
     {
