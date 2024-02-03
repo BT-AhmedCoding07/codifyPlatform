@@ -7,6 +7,7 @@ use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -30,7 +31,6 @@ class Handler extends ExceptionHandler
         //     //
         // });
          // On modifier le comportement pour l'exception NotFoundHttpException
-
          $this->renderable(function (AuthorizationException $e, $request) {
             // Si la requête contient "api/*"
             if ($request->is("api/*")) {
@@ -41,6 +41,18 @@ class Handler extends ExceptionHandler
                 ]);
             }
         });
+
+         // On modifier le comportement pour l'exception NotFoundHttpException
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            // Si la requête contient "api/*"
+            if ($request->is("api/*")) {
+                // On retourne une réponse 404 avec un message en JSON
+                return response()->json([
+                    "message" => "Ressource introuvable"
+                ], 404);
+            }
+        });
+
         $this->renderable(function (HttpClientException $e, $request) {
             // Si la requête contient "api/*"
             if ($request->is("api/*")) {

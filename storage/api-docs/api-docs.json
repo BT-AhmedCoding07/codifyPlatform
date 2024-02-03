@@ -23,951 +23,9 @@
         "multipart/form-data"
     ],
     "paths": {
-        "/api/AjouterRole": {
-            "post": {
-                "summary": "Ajouter un role",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Role"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "nomRole": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "nomRole": "gestionnaires de compte"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/listerDesReclamations": {
-            "get": {
-                "summary": "Lister  les reclamations",
-                "description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/traiterReclamation/1": {
-            "put": {
-                "summary": "Traiter une réclamation",
-                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "status": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "status": "Traité"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/SupprimerReclamation/delete/1": {
-            "delete": {
-                "summary": "SupprimerRéclamation",
-                "description": "Deletes a collection.",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/detailReclamation/read/1": {
-            "get": {
-                "summary": "Show une reclamation",
-                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "access_key",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/faireReclamations": {
-            "post": {
-                "summary": "Faire une réclamation",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "objet": {
-                                        "type": "string"
-                                    },
-                                    "message": {
-                                        "type": "string"
-                                    },
-                                    "chambres_id": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "objet": "Réparation electricité chambre A3",
-                                "message": "Je viens au prés de vous pour faire ma réclamation de réparation de la lampe",
-                                "chambres_id": 4
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/chambres": {
-            "get": {
-                "summary": "Lister  les chambres",
-                "description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Chambre"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/chambre/update/1": {
-            "put": {
-                "summary": "Mettre à jour une chambre",
-                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Chambre"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_chambre": {
-                                        "type": "string"
-                                    },
-                                    "nombres_lits": {
-                                        "type": "integer"
-                                    },
-                                    "echeances": {
-                                        "type": "string"
-                                    },
-                                    "nombres_limites": {
-                                        "type": "integer"
-                                    },
-                                    "pavillons_id": {
-                                        "type": "integer"
-                                    },
-                                    "etudiants_id": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "A Chambre 1",
-                                "type_chambre": "Partagée",
-                                "nombres_lits": 4,
-                                "echeances": "1 ans",
-                                "nombres_limites": 6,
-                                "pavillons_id": 1,
-                                "etudiants_id": 1
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/chambre/delete/2": {
-            "delete": {
-                "summary": "Delete Chambre",
-                "description": "Deletes a collection.",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Chambre"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/chambre/read/1": {
-            "get": {
-                "summary": "Show une chambre",
-                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Chambre"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "access_key",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/chambre/create": {
-            "post": {
-                "summary": "Creer une chambre",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Chambre"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_chambre": {
-                                        "type": "string"
-                                    },
-                                    "nombres_lits": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_limites": {
-                                        "type": "integer"
-                                    },
-                                    "pavillons_id": {
-                                        "type": "integer"
-                                    },
-                                    "etudiants_id": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "A Chambre 3",
-                                "type_chambre": "Partagée",
-                                "nombres_lits": 2,
-                                "nombres_limites": 4,
-                                "pavillons_id": 1,
-                                "etudiants_id": 3
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/pavillons": {
-            "get": {
-                "summary": "Lister tous les  pavillons",
-                "description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pavillon/update/4": {
-            "put": {
-                "summary": "Mettre à jour le pavillon",
-                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_pavillon": {
-                                        "type": "string"
-                                    },
-                                    "nombres_etages": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_chambres": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "Pavillon Mixte ",
-                                "type_pavillon": "Homme",
-                                "nombres_etages": 3,
-                                "nombres_chambres": 200
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/pavillon/delete/4": {
-            "delete": {
-                "summary": "Supprimer le pavillon",
-                "description": "Deletes a collection.",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/pavillon/read/1": {
-            "get": {
-                "summary": "Lister un pavillon",
-                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "access_key",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pavillon/create": {
-            "post": {
-                "summary": "Créer un pavillon",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_pavillon": {
-                                        "type": "string"
-                                    },
-                                    "nombres_etages": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_chambres": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "Pavillon PM",
-                                "type_pavillon": "Mixte",
-                                "nombres_etages": 5,
-                                "nombres_chambres": 150
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/api/auth/login": {
             "post": {
-                "summary": "Se connecter Admin",
+                "summary": "Se connecter un User (Profil)",
                 "description": "",
                 "responses": {
                     "201": {
@@ -1008,7 +66,7 @@
                     }
                 },
                 "tags": [
-                    "Admin"
+                    "User Chef de Service Pédagogique"
                 ],
                 "parameters": [],
                 "requestBody": {
@@ -1026,15 +84,15 @@
                                 }
                             },
                             "example": {
-                                "email": "admin@gmail.com",
-                                "password": "Admin123@"
+                                "email": "ChefPedaogique1@gmail.com",
+                                "password": "ChefPedaogique1@"
                             }
                         }
                     }
                 }
             }
         },
-        "/api/detailEtudiant/Merite/2": {
+        "/api/detailEtudiant/Merite/1": {
             "get": {
                 "summary": "Detail etudiant Merite",
                 "description": "",
@@ -1247,35 +305,35 @@
                                 }
                             },
                             "example": {
-                                "prenom": "Astou ",
-                                "nom": "Diouf",
-                                "email": "astou849@gmail.com",
+                                "prenom": "Moussa",
+                                "nom": "Basse",
+                                "email": "bassemoussa221@gmail.com",
                                 "password": "Pass123@",
                                 "roles_id": "4",
                                 "photo_profile": "image.jpg",
-                                "INE": "N01662320224",
+                                "INE": "N01662320226",
                                 "date_naissance": "12/01/1999",
-                                "lieu_naissance": "Dakar",
-                                "adresse": "Dakar",
+                                "lieu_naissance": "Ziguinchor",
+                                "adresse": "Ziguinchor",
                                 "sexe": "Homme",
                                 "niveau_etudes": "Licence 3",
-                                "filiere": "Lettres Modernes",
-                                "telephone": "771334567",
+                                "filiere": "Cybersécurité",
+                                "telephone": "771334560",
                                 "statuts_id": "1",
-                                "moyennes": "18.00"
+                                "moyennes": "17.00"
                             }
                         }
                     }
                 }
             }
         },
-        "/api/ValiderEtudiant/update/3": {
-            "put": {
-                "summary": "Valider un étudiant",
+        "/api/auth/logout": {
+            "post": {
+                "summary": "Se déconnecter profil Admin",
                 "description": "",
                 "responses": {
-                    "200": {
-                        "description": "OK",
+                    "201": {
+                        "description": "Created successfully",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1283,8 +341,8 @@
                             }
                         }
                     },
-                    "404": {
-                        "description": "Not Found",
+                    "400": {
+                        "description": "Bad Request",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1292,8 +350,17 @@
                             }
                         }
                     },
-                    "500": {
-                        "description": "Internal Server Error",
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -1303,12 +370,171 @@
                     }
                 },
                 "tags": [
-                    "Validation atrribubtion Chambre Par Admin"
+                    "Admin"
                 ],
-                "parameters": []
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "admin@gmail.com",
+                                "password": "Admin123@"
+                            }
+                        }
+                    }
+                }
             }
         },
-        "/api/detailEtudiant/CasSocial/1": {
+        "/api/auth/refresh": {
+            "post": {
+                "summary": "Rafraichir  profil Admin",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "admin@gmail.com",
+                                "password": "Admin123@"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/auth/me": {
+            "post": {
+                "summary": "Afficher profil Admin",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Admin"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "admin@gmail.com",
+                                "password": "Admin123@"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/detailEtudiant/CasSocial/{id}": {
             "get": {
                 "summary": "detail étudiant Cas social",
                 "description": "",
@@ -1537,119 +763,22 @@
                                 }
                             },
                             "example": {
-                                "prenom": "Etudiant 1",
+                                "prenom": "Etudiant 3",
                                 "nom": "UCAD",
-                                "email": "etudiant1@gmail.com",
-                                "password": "Etudiant1@",
+                                "email": "etudiant3@gmail.com",
+                                "password": "Etudiant3@",
                                 "roles_id": "4",
                                 "photo_profile": "image.jpg",
-                                "INE": "N01662320221",
+                                "INE": "N01662320223",
                                 "date_naissance": "08/12/2023",
-                                "lieu_naissance": "Thies",
-                                "adresse": "Thies",
-                                "sexe": "Homme",
-                                "niveau_etudes": "Licence 1",
-                                "filiere": "Biologie",
-                                "telephone": "770123457",
+                                "lieu_naissance": "Dakar",
+                                "adresse": "Dakar",
+                                "sexe": "Femme",
+                                "niveau_etudes": "Licence 3",
+                                "filiere": "MPI",
+                                "telephone": "770123459",
                                 "statuts_id": "2",
                                 "moyennes": "00.00"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/ajoutProfil": {
-            "post": {
-                "summary": "Ajouter un User (Profil)",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "User Chef de Service Pédagogique"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "prenom": {
-                                        "type": "string"
-                                    },
-                                    "nom": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "roles_id": {
-                                        "type": "string"
-                                    },
-                                    "photo_profile": {
-                                        "type": "string",
-                                        "format": "binary"
-                                    },
-                                    "sexe": {
-                                        "type": "string"
-                                    },
-                                    "telephone": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "prenom": "ChefPedaogique 1",
-                                "nom": "UCAD",
-                                "email": "ChefPedaogique1@gmail.com",
-                                "password": "ChefPedaogique1@",
-                                "roles_id": "3",
-                                "photo_profile": {
-                                    "type": "string",
-                                    "format": "binary"
-                                },
-                                "sexe": "Homme",
-                                "telephone": "770000000"
                             }
                         }
                     }
@@ -1707,6 +836,198 @@
             }
         },
         "/api/modifierProfil/3": {
+            "put": {
+                "summary": "Modifier un statut d'un User (Profil)",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "User Chef de Pavillon"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "status": "Actif"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ajoutProfil": {
+            "post": {
+                "summary": "Ajouter un User (Chef de Pavillon)",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "User Chef de Pavillon"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "roles_id": {
+                                        "type": "string"
+                                    },
+                                    "photo_profile": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "sexe": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "prenom": "chef de Pavillon A",
+                                "nom": "UCAD",
+                                "email": "chefPavillonA@gmail.com",
+                                "password": "ChefPavillonA@",
+                                "roles_id": "2",
+                                "photo_profile": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "sexe": "Homme",
+                                "telephone": "770000001"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Utilisateurs/ChefPedagogique/{id}": {
+            "get": {
+                "summary": "voir detail utilisateur",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "User Chef de Service Pédagogique"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/modifierProfil/{id}": {
             "put": {
                 "summary": "Modifier un statut d'un User (Profil)",
                 "description": "",
@@ -1846,9 +1167,9 @@
                 }
             }
         },
-        "/api/auth/logout": {
+        "/api/AjouterUtilisateur": {
             "post": {
-                "summary": "Se déconnecter profil Admin",
+                "summary": "Ajouter un User (Profil)",
                 "description": "",
                 "responses": {
                     "201": {
@@ -1889,7 +1210,7 @@
                     }
                 },
                 "tags": [
-                    "Admin"
+                    "User Chef de Service Pédagogique"
                 ],
                 "parameters": [],
                 "requestBody": {
@@ -1898,27 +1219,55 @@
                             "schema": {
                                 "type": "object",
                                 "properties": {
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "nom": {
+                                        "type": "string"
+                                    },
                                     "email": {
                                         "type": "string"
                                     },
                                     "password": {
                                         "type": "string"
+                                    },
+                                    "roles_id": {
+                                        "type": "string"
+                                    },
+                                    "photo_profile": {
+                                        "type": "string",
+                                        "format": "binary"
+                                    },
+                                    "sexe": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "email": "admin@gmail.com",
-                                "password": "Admin123@"
+                                "prenom": "ChefPedaogique 1",
+                                "nom": "UCAD",
+                                "email": "ChefPedaogique1@gmail.com",
+                                "password": "ChefPedaogique1@",
+                                "roles_id": "3",
+                                "photo_profile": {
+                                    "type": "string",
+                                    "format": "binary"
+                                },
+                                "sexe": "Homme",
+                                "telephone": "770000000"
                             }
                         }
                     }
                 }
             }
         },
-        "/api/auth/refresh": {
+        "/api/AjouterRole": {
             "post": {
-                "summary": "Rafraichir  profil Admin",
-                "description": "",
+                "summary": "Ajouter un role",
+                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
                 "responses": {
                     "201": {
                         "description": "Created successfully",
@@ -1958,36 +1307,232 @@
                     }
                 },
                 "tags": [
-                    "Admin"
+                    "Role"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "type": "string"
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
+                                    "nomRole": {
                                         "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "email": "admin@gmail.com",
-                                "password": "Admin123@"
+                                "nomRole": "gestionnaires de compte"
                             }
                         }
                     }
                 }
             }
         },
-        "/api/auth/me": {
+        "/api/listerDesReclamations": {
+            "get": {
+                "summary": "Lister  les reclamations",
+                "description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Réclamation"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/traiterReclamation/{id}": {
+            "put": {
+                "summary": "Traiter une réclamation",
+                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Réclamation"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "status": "Traité"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/SupprimerReclamation/delete/{id}": {
+            "delete": {
+                "summary": "SupprimerRéclamation",
+                "description": "Deletes a collection.",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Réclamation"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/detailReclamation/read/{id}": {
+            "get": {
+                "summary": "Show une reclamation",
+                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Réclamation"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "access_key",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/faireReclamations": {
             "post": {
-                "summary": "Afficher profil Admin",
-                "description": "",
+                "summary": "Faire une réclamation",
+                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
                 "responses": {
                     "201": {
                         "description": "Created successfully",
@@ -2027,30 +1572,804 @@
                     }
                 },
                 "tags": [
-                    "Admin"
+                    "Réclamation"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "type": "string"
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "email": {
+                                    "objet": {
                                         "type": "string"
                                     },
-                                    "password": {
+                                    "message": {
                                         "type": "string"
+                                    },
+                                    "chambres_id": {
+                                        "type": "integer"
                                     }
                                 }
                             },
                             "example": {
-                                "email": "admin@gmail.com",
-                                "password": "Admin123@"
+                                "objet": "Réparation electricité chambre A3",
+                                "message": "Je viens au prés de vous pour faire ma réclamation de réparation de la lampe",
+                                "chambres_id": 1
                             }
                         }
                     }
                 }
+            }
+        },
+        "/api/chambre/update/{id}": {
+            "put": {
+                "summary": "Mettre à jour une chambre",
+                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des chaambres (Admin)"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_chambre": {
+                                        "type": "string"
+                                    },
+                                    "nombres_lits": {
+                                        "type": "integer"
+                                    },
+                                    "echeances": {
+                                        "type": "string"
+                                    },
+                                    "nombres_limites": {
+                                        "type": "integer"
+                                    },
+                                    "pavillons_id": {
+                                        "type": "integer"
+                                    },
+                                    "etudiants_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "A Chambre 1",
+                                "type_chambre": "Partagée",
+                                "nombres_lits": 4,
+                                "echeances": "1 ans",
+                                "nombres_limites": 6,
+                                "pavillons_id": 1,
+                                "etudiants_id": 1
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chambre/{id}": {
+            "get": {
+                "summary": "Show une chambre",
+                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestions de chambres (chef de Pavillon)"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "access_key",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/chambres": {
+            "get": {
+                "summary": "Lister  les chambres",
+                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "gestions de chambres (chef de Pavillon)"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_chambre": {
+                                        "type": "string"
+                                    },
+                                    "nombres_lits": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_limites": {
+                                        "type": "integer"
+                                    },
+                                    "pavillons_id": {
+                                        "type": "integer"
+                                    },
+                                    "etudiants_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "A Chambre A3",
+                                "type_chambre": "Partagée",
+                                "nombres_lits": 2,
+                                "nombres_limites": 4,
+                                "pavillons_id": 1,
+                                "etudiants_id": 3
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/chambre/delete/{id}": {
+            "delete": {
+                "summary": "Delete Chambre",
+                "description": "Deletes a collection.",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des chaambres (Admin)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/admin/chambres": {
+            "get": {
+                "summary": "Index Chambres",
+                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des chaambres (Admin)"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "access_key",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/admin/chambre/read/{id}": {
+            "get": {
+                "summary": "Show une chambre",
+                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des chaambres (Admin)"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "access_key",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/admin/chambre/create": {
+            "post": {
+                "summary": "Creer une chambre",
+                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des chaambres (Admin)"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_chambre": {
+                                        "type": "string"
+                                    },
+                                    "nombres_lits": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_limites": {
+                                        "type": "integer"
+                                    },
+                                    "pavillons_id": {
+                                        "type": "integer"
+                                    },
+                                    "etudiants_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "A Chambre 2",
+                                "type_chambre": "Partagée",
+                                "nombres_lits": 2,
+                                "nombres_limites": 4,
+                                "pavillons_id": 1,
+                                "etudiants_id": 2
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pavillons": {
+            "get": {
+                "summary": "Lister tous les  pavillons",
+                "description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Pavillon"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/pavillon/update/3": {
+            "put": {
+                "summary": "Mettre à jour le pavillon",
+                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Pavillon"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_pavillon": {
+                                        "type": "string"
+                                    },
+                                    "nombres_etages": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_chambres": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "Pavillon C1",
+                                "type_pavillon": "Mixte",
+                                "nombres_etages": 3,
+                                "nombres_chambres": 200
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pavillon/delete/4": {
+            "delete": {
+                "summary": "Supprimer le pavillon",
+                "description": "Deletes a collection.",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Pavillon"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/pavillon/read/1": {
+            "get": {
+                "summary": "Lister un pavillon",
+                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Pavillon"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "access_key",
+                        "type": "string"
+                    }
+                ]
+            }
+        },
+        "/api/pavillon/create": {
+            "post": {
+                "summary": "Créer un pavillon",
+                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Pavillon"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "workspace",
+                        "type": "string"
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_pavillon": {
+                                        "type": "string"
+                                    },
+                                    "nombres_etages": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_chambres": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "Pavillon PM",
+                                "type_pavillon": "Mixte",
+                                "nombres_etages": 4,
+                                "nombres_chambres": 250
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ValiderEtudiant/update/{id}": {
+            "put": {
+                "summary": "Valider un étudiant",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Validation attribution Chambre Par Admin"
+                ],
+                "parameters": []
             }
         }
     }

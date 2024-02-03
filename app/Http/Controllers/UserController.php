@@ -90,7 +90,6 @@ class UserController extends Controller
             $etudiant->filiere  = $request->input('filiere');
             $etudiant->statuts_id = $request->input('statuts_id');
 
-
             $etudiant->users_id = $user->id;
 
             if ($etudiant->save()) {
@@ -361,10 +360,26 @@ class UserController extends Controller
 
             // $etudiants =Etudiant::where('statuts_id', 1)->get();
             $etudiants = Etudiant::with('users')->where('statuts_id', 1)->get();
-
-            return response()->json([
-               "Etudiants" =>   $etudiants
-            ],201);
+            $data=[];
+            foreach($etudiants as $etudiant){
+                $user=$etudiant->users;
+                $data[]=[
+                    'nom' => $user->nom,
+                    'prenom' => $user->prenom,
+                    'email' => $user->email,
+                    'roles_id' =>$user->roles_id,
+                    'telephone' => $user->telephone,
+                    'INE'=> $etudiant['INE'],
+                    'date_naissance'=>$etudiant['date_naissance'] ,
+                    'lieu_naissance'=>$etudiant['lieu_naissance'] ,
+                    'adresse'=> $etudiant['adresse'],
+                    'sexe'=> $etudiant['sexe'],
+                    'niveau_etudes'=>$etudiant['niveau_etudes'],
+                    'filiere'=> $etudiant['filiere'],
+                    'statuts_id' =>$etudiant['filiere']
+                ];
+            }
+            return response()->json($data);
     }
     /**
      * @OA\Get(
@@ -374,11 +389,26 @@ class UserController extends Controller
      * )
     */
     public function listesEtudiantsCasSocial(){
-        // $etudiants =Etudiant::where('statuts_id', 2)->get();
-        $etudiants = Etudiant::with('users')->where('statuts_id', 2)->get();
-        return response()->json([
-            "Etudiants" =>   $etudiants
-        ],201);
+        $etudiants = Etudiant::with('users')->where('statuts_id', 1)->get();
+        $data=[];
+        foreach($etudiants as $etudiant){
+            $user=$etudiant->users;
+            $data[]=[
+                'nom' => $user->nom,
+                'prenom' => $user->prenom,
+                'email' => $user->email,
+                'roles_id' =>$user->roles_id,
+                'telephone' => $user->telephone,
+                'INE'=> $etudiant['INE'],
+                'date_naissance'=>$etudiant['date_naissance'] ,
+                'lieu_naissance'=>$etudiant['lieu_naissance'] ,
+                'adresse'=> $etudiant['adresse'],
+                'sexe'=> $etudiant['sexe'],
+                'niveau_etudes'=>$etudiant['niveau_etudes'],
+                'filiere'=> $etudiant['filiere'],
+            ];
+        }
+        return response()->json($data);
     }
      /**
      * @OA\Get(

@@ -19,7 +19,7 @@ class ChambreApiTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
         ]);
-        $response = $this->post('api/chambre/create', [
+        $response = $this->post('api/admin/chambre/create', [
             'libelle'=> 'chambre A1',
             'type_chambre'=> 'Partagée',
             'nombres_lits'=> 4,
@@ -38,7 +38,7 @@ class ChambreApiTest extends TestCase
             'email' => $user->email,
             'password' => 'password',
         ]);
-        $response = $this->put('api/chambre/update/{id}', [
+        $response = $this->put('api/admin/chambre/update/{id}', [
             'libelle'=> 'chambre A1',
             'type_chambre'=> 'Partagée',
             'nombres_lits'=> 2,
