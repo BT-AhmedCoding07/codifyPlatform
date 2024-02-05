@@ -150,7 +150,7 @@ class ChambreController extends Controller
         $pavillon = Pavillon::find($request->pavillons_id);
         if (!$pavillon) {
             return response()->json([
-                'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
+                'message' => 'La  chambre  d\'ID saisi n\'existe pas.',
             ], 404);
         }else{
             if($chambre){
