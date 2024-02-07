@@ -19,6 +19,6 @@ class Reclamation extends Model
 
     public function chambres()
     {
-        return $this->belongsTo(Chambre::class);
+        return $this->belongsTo(Chambre::class, "chambres_id");
     }
 }

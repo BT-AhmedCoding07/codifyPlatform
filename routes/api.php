@@ -121,6 +121,8 @@ Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationControl
 Route::middleware(['auth:api','etudiant'])->group(function(){
 //Faire une reclamation
 Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@store');
+//Historique réclamation
+Route::get('/historiquesReclamations', '\App\Http\Controllers\ReclamationController@historiqueReclamation');
 //Supprimer une reclamation
 Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 });
@@ -136,6 +138,7 @@ Route::post('/refresh', '\App\Http\Controllers\AuthController@refresh');
 Route::post('/me', '\App\Http\Controllers\AuthController@me');
 });
 //Utilisateur connecté
+
 Route::get('/me', '\App\Http\Controllers\AuthController@me');
 
 

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Chambre;
+
 use App\Models\Etudiant;
 
 use App\Models\Reclamation;
-
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 /**
  * @OA\Tag(
@@ -171,5 +173,21 @@ class ReclamationController extends Controller
             ], 422);
         }
     }
+    public function historiqueReclamation() {
+        $user = auth()->user();
+        $etudiant = Etudiant::where('users_id', $user->id)->first();
+        $chambre = Chambre::where("etudiants_id", $etudiant->id)->first();
+        if (!$chambre) {
+            return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
+        }
+        $reclamation = Reclamation::where("chambres_id", $chambre->id)->first();
+        if(!$reclamation){
+            return response()->json(['message' => 'Aucune réclamation associée à cette chambre'], 404);
+        }else{
+            return response()->json(['Historiques'=> $reclamation], 201);
+        }
+    }
+
+
 
 }

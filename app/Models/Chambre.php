@@ -19,10 +19,9 @@ class Chambre extends Model
         'nombres_limites',
         'etudiants_id'
     ];
-
     public function etudiants()
     {
-        return $this->belongsTo(Etudiant::class);
+        return $this->belongsTo(Etudiant::class, "etudiants_id");
     }
     public function pavillons()
     {
