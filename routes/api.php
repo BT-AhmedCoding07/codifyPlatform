@@ -116,6 +116,8 @@ Route::get('/listerDesReclamations', '\App\Http\Controllers\ReclamationControlle
 Route::get('/detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationController@show');
 //Traiter une réclamation
 Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationController@traiterUneReclamation');
+//Supprimer une reclamation
+Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 });
 //Etudiant
 Route::middleware(['auth:api','etudiant'])->group(function(){
