@@ -56,7 +56,7 @@ Route::get('/detailEtudiant/CasSocial/{id}','\App\Http\Controllers\UserControlle
 //Lister les etudiants par mérites
 Route::get('/admin/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 //Lister detail d'un étudiant
-Route::get('/detailEtudiant/Merite/{id}','\App\Http\Controllers\UserController@detailEtudiantMerite');
+Route::get('/admin/detailEtudiant/Merite/{id}','\App\Http\Controllers\UserController@detailEtudiantMerite');
 /* Gestion des pavillons */
 //Lister les Pavillon
 Route::get('/pavillons', '\App\Http\Controllers\PavillonController@index');
