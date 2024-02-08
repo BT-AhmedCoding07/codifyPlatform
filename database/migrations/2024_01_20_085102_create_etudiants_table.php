@@ -24,6 +24,7 @@ return new class extends Migration
             $table->boolean('estAttribue')->default(0);
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('statuts_id');
+            $table->unsignedBigInteger('chambres_id');
             $table->timestamps();
         });
     }

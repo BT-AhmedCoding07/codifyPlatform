@@ -122,7 +122,7 @@ Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\Reclam
 //Etudiant
 Route::middleware(['auth:api','etudiant'])->group(function(){
 //Faire une reclamation
-Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@store');
+Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@faireReclamation');
 //Historique réclamation
 Route::get('/historiquesReclamations', '\App\Http\Controllers\ReclamationController@historiqueReclamation');
 //Supprimer une reclamation

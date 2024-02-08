@@ -137,7 +137,8 @@ class UserController extends Controller
      */
     public function ajoutEtudiantCasSocial(Request $request)
     {
-        // dd($request->all());
+
+
         try {
             $request->validate([
                 'nom' => 'required|string|max:255',
@@ -155,6 +156,8 @@ class UserController extends Controller
                 'niveau_etudes'=> 'required|string|max:255',
                 'filiere'=> 'required|string|max:255',
                 'statuts_id' => 'integer',Rule::exists('statuts','id'),
+                'chambres_id' => 'integer', Rule::exists('chambres','id'),
+
             ]);
 
             $user = new User();
@@ -460,12 +463,17 @@ class UserController extends Controller
      * )
     */
     //Lister un/les utilisateur(s)
-    public function listesProfils(){
-        $user =User::whereIn('roles_id', [2,3])->get();
-        return response()->json([
-            "Utilisateurs" =>   $user
-        ],201);
-    }
+        public function listesProfils(){
+            $users = User::whereIn('roles_id', [2, 3])
+                ->join('roles', 'users.roles_id', '=', 'roles.id')
+                ->select('users.*', 'roles.nomRole')
+                ->get();
+
+            return response()->json([
+                "Utilisateurs" => $users
+            ], 201);
+        }
+
 
     //Lister un profil
           /**
@@ -502,10 +510,6 @@ class UserController extends Controller
         }
 
     }
-
-
-
-
     //Ajout Role
     public function ajoutRole(Request $request)
     {

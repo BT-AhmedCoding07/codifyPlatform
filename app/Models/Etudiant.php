@@ -21,6 +21,7 @@ class Etudiant extends Model
         'statuts_id',
         'users_id',
         'estAttribue',
+        'chambres_id'
     ];
 
 
@@ -30,7 +31,7 @@ class Etudiant extends Model
     }
     public function chambres()
     {
-        return $this->hasMany(Chambre::class);
+        return $this->belongsTo(Chambre::class, 'chambres_id');
     }
     public function users()
     {

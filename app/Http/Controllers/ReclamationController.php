@@ -35,53 +35,6 @@ class ReclamationController extends Controller
             'Reclamation: ' =>  $reclamations
         ],201);
     }
-
-   /**
-     * @OA\Post(
-     *     path="/api/faireReclamations",
-     *     summary="Créer une nouvelle réclamation.",
-     *     @OA\RequestBody(
-     *         required=true,
-     *         @OA\JsonContent(
-     *             required={"objet", "message", "chambres_id"},
-     *             @OA\Property(property="objet", type="string"),
-     *             @OA\Property(property="message", type="string"),
-     *             @OA\Property(property="chambres_id", type="integer"),
-     *         ),
-     *     ),
-     *     @OA\Response(response="200", description="Réclamation créée avec succès."),
-     *     @OA\Response(response="404", description="Erreur lors de la création de la réclamation."),
-     *     @OA\Response(response="500", description="Erreur lors de la création de la réclamation."),
-     * )
-     */
-    public function store(Request $request)
-    {
-        $chambre = Chambre::find($request->chambres_id);
-        $input = $request->validate([
-            'objet' => ['required'],
-            'message' => ['required'],
-            'chambres_id' => ['required', Rule::exists('chambres', 'id')],
-        ]);
-
-        if(!$chambre) {
-            return response()->json([
-                'message' => 'La chambre d\'ID saisi n\'existe pas.',
-            ], 404);
-        } else {
-            $reclamation = Reclamation::create($input);
-
-            if ($reclamation->save()) {
-                return response()->json([
-                    'Message: ' => 'Success!',
-                    'Réclamation created: ' => $reclamation
-                ], 200);
-            } else {
-                return response([
-                    'Message: ' => 'Création réclamation impossible.',
-                ], 500);
-            }
-        }
-    }
      /**
      * @OA\Get(
      *     path="/api/detailReclamation/read/{id}",
@@ -180,14 +133,59 @@ class ReclamationController extends Controller
         if (!$chambre) {
             return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
         }
-        $reclamation = Reclamation::where("chambres_id", $chambre->id)->first();
+        $reclamation = Reclamation::where("chambres_id", $chambre->id)->get();
         if(!$reclamation){
             return response()->json(['message' => 'Aucune réclamation associée à cette chambre'], 404);
         }else{
             return response()->json(['Historiques'=> $reclamation], 201);
         }
     }
-
-
+     /**
+     * @OA\Post(
+     *     path="/api/faireReclamation",
+     *     summary="Créer une nouvelle réclamation.",
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             @OA\Property(property="objet", type="string"),
+     *             @OA\Property(property="message", type="string"),
+     *             @OA\Property(property="chambres_id", type="integer"),
+     *         ),
+     *     ),
+     *     @OA\Response(response="200", description="Réclamation créée avec succès."),
+     *     @OA\Response(response="404", description="Erreur lors de la création de la réclamation."),
+     *     @OA\Response(response="500", description="Erreur lors de la création de la réclamation."),
+     * )
+     */
+    public function faireReclamation(Request $request){
+        $user = auth()->user();
+        $etudiant = Etudiant::where('users_id', $user->id)->first();
+        $chambre = Chambre::where("etudiants_id", $etudiant->id)->first();
+       // dd( $chambre);
+        if (!$chambre) {
+            return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
+        }else{
+           $request->validate([
+                'objet' => ['required'],
+                'message' => ['required'],
+                //'chambres_id' => $chambre->id,
+                ]);
+            $reclamation = new Reclamation();
+            $reclamation->objet = $request->input('objet');
+            $reclamation->message = $request->input('message');
+            $reclamation->chambres_id =$chambre->id;
+           // dd($reclamation);
+            if ($reclamation->save()) {
+                return response()->json([
+                    'Message' => 'Success!',
+                    'Réclamation created' => $reclamation
+                ], 200);
+            } else {
+                return response([
+                    'Message' => 'Création réclamation impossible.',
+                ], 500);
+            }
+        }
+    }
 
 }

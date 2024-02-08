@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('echeances')->default('1 ans');
             $table->Integer('nombres_limites')->max(12);
             $table->unsignedBigInteger('pavillons_id');
-            $table->unsignedBigInteger('etudiants_id');
             $table->timestamps();
         });
     }
