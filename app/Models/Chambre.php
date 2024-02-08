@@ -25,7 +25,7 @@ class Chambre extends Model
     }
     public function pavillons()
     {
-        return $this->belongsTo(Pavillon::class);
+        return $this->belongsTo(Pavillon::class,'pavillons_id');
     }
     public function reclamations()
     {

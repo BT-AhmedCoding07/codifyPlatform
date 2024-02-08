@@ -389,7 +389,7 @@ class UserController extends Controller
      * )
     */
     public function listesEtudiantsCasSocial(){
-        $etudiants = Etudiant::with('users')->where('statuts_id', 1)->get();
+        $etudiants = Etudiant::with('users')->where('statuts_id', 2)->get();
         $data=[];
         foreach($etudiants as $etudiant){
             $user=$etudiant->users;
