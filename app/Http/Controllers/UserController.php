@@ -463,17 +463,16 @@ class UserController extends Controller
      * )
     */
     //Lister un/les utilisateur(s)
-        public function listesProfils(){
-            $users = User::whereIn('roles_id', [2, 3])
-                ->join('roles', 'users.roles_id', '=', 'roles.id')
-                ->select('users.*', 'roles.nomRole')
-                ->get();
+    public function listesProfils(){
+        $users = User::whereIn('roles_id', [2, 3])
+            ->join('roles', 'users.roles_id', '=', 'roles.id')
+            ->select('users.nom', 'users.prenom', 'users.email', 'users.telephone', 'roles.nomRole')
+            ->get();
 
-            return response()->json([
-                "Utilisateurs" => $users
-            ], 201);
-        }
-
+        return response()->json([
+            "Utilisateurs" => $users
+        ], 201);
+    }
 
     //Lister un profil
           /**

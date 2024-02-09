@@ -28,9 +28,7 @@ class ChambreController extends Controller
     public function index()
     {
             //  $chambres = Chambre::all();
-
             $chambres = Chambre::with('pavillons')->get();
-
             return response()->json(ChambreRessource::collection($chambres));
     }
       /**
@@ -84,19 +82,6 @@ class ChambreController extends Controller
                     'Message' => 'Création réclamation impossible.',
                 ], 500);
             }
-
-
-
-            // if ($chambre->save()) {
-            //     return response()->json([
-            //         'Message' => 'Success!',
-            //         'Room created' => $chambre
-            //     ], 200);
-            // } else {
-            //     return response([
-            //         'Message' => 'We could not create a new room.',
-            //     ], 500);
-            // }
         }
     }
     /**
@@ -150,63 +135,38 @@ class ChambreController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la mise à jour de la chambre."),
      * )
      */
-    public function update(Request $request, string $id){
-
+    public function update(Request $request, $id)
+    {
+        $pavillon = Pavillon::find($request->pavillons_id);
         $chambre = Chambre::find($id);
 
-        $pavillon = Pavillon::find($request->pavillons_id);
         if (!$pavillon) {
             return response()->json([
-                'message' => 'La  chambre  d\'ID saisi n\'existe pas.',
+                'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
             ], 404);
         }else{
-            if($chambre){
-
-                $input = $request->validate([
-                     'libelle' => ['required'],
-                     'type_chambre' => ['required'],
-                     'nombres_lits' => ['required'],
-                     'nombres_limites' => ['required', 'numeric', 'max:12'] ,
-                     'pavillons_id' => ['required', Rule::exists('pavillons', 'id')],
-                     'etudiants_id' => ['required', Rule::exists('etudiants', 'id')],
-                    ]);
-                 $chambre->libelle = $input['libelle'];
-                 $chambre->type_chambre = $input['type_chambre'];
-                 $chambre->nombres_lits = $input['nombres_lits'];
-                 $chambre->nombres_lits = $input['nombres_limites'];
-                 $chambre->pavillons_id = $input['pavillons_id'];
-
-                 if($chambre->save()){
-
-                     return response()->json([
-
-                         'Message' => 'Chambre updated with success.',
-                         'Chambre' => $chambre
-
-                     ], 200);
-
-
-                 }else {
-
-                     return response([
-
-                         'Message' => 'We could not update the room.',
-
-                     ], 500);
-
-                 }
-             }else {
-
-                 return response([
-
-                     'Message' => 'We could not find the room.',
-
-                 ], 500);
-             }
+            $request->validate([
+                'libelle' => ['required'],
+                'type_chambre' => ['required'],
+                'nombres_lits' => ['required'],
+                'nombres_limites' => ['required', 'numeric', 'max:12'],
+            ]);
+            $chambre->libelle = $request->input('libelle');
+            $chambre->type_chambre = $request->input('type_chambre');
+            $chambre->nombres_lits = $request->input('nombres_lits');
+            $chambre->nombres_limites = $request->input('nombres_limites');
+            $chambre->pavillons_id = $pavillon->id;
+            if ($chambre->save()) {
+                return response()->json([
+                    'Message' => 'Mise à jour de la chambre réussie!',
+                    'Chambre' => $chambre
+                ], 200);
+            } else {
+                return response([
+                    'Message' => 'Mise à jour de la chambre impossible.',
+                ], 500);
+            }
         }
-
-
-
     }
 
    /**
