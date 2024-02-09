@@ -66,7 +66,6 @@ class UserController extends Controller
                 'sexe'=> 'required|string|max:255',
                 'niveau_etudes'=> 'required|string|max:255',
                 'filiere'=> 'required|string|max:255',
-                'chambres_id' => 'integer', Rule::exists('chambres','id'),
             ]);
             $user = new User();
             $etudiant = new Etudiant();
@@ -131,10 +130,8 @@ class UserController extends Controller
      *     @OA\Response(response="422", description="Erreur lors de l'ajout de l'étudiant."),
      * )
      */
-    public function ajoutEtudiantCasSocial(Request $request)
+    public function ajoutEtudiantCasSocial(Request $request,Chambre $chambre)
     {
-
-
         try {
             $request->validate([
                 'nom' => 'required|string|max:255',
@@ -154,8 +151,6 @@ class UserController extends Controller
 
             $user = new User();
             $etudiant = new Etudiant();
-            $chambre = Chambre::where($request->chambres_id)->get();
-            dd($chambre);
             $user->nom = $request->input('nom');
             $user->prenom = $request->input('prenom');
             $user->email = $request->input('email');
@@ -163,7 +158,7 @@ class UserController extends Controller
             $user->photo_profile = $request->input('photo_profile');
             $user->roles_id = 4;
             $user->password = Hash::make($request->password);
-            $user->save();
+           $user->save();
             $etudiant->INE  = $request->input('INE');
             $etudiant->date_naissance  = $request->input('date_naissance');
             $etudiant->lieu_naissance  = $request->input('lieu_naissance');
@@ -173,16 +168,23 @@ class UserController extends Controller
             $etudiant->filiere  = $request->input('filiere');
             $etudiant->statuts_id = 2;
             $etudiant->users_id = $user->id;
-            $etudiant->chambres_id= $chambre->id;
-            if ($etudiant->save()) {
-                $etudiant->update(['estAttribue' => 1]);
+            if(!$chambre){
                 return response()->json([
-                    "message" => " Etudiant ajouté avec success",
-                    "Etudiant" => array_merge(array($etudiant), array($user))
-                ]);
-            } else {
-                $user->delete();
-                return response()->json(["message" => "impossible d'ajouter un etudiant "]);
+                    'message' => 'La chambre d\'ID saisi n\'existe pas.',
+                ], 404);
+            }else{
+                $etudiant->chambres_id =$chambre->id;
+                // dd($etudiant);
+                if ($etudiant->save()) {
+                    $etudiant->update(['estAttribue' => 1]);
+                    return response()->json([
+                        "message" => " Etudiant ajouté avec success",
+                        "Etudiant" => array_merge(array($etudiant), array($user))
+                    ]);
+                } else {
+                    $user->delete();
+                    return response()->json(["message" => "impossible d'ajouter un etudiant "]);
+                }
             }
         } catch (ValidationException $e) {
             return response()->json([
@@ -362,7 +364,6 @@ class UserController extends Controller
                     'nom' => $user->nom,
                     'prenom' => $user->prenom,
                     'email' => $user->email,
-                    'roles_id' =>$user->roles_id,
                     'telephone' => $user->telephone,
                     'INE'=> $etudiant['INE'],
                     'date_naissance'=>$etudiant['date_naissance'] ,
@@ -392,7 +393,6 @@ class UserController extends Controller
                 'nom' => $user->nom,
                 'prenom' => $user->prenom,
                 'email' => $user->email,
-                'roles_id' =>$user->roles_id,
                 'telephone' => $user->telephone,
                 'INE'=> $etudiant['INE'],
                 'date_naissance'=>$etudiant['date_naissance'] ,
@@ -455,7 +455,8 @@ class UserController extends Controller
      * )
     */
     //Lister un/les utilisateur(s)
-    public function listesProfils(){
+      //Lister un/les utilisateur(s)
+      public function listesProfils(){
         $users = User::whereIn('roles_id', [2, 3])
             ->join('roles', 'users.roles_id', '=', 'roles.id')
             ->select('users.nom', 'users.prenom', 'users.email', 'users.telephone', 'users.status','roles.nomRole')
@@ -464,7 +465,6 @@ class UserController extends Controller
             "Utilisateurs" => $users
         ], 201);
     }
-
     //Lister un profil
           /**
      * @OA\Get(

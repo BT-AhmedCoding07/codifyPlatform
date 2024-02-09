@@ -17,7 +17,7 @@ class ChambreRessource extends JsonResource
         return [
             'libelle' =>  $this->libelle,
             'type_chambre'=> $this->type_chambre,
-            'nombres_lits'=>$this->type_chambre,
+            'nombres_lits'=>$this->nombres_lits,
             'nombres_limites'=>$this->nombres_limites,
             'pavillon' =>$this->pavillons->libelle
         ];

@@ -47,7 +47,7 @@ Route::get('/Utilisateurs/ChefPavillon/{id}','\App\Http\Controllers\UserControll
 Route::get('/Utilisateurs/ChefPedagogique/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPedagogique');
 /**Gestion des étudiants cas social */
 //Ajouter étudiant cas social
-Route::post('/ajoutEtudiant/CasSocial', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
+Route::post('/ajoutEtudiant/CasSocial/{chambre}', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
 //Liste les étudiants par cas social
 Route::get('/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@listesEtudiantsCasSocial');
 //Lister  detail d'un etudiant
