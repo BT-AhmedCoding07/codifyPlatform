@@ -52,9 +52,8 @@ class ChambreController extends Controller
      *     @OA\Response(response="404", description="Erreur lors de la création de la chambre."),
      * )
      */
-    public function store(Request $request)
+    public function store(Request $request, Pavillon $pavillon)
     {
-        $pavillon = Pavillon::where($request->pavillons_id)->first();
         //$etudiant = Etudiant::where('users_id', $user->id)->first();
         $request->validate([
             'libelle' => ['required'],
@@ -192,7 +191,7 @@ class ChambreController extends Controller
                 return response()->json([
                     "status_code" => 200,
                     "status_message" => "Chambre modifié avec succés",
-                    "chambre " => $chambre
+                    "chambre    " => $chambre
                 ]);
             }
         } catch (Exception $e) {

@@ -154,7 +154,8 @@ class UserController extends Controller
 
             $user = new User();
             $etudiant = new Etudiant();
-            $chambre = Chambre::find($request->chambres_id);
+            $chambre = Chambre::where($request->chambres_id)->get();
+            dd($chambre);
             $user->nom = $request->input('nom');
             $user->prenom = $request->input('prenom');
             $user->email = $request->input('email');
@@ -457,9 +458,8 @@ class UserController extends Controller
     public function listesProfils(){
         $users = User::whereIn('roles_id', [2, 3])
             ->join('roles', 'users.roles_id', '=', 'roles.id')
-            ->select('users.nom', 'users.prenom', 'users.email', 'users.telephone', 'roles.nomRole')
+            ->select('users.nom', 'users.prenom', 'users.email', 'users.telephone', 'users.status','roles.nomRole')
             ->get();
-
         return response()->json([
             "Utilisateurs" => $users
         ], 201);

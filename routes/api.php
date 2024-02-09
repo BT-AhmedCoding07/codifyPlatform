@@ -72,7 +72,7 @@ Route::delete('/pavillon/delete/{id}', '\App\Http\Controllers\PavillonController
 //Lister les Chambre
 Route::get('/admin/chambres', '\App\Http\Controllers\ChambreController@index');
 //Ajouter une chambre
-Route::post('/admin/chambre/create', '\App\Http\Controllers\ChambreController@store');
+Route::post('/admin/chambre/create/{pavillon}', '\App\Http\Controllers\ChambreController@store');
 //Modifier une chambre
 Route::put('/admin/chambre/update/{id}', '\App\Http\Controllers\ChambreController@update');
 //Detail chambre
