@@ -56,7 +56,6 @@ class UserController extends Controller
                 'prenom' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6',
-                'roles_id' => 'integer', Rule::exists('roles','id'),
                 'telephone' => 'nullable|numeric|unique:users|regex:/^[0-9]{9}$/',
                 'photo_profile' => '',
                 'moyennes' => 'required',
@@ -67,9 +66,8 @@ class UserController extends Controller
                 'sexe'=> 'required|string|max:255',
                 'niveau_etudes'=> 'required|string|max:255',
                 'filiere'=> 'required|string|max:255',
-                'statuts_id' => 'integer',Rule::exists('statuts','id'),
+                'chambres_id' => 'integer', Rule::exists('chambres','id'),
             ]);
-
             $user = new User();
             $etudiant = new Etudiant();
             $user->nom = $request->input('nom');
@@ -77,7 +75,7 @@ class UserController extends Controller
             $user->email = $request->input('email');
             $user->telephone = $request->input('telephone');
             $user->photo_profile = $request->input('photo_profile');
-            $user->roles_id = $request->input('roles_id');
+            $user->roles_id = 4;
             $user->password = Hash::make($request->password);
             $user->save();
             $etudiant->INE  = $request->input('INE');
@@ -88,10 +86,8 @@ class UserController extends Controller
             $etudiant->moyennes  = $request->input('moyennes');
             $etudiant->niveau_etudes  = $request->input('niveau_etudes');
             $etudiant->filiere  = $request->input('filiere');
-            $etudiant->statuts_id = $request->input('statuts_id');
-
+            $etudiant->statuts_id = 1;
             $etudiant->users_id = $user->id;
-
             if ($etudiant->save()) {
                 return response()->json([
                     "message" => " Etudiant ajouté avec success",
@@ -145,7 +141,6 @@ class UserController extends Controller
                 'prenom' => 'required|string|max:255',
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6',
-                'roles_id' => 'integer', Rule::exists('roles','id'),
                 'telephone' => 'nullable|numeric|regex:/^[0-9]{9}$/',
                 'photo_profile' => '',
                 'INE'=> 'required|string|max:13|unique:etudiants',
@@ -155,20 +150,17 @@ class UserController extends Controller
                 'sexe'=> 'required|string|max:255',
                 'niveau_etudes'=> 'required|string|max:255',
                 'filiere'=> 'required|string|max:255',
-                'statuts_id' => 'integer',Rule::exists('statuts','id'),
-                'chambres_id' => 'integer', Rule::exists('chambres','id'),
-
             ]);
 
             $user = new User();
             $etudiant = new Etudiant();
-
+            $chambre = Chambre::find($request->chambres_id);
             $user->nom = $request->input('nom');
             $user->prenom = $request->input('prenom');
             $user->email = $request->input('email');
             $user->telephone = $request->input('telephone');
             $user->photo_profile = $request->input('photo_profile');
-            $user->roles_id = $request->input('roles_id');
+            $user->roles_id = 4;
             $user->password = Hash::make($request->password);
             $user->save();
             $etudiant->INE  = $request->input('INE');
@@ -178,10 +170,9 @@ class UserController extends Controller
             $etudiant->sexe  = $request->input('sexe');
             $etudiant->niveau_etudes  = $request->input('niveau_etudes');
             $etudiant->filiere  = $request->input('filiere');
-            $etudiant->statuts_id = $request->input('statuts_id');
-
+            $etudiant->statuts_id = 2;
             $etudiant->users_id = $user->id;
-
+            $etudiant->chambres_id= $chambre->id;
             if ($etudiant->save()) {
                 $etudiant->update(['estAttribue' => 1]);
                 return response()->json([

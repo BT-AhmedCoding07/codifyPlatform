@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\ChambreRessource;
+use Exception;
 use App\Models\Chambre;
 use App\Models\Etudiant;
 use App\Models\Pavillon;
 use Illuminate\Http\Request;
 
 use Illuminate\Validation\Rule;
+use App\Http\Resources\ChambreRessource;
 
 /**
  * @OA\Tag(
@@ -135,37 +136,67 @@ class ChambreController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la mise à jour de la chambre."),
      * )
      */
-    public function update(Request $request, $id)
-    {
-        $pavillon = Pavillon::find($request->pavillons_id);
-        $chambre = Chambre::find($id);
+    // public function update(Request $request, $id)
+    // {
+    //     $chambre = Chambre::find($id);
 
-        if (!$pavillon) {
-            return response()->json([
-                'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
-            ], 404);
-        }else{
-            $request->validate([
+    //     if (!$chambre) {
+    //         return response()->json([
+    //             'message' => 'La chambre d\'ID saisi n\'existe pas.',
+    //         ], 404);
+    //     }else{
+    //         $request->validate([
+    //             'libelle' => ['required'],
+    //             'type_chambre' => ['required'],
+    //             'nombres_lits' => ['required'],
+    //             'nombres_limites' => ['required', 'numeric', 'max:12'],
+    //         ]);
+    //         $chambre->libelle = $request->input('libelle');
+    //         $chambre->type_chambre = $request->input('type_chambre');
+    //         $chambre->nombres_lits = $request->input('nombres_lits');
+    //         $chambre->nombres_limites = $request->input('nombres_limites');
+    //         $chambre->pavillons_id = $pavillon->id;
+    //         if ($chambre->save()) {
+    //             return response()->json([
+    //                 'Message' => 'Mise à jour de la chambre réussie!',
+    //                 'Chambre' => $chambre
+    //             ], 200);
+    //         } else {
+    //             return response([
+    //                 'Message' => 'Mise à jour de la chambre impossible.',
+    //             ], 500);
+    //         }
+    //     }
+    // }
+    public function update(Request $request, $id, Chambre $chambre)
+    {
+        try {
+            $chambre= Chambre::find($id);
+            if (!$chambre) {
+                return response()->json([
+                    "status_code" => 404,
+                    "status_messages" => "La chambre d\'ID saisi n\'existe pas."
+                ]);
+            } else {
+                $request->validate([
                 'libelle' => ['required'],
                 'type_chambre' => ['required'],
                 'nombres_lits' => ['required'],
                 'nombres_limites' => ['required', 'numeric', 'max:12'],
-            ]);
-            $chambre->libelle = $request->input('libelle');
-            $chambre->type_chambre = $request->input('type_chambre');
-            $chambre->nombres_lits = $request->input('nombres_lits');
-            $chambre->nombres_limites = $request->input('nombres_limites');
-            $chambre->pavillons_id = $pavillon->id;
-            if ($chambre->save()) {
+                ]);
+               // dd($request);
+                $chambre->libelle = $request->input('libelle');
+                $chambre->type_chambre = $request->input('type_chambre');
+                $chambre->nombres_lits = $request->input('nombres_lits');
+                $chambre->update();
                 return response()->json([
-                    'Message' => 'Mise à jour de la chambre réussie!',
-                    'Chambre' => $chambre
-                ], 200);
-            } else {
-                return response([
-                    'Message' => 'Mise à jour de la chambre impossible.',
-                ], 500);
+                    "status_code" => 200,
+                    "status_message" => "Chambre modifié avec succés",
+                    "chambre " => $chambre
+                ]);
             }
+        } catch (Exception $e) {
+            return response()->json($e);
         }
     }
 
@@ -181,7 +212,6 @@ class ChambreController extends Controller
     public function destroy(string $id){
 
         $chambre = Chambre::find($id);
-
 
         if($chambre){
 
