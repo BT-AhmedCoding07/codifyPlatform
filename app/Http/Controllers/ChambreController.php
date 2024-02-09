@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ChambreRessource;
 use App\Models\Chambre;
 use App\Models\Etudiant;
 use App\Models\Pavillon;
@@ -27,20 +28,10 @@ class ChambreController extends Controller
     public function index()
     {
             //  $chambres = Chambre::all();
+
             $chambres = Chambre::with('pavillons')->get();
-            $data=[];
-            foreach($chambres as $chambre){
-                $pavillon=$chambre->pavillons;
-                $data[]=[
-                    'libelle' =>  $chambre['libelle'],
-                    'type_chambre'=> $chambre['type_chambre'],
-                    'nombres_lits'=>$chambre['nombres_lits'],
-                    'nombres_limites'=>$chambre['nombres_limites'],
-                    'pavillon' => $pavillon->libelle,
-                ];
-            }
-            //dd($data);
-            return response()->json($data);
+
+            return response()->json(ChambreRessource::collection($chambres));
     }
       /**
      * @OA\Post(
