@@ -37,4 +37,8 @@ class Etudiant extends Model
     {
         return $this->belongsTo(User::class, 'users_id', 'id');
     }
+    public function reclamations()
+    {
+        return $this->belongsTo(Reclamation::class);
+    }
 }

@@ -129,15 +129,16 @@ class ReclamationController extends Controller
     public function historiqueReclamation() {
         $user = auth()->user();
         $etudiant = Etudiant::where('users_id', $user->id)->first();
-        $chambre = Chambre::where("etudiants_id", $etudiant->id)->first();
-        if (!$chambre) {
+       // dd($etudiant);
+        if (!$etudiant) {
             return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
-        }
-        $reclamation = Reclamation::where("chambres_id", $chambre->id)->get();
-        if(!$reclamation){
-            return response()->json(['message' => 'Aucune réclamation associée à cette chambre'], 404);
         }else{
-            return response()->json(['Historiques'=> $reclamation], 201);
+            $reclamation = Reclamation::where("etudiants_id", $etudiant->id)->get();
+            if(!$reclamation){
+                return response()->json(['message' => 'Aucune réclamation associée à cette chambre'], 404);
+            }else{
+                return response()->json(['Historiques'=> $reclamation], 201);
+            }
         }
     }
      /**
@@ -160,9 +161,7 @@ class ReclamationController extends Controller
     public function faireReclamation(Request $request){
         $user = auth()->user();
         $etudiant = Etudiant::where('users_id', $user->id)->first();
-        $chambre = Chambre::where("etudiants_id", $etudiant->id)->first();
-       // dd( $chambre);
-        if (!$chambre) {
+        if (!$etudiant) {
             return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
         }else{
            $request->validate([
@@ -173,7 +172,7 @@ class ReclamationController extends Controller
             $reclamation = new Reclamation();
             $reclamation->objet = $request->input('objet');
             $reclamation->message = $request->input('message');
-            $reclamation->chambres_id =$chambre->id;
+            $reclamation->etudiants_id =$etudiant->id;
            // dd($reclamation);
             if ($reclamation->save()) {
                 return response()->json([

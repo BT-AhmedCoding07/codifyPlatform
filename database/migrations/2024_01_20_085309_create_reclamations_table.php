@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('objet');
             $table->string('message');
             $table->enum('status',['En cours','Traité'])->default('En cours');
-            $table->unsignedBigInteger('chambres_id');
+            $table->unsignedBigInteger('etudiants_id');
+            $table->foreign('etudiants_id')->references('id')->on('etudiants')->onDelete('cascade');
             $table->timestamps();
         });
     }

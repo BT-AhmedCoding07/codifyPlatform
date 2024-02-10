@@ -25,6 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('users_id');
             $table->unsignedBigInteger('statuts_id');
             $table->unsignedBigInteger('chambres_id')->nullable();
+            $table->foreign('chambres_id')->references('id')->on('chambres')->onDelete('cascade');
             $table->timestamps();
         });
     }

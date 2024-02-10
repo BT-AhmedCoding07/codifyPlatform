@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('status',['Inactif','Actif'])->default('Actif');
             $table->string('photo_profile')->nullable();
             $table->unsignedBigInteger('roles_id');
+            $table->foreign('roles_id')->references('id')->on('roles')->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -12,13 +12,13 @@ class Reclamation extends Model
     protected $fillable = [
         'objet',
         'message',
-        'chambres_id'
+        'etudiants_id'
     ];
 
 
 
-    public function chambres()
+    public function etudiants()
     {
-        return $this->belongsTo(Chambre::class, "chambres_id");
+        return $this->belongsTo(Etudiant::class, "etudiants_id");
     }
 }

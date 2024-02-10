@@ -258,6 +258,7 @@ class UserController extends Controller
             ], 422);
         }
     }
+
     //Function Ajout Image
     // private function AjoutImage($image){
     //     return $image->store('photo_profile', 'public');
@@ -323,24 +324,24 @@ class UserController extends Controller
      * )
      */
 
-    public function validerEtudiant($etudiantId){
+    public function validerEtudiant($id){
 
         try {
-            $etudiant = Etudiant::findOrFail($etudiantId);
+            $etudiant = Etudiant::findOrFail($id);
             $user = User::where('id',$etudiant->users_id)->first();
             if ($etudiant->estAttribue == 1) {
                 return response()->json([
                     "message" => "L'étudiant a déjà été attribué."
                 ], 400);
+            }else{
+                $etudiant->update(['estAttribue' => 1]);
+                //dd($etudiant);
+                //Send To mail
+                Mail::to($user->email)->send(new Validation());
+                return response()->json([
+                    "message" => "Étudiant validé avec succès."
+                ], 200);
             }
-
-            $etudiant->update(['estAttribue' => 1]);
-            //logique mail
-            Mail::to($user->email)->send(new Validation());
-            return response()->json([
-                "message" => "Étudiant validé avec succès."
-            ], 200);
-
         } catch (ModelNotFoundException $e) {
                 return response()->json(["message" => "Étudiant non trouvé"], 404);
         }
