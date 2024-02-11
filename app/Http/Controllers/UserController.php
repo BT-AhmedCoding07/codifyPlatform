@@ -327,7 +327,7 @@ class UserController extends Controller
     public function validerEtudiant($id){
 
         try {
-            $etudiant = Etudiant::findOrFail($id);
+            $etudiant = Etudiant::find($id);
             $user = User::where('id',$etudiant->users_id)->first();
             if ($etudiant->estAttribue == 1) {
                 return response()->json([

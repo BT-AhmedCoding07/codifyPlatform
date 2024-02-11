@@ -1,0 +1,127 @@
+<?php
+
+namespace App\Http\Controllers;
+
+//use App\Models\Payment;
+use App\Models\Payment;
+use function Ramsey\Uuid\v1;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+use App\Http\Services\PaytechService;
+use App\Http\Requests\PayementRequest;
+use Illuminate\Support\Facades\Redirect;
+
+class PayementController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     */
+
+    public function index()
+    {
+
+        return view('index');
+    }
+
+
+public function payment(PayementRequest $request)
+{
+    $validated = $request->validated();
+
+    // send info to api paytech
+    $IPN_URL = 'https://urltowebsite.com';
+
+    $amount = $validated['price'];
+    $mois = $validated['mois'];
+    $code = "47";
+
+    $success_url = route('payment.success', [
+        'code' => $code,
+        'data' => [
+            'amount' => $request->price,
+            'mois' => $mois
+        ],
+    ]);
+
+    // The success_url takes two parameters: the first one can be product id and the other all data retrieved from the form
+
+    $cancel_url = route('payment.index');
+    $paymentService = new PaytechService(config('paytech.PAYTECH_API_KEY'), config('paytech.PAYTECH_SECRET_KEY'));
+
+    $jsonResponse = $paymentService->setQuery([
+        'item_price' => $amount,
+        'mois' => $mois,
+        'command_name' => "Votre paiement mensuelle a été effectué avec succès",
+    ])
+    ->setCustomeField([
+            'time_command' => time(),
+            'ip_user' => $_SERVER['REMOTE_ADDR'],
+            'lang' => $_SERVER['HTTP_ACCEPT_LANGUAGE'],
+    ])
+    ->setTestMode(true) // Change it to false if you are turning in production
+    ->setCurrency("xof")
+    ->setRefCommand(uniqid())
+    ->setNotificationUrl([
+            'ipn_url' => $IPN_URL . '/ipn',
+            'success_url' => $success_url,
+            'cancel_url' => $cancel_url,
+            ])->send();
+            // dd($jsonResponse);
+        if ($jsonResponse['success'] < 0) {
+            // return back()->withErrors($jsonResponse['errors'][0]);
+            return 'error';
+        } elseif ($jsonResponse['success'] == 1) {
+            // Redirection to Paytech website for completing checkout
+            $token = $jsonResponse['token'];
+            //$token = random_int(1,1000);
+            session(['token' => $token]);
+            return redirect($jsonResponse['redirect_url']);
+        }
+}
+
+
+
+    public function success(Request $request, $code)
+    {
+
+       // $token = session('token') ?? '';
+        $token = random_int(1,1000);
+        $data = $request->query('data');
+       // dd($token);
+        if (!$token || !$data) {
+            return redirect()->route('payment.index')->withErrors('Token ou données manquants');
+        }
+       // dd($data);
+        $data['token'] = $token;
+
+        $payment = Payment::firstOrCreate([
+            'token' => 1,
+        ], [
+            'amount' => $data['amount'],
+            'mois' => $data['mois']
+        ]);
+
+        if (!$payment) {
+            return redirect()->route('payment.index')->withErrors('Échec de la sauvegarde du paiement');
+        }
+
+        session()->forget('token');
+
+        return view('success');
+    }
+
+
+    public function paymentSuccessView(Request $request, $code)
+    {
+
+
+        return view('vendor.paytech.success'/* , compact('record') */)->with('success', 'Félicitation, Votre paiement est éffectué avec succès');
+    }
+
+    public function cancel()
+    {
+        # code...
+    }
+}

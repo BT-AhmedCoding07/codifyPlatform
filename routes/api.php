@@ -1,14 +1,15 @@
 <?php
 
+use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\PavillonController;
+use App\Http\Controllers\PayementController;
 use App\Http\Controllers\ReclamationController;
-use App\Models\Role;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -143,5 +144,11 @@ Route::post('/me', '\App\Http\Controllers\AuthController@me');
 
 Route::get('/me', '\App\Http\Controllers\AuthController@me');
 
+//Paiement
 
-
+Route::get('payment', [PayementController::class, 'index'])->name('payment.index');
+Route::post('/checkout', [PayementController::class, 'payment'])->name('payment.submit');
+Route::get('ipn', [PayementController::class, 'ipn'])->name('paytech-ipn');
+Route::get('payment-success/{code}', [PayementController::class, 'success'])->name('payment.success');
+Route::get('payment/{code}/success', [PayementController::class, 'paymentSuccessView'])->name('payment.success.view');
+Route::get('payment-cancel', [PayementController::class, 'cancel'])->name('paytech.cancel');

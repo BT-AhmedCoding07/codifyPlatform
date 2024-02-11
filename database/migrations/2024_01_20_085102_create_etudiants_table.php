@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('INE')->unique(); //N01662320222
             $table->enum('sexe',['Homme','Femme']);
-            $table->string('date_naissance');
+            $table->date('date_naissance');
             $table->string('lieu_naissance');
             $table->string('adresse');
             $table->string('niveau_etudes');
