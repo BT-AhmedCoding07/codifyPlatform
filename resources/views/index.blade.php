@@ -144,9 +144,10 @@
                             <div class="form-group">
                                 <input type="number" name="price" value="3000" class="form-control" placeholder="Montant" readonly>
                             </div>
-                            <div class="form-group">
-                                <select name="mois" class="from-control">
-                                    <option value="1" selected>Janvier</option>
+                            <div class="from-group  mb-3">
+                                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                    <option selected>Selectionné le mois à payer</option>
+                                    <option value="1">Janvier</option>
                                     <option value="2">Février</option>
                                     <option value="3">Mars</option>
                                     <option value="4">Avril</option>
@@ -157,7 +158,7 @@
                                     <option value="9">Septembre</option>
                                     <option value="10">Octobre</option>
                                     <option value="11">Novembre</option>
-                                    <option value="12">Décembre</option>
+                                    <option value="12">Decembre</option>
                                 </select>
                             </div>
                             <div class="form-group">
