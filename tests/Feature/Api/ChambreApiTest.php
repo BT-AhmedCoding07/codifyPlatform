@@ -41,30 +41,45 @@ class ChambreApiTest extends TestCase
             'type_chambre'=> 'Partagée',
             'nombres_lits'=> 2,
             'nombres_limites'=> 4,
-            'pavillons_id'=> 1,
-            'etudiants_id'=> 1
         ]);
         $response->assertStatus(200);
 
     }
     public function test_delete_chambre(): void
     {
-        $user = User::factory()->create();
         $response = $this->post('/api/auth/login', [
-            'email' => $user->email,
+            'email' => 'email@email.com',
             'password' => 'password',
         ]);
-        $response = $this->delete('api/chambre/delete/{id}');
+        $response = $this->delete('api/admin/chambre/delete/{id}');
         $response->assertStatus(200);
     }
 
     public function test_show_a_chambre_by_id(): void
     {
+        $response = $this->post('/api/auth/login', [
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ]);
         $response = $this->get('api/chambre/read/{id}');
+        $response->assertStatus(200);
+    }
+    //ADMIN
+    public function test_show_a_chambre_by_id_by_admin(): void
+    {
+        $response = $this->post('/api/auth/login', [
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ]);
+        $response = $this->get('api/admin/chambre/read/{id}');
         $response->assertStatus(200);
     }
     public function test_listes_chambre(): void
     {
+        $response = $this->post('/api/auth/login', [
+            'email' => 'email@email.com',
+            'password' => 'password',
+        ]);
         $response = $this->get('api/chambres');
         $response->assertStatus(200);
     }
