@@ -363,6 +363,7 @@ class UserController extends Controller
             foreach($etudiants as $etudiant){
                 $user=$etudiant->users;
                 $data[]=[
+                    'id' =>$user->id,
                     'nom' => $user->nom,
                     'prenom' => $user->prenom,
                     'email' => $user->email,
@@ -392,6 +393,7 @@ class UserController extends Controller
         foreach($etudiants as $etudiant){
             $user=$etudiant->users;
             $data[]=[
+                'id' =>$user->id,
                 'nom' => $user->nom,
                 'prenom' => $user->prenom,
                 'email' => $user->email,
@@ -461,7 +463,7 @@ class UserController extends Controller
       public function listesProfils(){
         $users = User::whereIn('roles_id', [2, 3])
             ->join('roles', 'users.roles_id', '=', 'roles.id')
-            ->select('users.nom', 'users.prenom', 'users.email', 'users.telephone', 'users.status','roles.nomRole')
+            ->select('users.id','users.nom', 'users.prenom', 'users.email', 'users.telephone', 'users.status','roles.nomRole')
             ->get();
         return response()->json([
             "Utilisateurs" => $users

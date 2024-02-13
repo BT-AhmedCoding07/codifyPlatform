@@ -146,8 +146,7 @@
                             </div>
                             <div class="from-group  mb-3">
                                 <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                                    <option selected>Selectionné le mois à payer</option>
-                                    <option value="1">Janvier</option>
+                                    <option value="1" selected>Janvier</option>
                                     <option value="2">Février</option>
                                     <option value="3">Mars</option>
                                     <option value="4">Avril</option>
