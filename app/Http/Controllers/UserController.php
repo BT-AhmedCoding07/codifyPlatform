@@ -339,7 +339,8 @@ class UserController extends Controller
                 //Send To mail
                 Mail::to($user->email)->send(new Validation());
                 return response()->json([
-                    "message" => "Étudiant validé avec succès."
+                    "message" => "Étudiant validé avec succès.",
+                    "Etudiant" =>$etudiant,
                 ], 200);
             }
         } catch (ModelNotFoundException $e) {
