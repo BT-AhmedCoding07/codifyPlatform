@@ -16,16 +16,14 @@ class ChambreApiTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->post('/api/auth/login', [
-            'email' => $user->email,
-            'password' => 'password',
+            'email' =>'admin@gmail.com',
+            'password' => 'Admin123@',
         ]);
-        $response = $this->post('api/admin/chambre/create', [
+        $response = $this->post('api/admin/chambre/create/1', [
             'libelle'=> 'chambre A1',
             'type_chambre'=> 'Partagée',
             'nombres_lits'=> 4,
             'nombres_limites'=> 8,
-            'pavillons_id'=> 1,
-            'etudiants_id'=> 1
         ]);
         $response->assertStatus(200);
 
@@ -35,8 +33,8 @@ class ChambreApiTest extends TestCase
     {
         $user = User::factory()->create();
         $response = $this->post('/api/auth/login', [
-            'email' => $user->email,
-            'password' => 'password',
+            'email' => 'admin@gmail.com',
+            'password' => 'Admin123@',
         ]);
         $response = $this->put('api/admin/chambre/update/{id}', [
             'libelle'=> 'chambre A1',

@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 //use App\Models\Payment;
 use App\Models\Payment;
+use App\Models\Etudiant;
 use function Ramsey\Uuid\v1;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
+use App\Http\Controllers\Controller;
 use App\Http\Services\PaytechService;
 use App\Http\Requests\PayementRequest;
 use Illuminate\Support\Facades\Redirect;
@@ -123,5 +124,20 @@ public function payment(PayementRequest $request)
     public function cancel()
     {
         # code...
+    }
+
+    public function fairePayement(){
+        $user = auth()->user();
+        $etudiant = Etudiant::where('users_id', $user->id)->first();
+        if (!$etudiant) {
+            return response()->json(['message' => "L'étudiant n'existe pas"], 404);
+        }else{
+            return response()->json([
+                'statut' => 'ok',
+                'payment_url' => "http://127.0.0.1:8000/api/payment"
+                ]);
+
+        }
+
     }
 }

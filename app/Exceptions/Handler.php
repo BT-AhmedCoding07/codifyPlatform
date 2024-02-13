@@ -3,11 +3,13 @@
 namespace App\Exceptions;
 
 use Throwable;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -62,6 +64,21 @@ class Handler extends ExceptionHandler
                     "message" => "Erreur interne du serveur"
                 ]);
             }
+        });
+        $this->reportable(function (\Illuminate\Auth\AuthenticationException $e) {
+            Log::error("Une erreur d'authentification s'est produite: " . $e->getMessage());
+        });
+
+        $this->reportable(function (\Illuminate\Validation\ValidationException $e) {
+            Log::error("Une exception de validation s'est produite: " . $e->getMessage());
+        });
+
+        $this->renderable(function (MethodNotAllowedHttpException $e, $request) {
+            return response()->json([
+                'error' => 'Vous avez utiliser une mauvaise methode',
+                'details' => 'La method utiliser n\est pas supporter',
+                'url' => 'Cette route ' . ' ' . $request->url() . ' ' . 'Supporte pas la methode utiliser',
+            ], 405);
         });
     }
     // public function render($request, Throwable $exception)

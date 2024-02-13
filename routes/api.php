@@ -128,6 +128,10 @@ Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@f
 Route::get('/historiquesReclamations', '\App\Http\Controllers\ReclamationController@historiqueReclamation');
 //Supprimer une reclamation
 Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
+
+//Faire un paiement
+Route::get('/FairePayement','\App\Http\Controllers\PayementController@fairePayement');
+
 });
 
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
