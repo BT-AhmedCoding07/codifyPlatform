@@ -145,7 +145,7 @@
                                 <input type="number" name="price" value="3000" class="form-control" placeholder="Montant" readonly>
                             </div>
                             <div class="from-group  mb-3">
-                                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                <select class="form-select form-select-sm" name="mois" aria-label=".form-select-sm example">
                                     <option value="1" selected>Janvier</option>
                                     <option value="2">Février</option>
                                     <option value="3">Mars</option>

@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Codify Platform API",
-        "description": "Ce documentation vise à definir les endpoints à utiliser",
+        "description": "Ce documentation vise à definir les endpoints",
         "version": "1.0.0"
     },
     "security": [

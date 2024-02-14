@@ -27,7 +27,9 @@ use App\Http\Controllers\ReclamationController;
 //     return response()->json($userRole->nomRole);
 // });
 
-
+/**
+ * *********************************[Administration ]******************************
+ */
 
 
 //Role Admin
@@ -91,7 +93,10 @@ Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@
  *Modifier un étudiant cas social
  *Route::put('/ModifierEtudiantsCasSocial', '\App\Http\Controllers\UserController@modifierEtudiantCasSocial');
 */
-//Role = Chef de Service Pédagogique
+
+/**
+ * *********************************[Chef de Service Pédagogique]******************************
+ */
 Route::middleware(['auth:api','role'])->group(function(){
 /**Gestion des étudiants par mérite */
 //Ajouter un étudiant
@@ -101,6 +106,9 @@ Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@liste
 //Lister detail d'un etudiant
 Route::get('/detailEtudiant/Merite/{id}','\App\Http\Controllers\UserController@detailEtudiantMerite');
 });
+/**
+ * *********************************[Chef Pavillon]******************************
+ */
 //Role = Chef de pavillon
 Route::middleware(['auth:api','profil'])->group(function(){
 /**Gestion des chambres */
@@ -120,6 +128,9 @@ Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationControl
 //Supprimer une reclamation
 Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 });
+/**
+ * *********************************[Etudiant]******************************
+ */
 //Etudiant
 Route::middleware(['auth:api','etudiant'])->group(function(){
 //Faire une reclamation
@@ -133,7 +144,9 @@ Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\Reclam
 Route::get('/FairePayement','\App\Http\Controllers\PayementController@fairePayement');
 
 });
-
+/**
+ * *********************************[Authentification]******************************
+ */
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
 //Login User
 Route::post('/login', '\App\Http\Controllers\AuthController@login');
@@ -148,7 +161,9 @@ Route::post('/me', '\App\Http\Controllers\AuthController@me');
 
 Route::get('/me', '\App\Http\Controllers\AuthController@me');
 
-//Paiement
+/**
+ * ********************************[Paiement]*************************************
+ */
 
 Route::get('payment', [PayementController::class, 'index'])->name('payment.index');
 Route::post('/checkout', [PayementController::class, 'payment'])->name('payment.submit');

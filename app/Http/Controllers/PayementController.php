@@ -29,6 +29,7 @@ class PayementController extends Controller
 
 public function payment(PayementRequest $request)
 {
+    //dd($request);
     $validated = $request->validated();
 
     // send info to api paytech
