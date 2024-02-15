@@ -10,28 +10,28 @@ use Illuminate\Support\Facades\Hash;
 
 class UserApiTest extends TestCase
 {
-    public function test_can_login_user_with_email()
-    {
-        $userData = [
-            'email' => 'admin@gmail.com',
-            'password' => 'Admin123@'
-        ];
-        $response = $this->postJson('/api/auth/login', $userData);
-        $response->assertStatus(200);
-
-    }
-
-
-    // public function test_user_can_logout()
+    // public function test_can_login_user_with_email()
     // {
-
-    //     $response = $this->post('/api/auth/login', [
+    //     $userData = [
     //         'email' => 'admin@gmail.com',
-    //         'password' => 'password',
-    //     ]);
-    //     $response = $this->post('/api/auth/logout');
-    //     $this->assertGuest();
+    //         'password' => 'Admin123@'
+    //     ];
+    //     $response = $this->postJson('/api/auth/login', $userData);
     //     $response->assertStatus(200);
-    //     // dump($response->json());
+
     // }
+
+
+    public function test_user_can_logout()
+    {
+
+        $response = $this->post('/api/auth/login', [
+            'email' => 'admin@gmail.com',
+            'password' => 'Admin123@',
+        ]);
+        $response = $this->post('/api/auth/logout');
+        $this->assertGuest();
+        $response->assertStatus(200);
+        // dump($response->json());
+    }
 }

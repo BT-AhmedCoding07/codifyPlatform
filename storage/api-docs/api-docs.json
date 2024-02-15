@@ -1,8 +1,8 @@
 {
     "openapi": "3.0.0",
     "info": {
-        "title": "Codify Platform API",
-        "description": "Ce documentation vise à definir les endpoints",
+        "title": "CODIFY PLATFORM",
+        "description": "Un Api de Mise en place d'une plateforme de gestion de codification de L'UCAD ",
         "version": "1.0.0"
     },
     "security": [
@@ -2245,7 +2245,7 @@
                 }
             }
         },
-        "/api/ValiderEtudiant/update/{id}": {
+        "/api/ValiderEtudiant/update/1": {
             "put": {
                 "summary": "Valider un étudiant",
                 "description": "",

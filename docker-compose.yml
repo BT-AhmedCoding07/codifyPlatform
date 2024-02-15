@@ -3,21 +3,19 @@ services:
     # Mysql database container
     db:
         image: mysql
-        container_name: codify_db
+        container_name: codify_db_laravel
         restart: always
         volumes:
             - db-data:/var/lib/mysql
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: 'yes'
-        ports:
-            - '3306'
         networks:
-            - tutorial
+            - codify
 
     # phpmyadmin container
     phpmyadmin:
         image: phpmyadmin
-        container_name: gestion_codify_platform_phpmyadmin
+        container_name: codify_phpmyadmin
         restart: always
         depends_on:
             - db
@@ -26,12 +24,12 @@ services:
         environment:
             PMA_HOST: db
         networks:
-            - tutorial
+            - codify
 
-    # laravel apache project container
+    # Symfony apache project container
     www:
         build: docker/php
-        container_name: gestion_codify_platform
+        container_name: codify_laravel
         ports:
           - "8741:80"
         volumes:
@@ -39,10 +37,10 @@ services:
             - ./:/var/www
         restart: always
         networks:
-            - tutorial
+            - codify
 
 networks:
-    tutorial:
+    codify:
 
 volumes:
     db-data:
