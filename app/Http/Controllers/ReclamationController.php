@@ -105,20 +105,22 @@ class ReclamationController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la modification du statut de la réclamation."),
      * )
      */
-    public function traiterUneReclamation(Request $request, $etudiantId){
+    public function traiterUneReclamation(Request $request, $reclamationId)
+    {
         try {
             $request->validate([
-                'status' => 'required|in:En Cours,Traité',
+                'status' => 'required|in:Cours,Traité',
             ]);
-            $etudiant = Etudiant::findOrFail($etudiantId);
 
-            if ($etudiant->update(['status' => $request->input('status')])) {
+            $reclamation = Reclamation::findOrFail($reclamationId);
+
+            if ($reclamation->update(['status' => $request->input('status')])) {
                 return response()->json([
-                    "message" => "Statut de la réclamation traité avec succès",
-                    "profil" => [$etudiant],
+                    "message" => "Réclamation traitée avec succès",
+                    "Réclamation" => [$reclamation],
                 ]);
             } else {
-                return response()->json(["message" => "Impossible de modifier le statut de réclamation"]);
+                return response()->json(["message" => "Impossible de traiter une réclamation"]);
             }
         } catch (ValidationException $e) {
             return response()->json([
@@ -126,6 +128,7 @@ class ReclamationController extends Controller
             ], 422);
         }
     }
+
     public function historiqueReclamation() {
         $user = auth()->user();
         $etudiant = Etudiant::where('users_id', $user->id)->first();
@@ -158,33 +161,68 @@ class ReclamationController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la création de la réclamation."),
      * )
      */
-    public function faireReclamation(Request $request){
+    // public function faireReclamation(Request $request){
+    //     $user = auth()->user();
+    //     $etudiant = Etudiant::where('users_id', $user->id)->first();
+    //     if (!$etudiant) {
+    //         return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
+    //     }else{
+    //        $request->validate([
+    //             'objet' => ['required'],
+    //             'message' => ['required'],
+    //             //'chambres_id' => $chambre->id,
+    //             ]);
+    //         $reclamation = new Reclamation();
+    //         $reclamation->objet = $request->input('objet');
+    //         $reclamation->message = $request->input('message');
+    //         $reclamation->etudiants_id =$etudiant->id;
+    //        // dd($reclamation);
+    //         if ($reclamation->save()) {
+    //             return response()->json([
+    //                 'Message' => 'Success!',
+    //                 'Réclamation created' => $reclamation
+    //             ], 200);
+    //         } else {
+    //             return response([
+    //                 'Message' => 'Création réclamation impossible.',
+    //             ], 500);
+    //         }
+    //     }
+    // }
+    public function faireReclamation(Request $request) {
         $user = auth()->user();
         $etudiant = Etudiant::where('users_id', $user->id)->first();
+
         if (!$etudiant) {
             return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
-        }else{
-           $request->validate([
+        } else {
+            $request->validate([
                 'objet' => ['required'],
                 'message' => ['required'],
-                //'chambres_id' => $chambre->id,
-                ]);
-            $reclamation = new Reclamation();
-            $reclamation->objet = $request->input('objet');
-            $reclamation->message = $request->input('message');
-            $reclamation->etudiants_id =$etudiant->id;
-           // dd($reclamation);
-            if ($reclamation->save()) {
-                return response()->json([
-                    'Message' => 'Success!',
-                    'Réclamation created' => $reclamation
-                ], 200);
+            ]);
+
+            // Vérifier si l'étudiant a un champ 'estAttribue' égal à 1
+            // et si le champ 'chambres_id' est null
+            if ($etudiant->estAttribue === 1 && $etudiant->chambres_id !== null) {
+                $reclamation = new Reclamation();
+                $reclamation->objet = $request->input('objet');
+                $reclamation->message = $request->input('message');
+                $reclamation->etudiants_id = $etudiant->id;
+                if ($reclamation->save()) {
+                    return response()->json([
+                        'Message' => 'Success!',
+                        'Réclamation created' => $reclamation
+                    ], 200);
+                } else {
+                    return response([
+                        'Message' => 'Création réclamation impossible.',
+                    ], 500);
+                }
             } else {
-                return response([
-                    'Message' => 'Création réclamation impossible.',
-                ], 500);
+                return response()->json(["message" => "L'étudiant n'est pas autorisé à faire une réclamation"]);
             }
         }
     }
+
 
 }
