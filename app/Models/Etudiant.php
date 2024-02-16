@@ -41,4 +41,8 @@ class Etudiant extends Model
     {
         return $this->belongsTo(Reclamation::class);
     }
+    public function payements()
+    {
+        return $this->hasMany(Payment::class);
+    }
 }

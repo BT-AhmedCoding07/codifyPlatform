@@ -127,6 +127,8 @@ Route::get('/detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationCon
 Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationController@traiterUneReclamation');
 //Supprimer une reclamation
 Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
+
+
 });
 /**
  * *********************************[Etudiant]******************************
@@ -142,7 +144,8 @@ Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\Reclam
 
 //Faire un paiement
 Route::get('/FairePayement','\App\Http\Controllers\PayementController@fairePayement');
-
+//Historique de payement
+Route::get('/historiquePayement', '\App\Http\Controllers\PayementController@historiquesPayements');
 });
 /**
  * *********************************[Authentification]******************************
@@ -156,6 +159,7 @@ Route::post('/logout', '\App\Http\Controllers\AuthController@logout');
 Route::post('/refresh', '\App\Http\Controllers\AuthController@refresh');
 //Utilisateur Connecter
 Route::post('/me', '\App\Http\Controllers\AuthController@me');
+
 });
 //Utilisateur connecté
 

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('token')->unique()->nullable();
             $table->integer('amount');
             $table->integer('mois');
+            $table->unsignedBigInteger('etudiants_id');
+            $table->foreign('etudiants_id')->references('id')->on('etudiants')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });

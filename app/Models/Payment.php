@@ -11,6 +11,11 @@ class Payment extends Model
 
     protected $fillable = [
         'amount',
-        'mois'
+        'mois',
+        'etudiants_id'
     ];
+    public function etudiants()
+    {
+        return $this->belongsTo(Etudiant::class,'etudiants_id');
+    }
 }

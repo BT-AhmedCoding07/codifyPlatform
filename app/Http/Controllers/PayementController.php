@@ -138,6 +138,23 @@ public function payment(PayementRequest $request)
                 'payment_url' => "http://127.0.0.1:8000/api/payment"
                 ]);
         }
+    }
+    public function listesEtudiantsPayer(){
 
+    }
+    public function historiquesPayements(){
+        $user = auth()->user();
+        $etudiant = Etudiant::where('users_id', $user->id)->first();
+       // dd($etudiant);
+        if (!$etudiant) {
+            return response()->json(['message' => 'Aucune chambre associée à cet étudiant'], 404);
+        }else{
+            $payement = Payment::where("etudiants_id", $etudiant->id)->get();
+            if(!$payement){
+                return response()->json(['message' => 'Aucun payement  à éffectuer '], 404);
+            }else{
+                return response()->json(['Historiques'=> $payement], 201);
+            }
+        }
     }
 }

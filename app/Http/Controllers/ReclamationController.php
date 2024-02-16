@@ -105,17 +105,17 @@ class ReclamationController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la modification du statut de la réclamation."),
      * )
      */
-    public function traiterUneReclamation(Request $request, $chambreId){
+    public function traiterUneReclamation(Request $request, $etudiantId){
         try {
             $request->validate([
                 'status' => 'required|in:En Cours,Traité',
             ]);
-            $chambre = Chambre::findOrFail($chambreId);
+            $etudiant = Etudiant::findOrFail($etudiantId);
 
-            if ($chambre->update(['status' => $request->input('status')])) {
+            if ($etudiant->update(['status' => $request->input('status')])) {
                 return response()->json([
                     "message" => "Statut de la réclamation traité avec succès",
-                    "profil" => [$chambre],
+                    "profil" => [$etudiant],
                 ]);
             } else {
                 return response()->json(["message" => "Impossible de modifier le statut de réclamation"]);
