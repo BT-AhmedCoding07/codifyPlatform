@@ -36,7 +36,7 @@ CREATE TABLE `chambres` (
   UNIQUE KEY `chambres_libelle_unique` (`libelle`),
   KEY `chambres_pavillons_id_foreign` (`pavillons_id`),
   CONSTRAINT `chambres_pavillons_id_foreign` FOREIGN KEY (`pavillons_id`) REFERENCES `pavillons` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,6 @@ CREATE TABLE `chambres` (
 
 LOCK TABLES `chambres` WRITE;
 /*!40000 ALTER TABLE `chambres` DISABLE KEYS */;
-INSERT INTO `chambres` VALUES (1,'Chambre A1','Partagée',2,'1 ans',4,1,'2024-02-12 12:53:49','2024-02-12 12:53:49'),(2,'Chambre A2','Individuelle',1,'1 ans',2,1,'2024-02-12 12:54:11','2024-02-12 12:54:11'),(3,'Chambre A3','Individuelle',1,'1 ans',2,1,'2024-02-12 12:54:28','2024-02-12 12:54:28'),(4,'Chambre B1','Partagée',4,'1 ans',8,2,'2024-02-12 12:54:59','2024-02-12 12:54:59'),(5,'Chambre B2','Partagée',4,'1 ans',8,2,'2024-02-12 12:55:11','2024-02-12 12:55:11');
 /*!40000 ALTER TABLE `chambres` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -76,7 +75,7 @@ CREATE TABLE `etudiants` (
   UNIQUE KEY `etudiants_ine_unique` (`INE`),
   KEY `etudiants_chambres_id_foreign` (`chambres_id`),
   CONSTRAINT `etudiants_chambres_id_foreign` FOREIGN KEY (`chambres_id`) REFERENCES `chambres` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -85,7 +84,6 @@ CREATE TABLE `etudiants` (
 
 LOCK TABLES `etudiants` WRITE;
 /*!40000 ALTER TABLE `etudiants` DISABLE KEYS */;
-INSERT INTO `etudiants` VALUES (1,'N01662320221','Homme','1990-01-12','Dakar','Dakar','Licence 3','Informatique',15.00,1,5,2,1,'2024-02-12 13:40:52','2024-02-13 19:06:44');
 /*!40000 ALTER TABLE `etudiants` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +182,7 @@ CREATE TABLE `pavillons` (
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `pavillons_libelle_unique` (`libelle`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -193,7 +191,6 @@ CREATE TABLE `pavillons` (
 
 LOCK TABLES `pavillons` WRITE;
 /*!40000 ALTER TABLE `pavillons` DISABLE KEYS */;
-INSERT INTO `pavillons` VALUES (1,'Pavillon A','Homme',4,600,'2024-02-12 12:51:10','2024-02-12 12:51:10'),(2,'Pavillon B','Femme',4,500,'2024-02-12 12:51:27','2024-02-12 12:51:27'),(3,'Pavillon C','Homme',4,400,'2024-02-12 12:51:42','2024-02-12 12:51:42'),(4,'Pavillon D','Mixte',4,300,'2024-02-12 12:51:57','2024-02-12 12:51:57'),(5,'Pavillon E','Homme',4,250,'2024-02-12 12:52:55','2024-02-12 12:52:55');
 /*!40000 ALTER TABLE `pavillons` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -209,12 +206,15 @@ CREATE TABLE `payments` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `amount` int NOT NULL,
   `mois` int NOT NULL,
+  `etudiants_id` bigint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `payments_token_unique` (`token`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  UNIQUE KEY `payments_token_unique` (`token`),
+  KEY `payments_etudiants_id_foreign` (`etudiants_id`),
+  CONSTRAINT `payments_etudiants_id_foreign` FOREIGN KEY (`etudiants_id`) REFERENCES `etudiants` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +223,6 @@ CREATE TABLE `payments` (
 
 LOCK TABLES `payments` WRITE;
 /*!40000 ALTER TABLE `payments` DISABLE KEYS */;
-INSERT INTO `payments` VALUES (1,NULL,3000,1,'2024-02-11 00:18:21','2024-02-11 00:18:21',NULL),(2,NULL,3000,2,'2024-02-11 00:21:09','2024-02-11 00:21:09',NULL),(3,NULL,3000,1,'2024-02-11 23:52:29','2024-02-11 23:52:29',NULL);
 /*!40000 ALTER TABLE `payments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -271,7 +270,7 @@ CREATE TABLE `reclamations` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `objet` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `message` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('En cours','Traité') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'En cours',
+  `status` enum('Ouvert','Traité') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Ouvert',
   `etudiants_id` bigint unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -312,7 +311,7 @@ CREATE TABLE `roles` (
 
 LOCK TABLES `roles` WRITE;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` VALUES (1,'admin','2024-02-10 23:17:35','2024-02-10 23:17:36'),(2,'chefPavillon','2024-02-10 23:17:47','2024-02-10 23:17:48'),(3,'chefPedagogique','2024-02-10 23:18:05','2024-02-10 23:18:06'),(4,'etudiants','2024-02-10 23:18:15','2024-02-10 23:18:16');
+INSERT INTO `roles` VALUES (1,'admin','2024-02-16 02:39:28','2024-02-16 02:39:29'),(2,'chefPavillon','2024-02-16 02:39:38','2024-02-16 02:39:40'),(3,'chefPedagogique','2024-02-16 02:39:57','2024-02-16 02:39:58'),(4,'etudiants','2024-02-16 02:42:15','2024-02-16 02:42:16');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -366,7 +365,7 @@ CREATE TABLE `users` (
   UNIQUE KEY `users_email_unique` (`email`),
   KEY `users_roles_id_foreign` (`roles_id`),
   CONSTRAINT `users_roles_id_foreign` FOREIGN KEY (`roles_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -375,7 +374,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin','admin','admin@gmail.com',NULL,'$2y$12$BrCdTPaKdnVPrd8UdLmRrOOUAF/fU3DVLmjllAMJa13aaPUvcgoUK','770000000','Actif',NULL,1,NULL,'2024-02-10 23:18:39','2024-02-10 23:18:39'),(2,'ChefPedaogique 1','UCAD','ChefPedaogique1@gmail.com',NULL,'$2y$12$mwypXrAhwwcSJY9k0eXnIeTW9gpwyaZ0TCYtvRWfanfRnYK3Fo/rG','770000001','Inactif',NULL,3,NULL,'2024-02-12 12:47:42','2024-02-12 16:21:44'),(3,'chef de Pavillon A','UCAD','chefpavillonA@gmail.com',NULL,'$2y$12$ILLCMhL47DypYG2mG4Ips.M9e5cD0f3n1.TOicyJh7LVo2Pq5QYUy','770000002','Actif',NULL,2,NULL,'2024-02-12 12:49:32','2024-02-12 12:49:32'),(4,'chef de Pavillon B','UCAD','chefpavillonB@gmail.com',NULL,'$2y$12$XG0IeKvFo39IP4XxPKBswe/HLlVM/b8ffVvk.8wfQQasdDvh/lcmi','770000003','Actif',NULL,2,NULL,'2024-02-12 12:49:47','2024-02-12 12:49:47'),(5,'Saly','Diop','dioufastou702@gmail.com',NULL,'$2y$12$UqouPDcXwoC0Vf.lEfjwa.pF4SQ2D6ZbaD6XMIEcN3c0JXEljh3we','770000001','Actif',NULL,4,NULL,'2024-02-12 13:40:52','2024-02-12 13:40:52');
+INSERT INTO `users` VALUES (2,'admin','admin','admin@gmail.com',NULL,'$2y$12$X2VcujK4tzVoKmR7EzVA5e.8DvL5BknvQUBMxKIZfs3jFakW4gXq.','770000000','Actif',NULL,1,NULL,'2024-02-16 02:42:46','2024-02-16 02:42:46');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -388,4 +387,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-02-15 15:25:07
+-- Dump completed on 2024-02-16  9:35:57
