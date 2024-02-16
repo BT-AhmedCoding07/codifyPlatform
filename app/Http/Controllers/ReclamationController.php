@@ -109,7 +109,7 @@ class ReclamationController extends Controller
     {
         try {
             $request->validate([
-                'status' => 'required|in:Cours,Traité',
+                'status' => 'required|in:Ouvert,Traité',
             ]);
 
             $reclamation = Reclamation::findOrFail($reclamationId);
