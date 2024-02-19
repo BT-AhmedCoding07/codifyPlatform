@@ -363,7 +363,7 @@ class UserController extends Controller
             foreach($etudiants as $etudiant){
                 $user=$etudiant->users;
                 $data[]=[
-                    'id' =>$user->id,
+                    'id'=> $etudiant['id'],
                     'nom' => $user->nom,
                     'prenom' => $user->prenom,
                     'email' => $user->email,
@@ -393,7 +393,7 @@ class UserController extends Controller
         foreach($etudiants as $etudiant){
             $user=$etudiant->users;
             $data[]=[
-                'id' =>$user->id,
+                'id' =>$etudiant['id'],
                 'nom' => $user->nom,
                 'prenom' => $user->prenom,
                 'email' => $user->email,
