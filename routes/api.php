@@ -85,6 +85,9 @@ Route::delete('/admin/chambre/delete/{id}', '\App\Http\Controllers\ChambreContro
 /**Gestion de validation des codifications */
 //Valider un étudiant non attribuer
 Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@validerEtudiant');
+//Lister les etudiants payer
+Route::get('/ListesDesPayements','\App\Http\Controllers\PayementController@listesPayments');
+//
 });
 /**
  * Perspectives :
@@ -145,7 +148,7 @@ Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\Reclam
 //Faire un paiement
 Route::get('/FairePayement','\App\Http\Controllers\PayementController@fairePayement');
 //Historique de payement
-Route::get('/historiquePayement', '\App\Http\Controllers\PayementController@historiquesPayements');
+Route::get('/HistoriquePayement', '\App\Http\Controllers\PayementController@historiquePayement');
 });
 /**
  * *********************************[Authentification]******************************

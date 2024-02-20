@@ -29,6 +29,7 @@ class PayementRequest extends FormRequest
         return [
             'price' => 'required',
             'mois' => 'required',
+            'etudiants_id' => 'required',
         ];
     }
 
@@ -45,7 +46,8 @@ class PayementRequest extends FormRequest
     public function messages(){
         return [
             'price.required'=>'le montant est requis',
-            'mois.required'=>'le mois est requis'
+            'mois.required'=>'le mois est requis',
+            'etudiants_id.required'=>'id existe',
         ];
     }
 }

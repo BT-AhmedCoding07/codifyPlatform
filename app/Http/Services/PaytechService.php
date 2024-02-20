@@ -83,6 +83,7 @@ class PaytechService
             // 'item_name' => PaytechService::arrayGet($this->query, 'item_name'),
             'item_price' => PaytechService::arrayGet($this->query, 'item_price'),
             'mois' => PaytechService::arrayGet($this->query, 'mois'),
+            'etudiants_id' => PaytechService::arrayGet($this->query, 'etudiants_id'),
             'command_name' => PaytechService::arrayGet($this->query, 'command_name'),
             'ref_command' => $this->refCommand,
             'env' => ($this->testMode) ? 'test' : 'prod',

@@ -26,62 +26,76 @@ class PayementController extends Controller
         return view('index');
     }
 
+    public function create(){
+        $payment = new Payment();
+        return view('index', compact('payment'));
+    }
+    public function payment(PayementRequest $request)
+    {
+        //dd($request);
+        $validated = $request->validated();
 
-public function payment(PayementRequest $request)
-{
-    //dd($request);
-    $validated = $request->validated();
 
-    // send info to api paytech
-    $IPN_URL = 'https://urltowebsite.com';
+        //etudiant connecté
 
-    $amount = $validated['price'];
-    $mois = $validated['mois'];
-    $code = "47";
 
-    $success_url = route('payment.success', [
-        'code' => $code,
-        'data' => [
-            'amount' => $request->price,
-            'mois' => $mois
-        ],
-    ]);
+        // send info to api paytech
+        $IPN_URL = 'https://urltowebsite.com';
 
-    // The success_url takes two parameters: the first one can be product id and the other all data retrieved from the form
+        $amount = $validated['price'];
+        $mois = $validated['mois'];
+        $etudiants_id =$validated['etudiants_id'];
+        $code = "47";
+        // if (!$etudiant) {
+        //     return response()->json(['message' => "L'etudiant n'est pas encore bénéficiaire ou n'existe pas"], 404);
+        // }
+        // $payement = new Payment();
+        $success_url = route('payment.success', [
+            'code' => $code,
+            'data' => [
+                'amount' => $request->price,
+                'mois' => $mois,
+                'etudiants_id'=> $etudiants_id,
+            //$payement->etudiants_id = $etudiant->id,
+            ],
+        ]);
 
-    $cancel_url = route('payment.index');
-    $paymentService = new PaytechService(config('paytech.PAYTECH_API_KEY'), config('paytech.PAYTECH_SECRET_KEY'));
+        // The success_url takes two parameters: the first one can be product id and the other all data retrieved from the form
 
-    $jsonResponse = $paymentService->setQuery([
-        'item_price' => $amount,
-        'mois' => $mois,
-        'command_name' => "Votre paiement mensuelle a été effectué avec succès",
-    ])
-    ->setCustomeField([
-            'time_command' => time(),
-            'ip_user' => $_SERVER['REMOTE_ADDR'],
-            'lang' => $_SERVER['HTTP_ACCEPT_LANGUAGE'],
-    ])
-    ->setTestMode(true) // Change it to false if you are turning in production
-    ->setCurrency("xof")
-    ->setRefCommand(uniqid())
-    ->setNotificationUrl([
-            'ipn_url' => $IPN_URL . '/ipn',
-            'success_url' => $success_url,
-            'cancel_url' => $cancel_url,
-            ])->send();
-            // dd($jsonResponse);
-        if ($jsonResponse['success'] < 0) {
-            // return back()->withErrors($jsonResponse['errors'][0]);
-            return 'error';
-        } elseif ($jsonResponse['success'] == 1) {
-            // Redirection to Paytech website for completing checkout
-            $token = $jsonResponse['token'];
-            //$token = random_int(1,1000);
-            session(['token' => $token]);
-            return redirect($jsonResponse['redirect_url']);
-        }
-}
+        $cancel_url = route('payment.index');
+        $paymentService = new PaytechService(config('paytech.PAYTECH_API_KEY'), config('paytech.PAYTECH_SECRET_KEY'));
+
+        $jsonResponse = $paymentService->setQuery([
+            'item_price' => $amount,
+            'mois' => $mois,
+            'etudiants_id'=> $etudiants_id,
+            'command_name' => "Votre paiement mensuelle a été effectué avec succès",
+        ])
+        ->setCustomeField([
+                'time_command' => time(),
+                'ip_user' => $_SERVER['REMOTE_ADDR'],
+                'lang' => $_SERVER['HTTP_ACCEPT_LANGUAGE'],
+        ])
+        ->setTestMode(true) // Change it to false if you are turning in production
+        ->setCurrency("xof")
+        ->setRefCommand(uniqid())
+        ->setNotificationUrl([
+                'ipn_url' => $IPN_URL . '/ipn',
+                'success_url' => $success_url,
+                'cancel_url' => $cancel_url,
+                ])->send();
+                // dd($jsonResponse);
+            if ($jsonResponse['success'] < 0) {
+                // return back()->withErrors($jsonResponse['errors'][0]);
+                return 'error';
+            } elseif ($jsonResponse['success'] == 1) {
+                // Redirection to Paytech website for completing checkout
+                $token = $jsonResponse['token'];
+                //$token = random_int(1,1000);
+                session(['token' => $token]);
+                return redirect($jsonResponse['redirect_url']);
+            }
+    }
 
 
 
@@ -102,7 +116,8 @@ public function payment(PayementRequest $request)
             'token' => 1,
         ], [
             'amount' => $data['amount'],
-            'mois' => $data['mois']
+            'mois' => $data['mois'],
+            'etudiants_id'=>$data['etudiants_id'],
         ]);
 
         if (!$payment) {
@@ -130,19 +145,18 @@ public function payment(PayementRequest $request)
     public function fairePayement(){
         $user = auth()->user();
         $etudiant = Etudiant::where('users_id', $user->id)->first();
+        $etudiant_id = $etudiant->id;
         if (!$etudiant) {
             return response()->json(['message' => "L'étudiant n'existe pas"], 404);
         }else{
             return response()->json([
                 'statut' => 'ok',
-                'payment_url' => "http://127.0.0.1:8000/api/payment"
+                'payment_url' => "http://127.0.0.1:8000/api/payment?icjkcfhdscsldcjbkcffhvnhverify={$etudiant_id}?cjgfbgrngvdvegtevbgnyvb"
                 ]);
         }
     }
-    public function listesEtudiantsPayer(){
 
-    }
-    public function historiquesPayements(){
+    public function historiquePayement(){
         $user = auth()->user();
         $etudiant = Etudiant::where('users_id', $user->id)->first();
        // dd($etudiant);
@@ -156,5 +170,13 @@ public function payment(PayementRequest $request)
                 return response()->json(['Historiques'=> $payement], 201);
             }
         }
+    }
+
+    public function listesPayments()
+    {
+        $payements = Payment::all();
+        return response()->json([
+            'Payments:' =>  $payements
+        ],201);
     }
 }
