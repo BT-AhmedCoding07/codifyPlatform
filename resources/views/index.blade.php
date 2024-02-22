@@ -146,8 +146,7 @@
                             </div>
                             <div class="from-group  mb-3">
                                 <select class="form-select form-select-sm" name="mois" aria-label=".form-select-sm example">
-                                    <option  selected>Selectionner le mois</option>
-                                    <option value="1">Janvier</option>
+                                    <option value="1" selected>Janvier</option>
                                     <option value="2">Février</option>
                                     <option value="3">Mars</option>
                                     <option value="4">Avril</option>
@@ -162,10 +161,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="submit" class="btn btn-primary btn-block">Effectuer le Paiement</button>
+                                <input type="hidden" class="btn btn-primary btn-block" name="etudiants_id" value="{{request('verify')}}" >
                             </div>
                             <div class="form-group">
-                                <input type="hidden" value="{{request('verify')}}" name="etudiants_id">
+                                <button type="submit" class="btn btn-primary btn-block">Effectuer le Paiement</button>
                             </div>
                         </form>
                     </div>

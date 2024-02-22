@@ -46,17 +46,12 @@ class PayementController extends Controller
         $mois = $validated['mois'];
         $etudiants_id =$validated['etudiants_id'];
         $code = "47";
-        // if (!$etudiant) {
-        //     return response()->json(['message' => "L'etudiant n'est pas encore bénéficiaire ou n'existe pas"], 404);
-        // }
-        // $payement = new Payment();
         $success_url = route('payment.success', [
             'code' => $code,
             'data' => [
                 'amount' => $request->price,
                 'mois' => $mois,
                 'etudiants_id'=> $etudiants_id,
-            //$payement->etudiants_id = $etudiant->id,
             ],
         ]);
 
@@ -151,7 +146,7 @@ class PayementController extends Controller
         }else{
             return response()->json([
                 'statut' => 'ok',
-                'payment_url' => "http://127.0.0.1:8000/api/payment?icjkcfhdscsldcjbkcffhvnhverify={$etudiant_id}?cjgfbgrngvdvegtevbgnyvb"
+                'payment_url' => "http://127.0.0.1:8000/api/payment?verify={$etudiant_id}"
                 ]);
         }
     }
@@ -175,8 +170,9 @@ class PayementController extends Controller
     public function listesPayments()
     {
         $payements = Payment::all();
+
         return response()->json([
-            'Payments:' =>  $payements
+            'Payments: ' =>  $payements
         ],201);
     }
 }

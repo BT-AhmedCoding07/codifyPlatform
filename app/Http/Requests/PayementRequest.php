@@ -47,7 +47,7 @@ class PayementRequest extends FormRequest
         return [
             'price.required'=>'le montant est requis',
             'mois.required'=>'le mois est requis',
-            'etudiants_id.required'=>'id existe',
+            'etudiants_id.required'=>'id étudiant n\'existe',
         ];
     }
 }
