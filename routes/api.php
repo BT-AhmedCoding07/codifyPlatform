@@ -34,8 +34,7 @@ use App\Http\Controllers\ReclamationController;
 
 //Role Admin
 Route::middleware(['auth:api','admin'])->group(function(){
-
-/***Gestion des Utilisateurs */
+/**************************[Gestion des utilisateurs]**********************************/
 //Ajouter un role
 Route::post('/AjouterRole', '\App\Http\Controllers\UserController@ajoutRole');
 //Ajouter un profil utilisateur
@@ -48,9 +47,10 @@ Route::get('/Utilisateurs','\App\Http\Controllers\UserController@listesProfils')
 Route::get('/Utilisateurs/ChefPavillon/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPavillon');
 //Lister un profil chef pedagogique
 Route::get('/Utilisateurs/ChefPedagogique/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurPedagogique');
-/**Gestion des étudiants cas social */
-//Ajouter étudiant cas social
-Route::post('/ajoutEtudiant/CasSocial/{chambre}', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
+//Lister un profil delegue
+Route::get('/Utilisateurs/delegue/{id}','\App\Http\Controllers\UserController@detailProfilUtilisateurDelegue');
+
+/**************************[Gestion des étudiants cas social ]**********************************/
 //Liste les étudiants par cas social
 Route::get('/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@listesEtudiantsCasSocial');
 //Lister  detail d'un etudiant
@@ -110,6 +110,22 @@ Route::get('/listesEtudiantsMerites','\App\Http\Controllers\UserController@liste
 Route::get('/detailEtudiant/Merite/{id}','\App\Http\Controllers\UserController@detailEtudiantMerite');
 });
 /**
+ * *********************************[Délégué]******************************
+*/
+Route::middleware(['auth:api','delegue'])->group(function(){
+    /**Gestion des étudiants de cas social */
+    //Ajouter étudiant cas social
+Route::post('/ajoutEtudiant/CasSocial', '\App\Http\Controllers\UserController@ajoutEtudiantCasSocial');
+//Lister les étudiants par mérite
+//Liste les étudiants par cas social
+Route::get('/delegues/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@listesEtudiantsCasSocial');
+//Lister  detail d'un etudiant
+Route::get('/delegues/detailEtudiant/CasSocial/{id}','\App\Http\Controllers\UserController@detailEtudiantCasSocial');
+
+});
+
+/**
+
  * *********************************[Chef Pavillon]******************************
  */
 //Role = Chef de pavillon
@@ -121,12 +137,14 @@ Route::get('/chambres', '\App\Http\Controllers\ChambreController@index');
 Route::put('/chambre/update/{id}', '\App\Http\Controllers\ChambreController@update');
 //Detail chambre
 Route::get('/chambre/{id}', '\App\Http\Controllers\ChambreController@show');
-/**Gestion des réclamations des étudiants */
+/**
+ * *********************************[Gestion des réclamations des Etudiants]******************************
+ */
 //Lister les reclamation(s)
 Route::get('/listerDesReclamations', '\App\Http\Controllers\ReclamationController@index');
 //Detail une reclamation
 Route::get('/detailReclamation/read/{id}', '\App\Http\Controllers\ReclamationController@show');
-//Traiter une réclamation
+//Modifier l'status d'une réclamation ou traité une réclamation
 Route::put('/traiterReclamation/{id}', '\App\Http\Controllers\ReclamationController@traiterUneReclamation');
 //Supprimer une reclamation
 Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
@@ -142,8 +160,6 @@ Route::middleware(['auth:api','etudiant'])->group(function(){
 Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@faireReclamation');
 //Historique réclamation
 Route::get('/historiquesReclamations', '\App\Http\Controllers\ReclamationController@historiqueReclamation');
-//Supprimer une reclamation
-Route::delete('/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
 
 //Faire un paiement
 Route::get('/FairePayement','\App\Http\Controllers\PayementController@fairePayement');
@@ -162,11 +178,10 @@ Route::post('/logout', '\App\Http\Controllers\AuthController@logout');
 Route::post('/refresh', '\App\Http\Controllers\AuthController@refresh');
 //Utilisateur Connecter
 Route::post('/me', '\App\Http\Controllers\AuthController@me');
+//Utilisateur connecté
+Route::get('/me', '\App\Http\Controllers\AuthController@me');
 
 });
-//Utilisateur connecté
-
-Route::get('/me', '\App\Http\Controllers\AuthController@me');
 
 /**
  * ********************************[Paiement]*************************************

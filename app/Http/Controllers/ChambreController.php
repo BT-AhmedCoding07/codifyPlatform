@@ -52,15 +52,16 @@ class ChambreController extends Controller
      *     @OA\Response(response="404", description="Erreur lors de la création de la chambre."),
      * )
      */
-    public function store(Request $request, Pavillon $pavillon)
+
+     public function store(Request $request, Pavillon $pavillon)
     {
-        //$etudiant = Etudiant::where('users_id', $user->id)->first();
         $request->validate([
             'libelle' => ['required'],
             'type_chambre' => ['required'],
             'nombres_lits' => ['required'],
-            'nombres_limites' => ['required', 'numeric', 'max:12'],
+            'nombres_limites' => ['required', 'numeric'],
         ]);
+
         if (!$pavillon) {
             return response()->json([
                 'message' => 'Le pavillon d\'ID saisi n\'existe pas.',
@@ -71,11 +72,16 @@ class ChambreController extends Controller
             $chambre->type_chambre = $request->input('type_chambre');
             $chambre->nombres_lits = $request->input('nombres_lits');
             $chambre->nombres_limites = $request->input('nombres_limites');
-            $chambre->pavillons_id =$pavillon->id;
+            $chambre->pavillons_id = $pavillon->id;
+            if ($chambre->nombres_limites > 12 && $chambre->nombres_lits = 3 ) {
+                return response()->json([
+                    'Message' => 'La chambre est pleine, son nombre maximal est 12',
+                ], 200);
+            }
             if ($chambre->save()) {
                 return response()->json([
                     'Message' => 'Success!',
-                    'Réclamation created' => $chambre
+                    'Chambre créé' => $chambre
                 ], 200);
             } else {
                 return response([
@@ -84,6 +90,7 @@ class ChambreController extends Controller
             }
         }
     }
+
     /**
      * @OA\Get(
      *     path="/api/chambre/read/{id}",
@@ -100,7 +107,7 @@ class ChambreController extends Controller
         if ($chambre){
 
             return response()->json([
-                'Message' => 'Chambre found.',
+                'Message' => 'Chambre trouvé.',
                 'Chambre' => $chambre
             ], 200);
 
@@ -108,7 +115,7 @@ class ChambreController extends Controller
 
             return response([
 
-                'Message' => 'We could not find the room.',
+                'Message' => 'La chambre n\'est pas trouvé.',
 
             ], 500);
         }
@@ -218,7 +225,7 @@ class ChambreController extends Controller
 
             return response()->json([
 
-                'Message' => 'chambre deleted with success.',
+                'Message' => 'chambre supprimée avec success.',
 
             ], 200);
 
@@ -226,7 +233,7 @@ class ChambreController extends Controller
 
             return response([
 
-                'Message' => 'We could not find the room.',
+                'Message' => 'Nous n\'avons pas trouvé la chambre.',
 
             ], 500);
         }

@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Client\HttpClientException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Database\UniqueConstraintViolationException;
+use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
@@ -50,7 +52,8 @@ class Handler extends ExceptionHandler
             if ($request->is("api/*")) {
                 // On retourne une réponse 404 avec un message en JSON
                 return response()->json([
-                    "message" => "Ressource introuvable"
+                    "message" => "Ressource introuvable",
+                    "details" => 'Votre endpoint n\'est pas correct',
                 ], 404);
             }
         });
@@ -80,6 +83,20 @@ class Handler extends ExceptionHandler
                 'url' => 'Cette route ' . ' ' . $request->url() . ' ' . 'Supporte pas la methode utiliser',
             ], 405);
         });
+        //Login
+        $this->renderable(function (RouteNotFoundException $e, $request) {
+            return response()->json([
+                'error' => 'Merci de vous connecter',
+                'url' => 'Cette route ' . ' ' . $request->url() . ' ' . 'demande une connexion',
+            ], 500);
+        });
+        $this->renderable(function (UniqueConstraintViolationException $e, $request) {
+            return response()->json([
+                'error' => 'Duplication de donnée,',
+                'details' => ' La valeur que vous êtes entrain de saisir existe déjà, merci de réessayer une nouvelle valeur'
+            ], 500);
+        });
+
     }
     // public function render($request, Throwable $exception)
     // {

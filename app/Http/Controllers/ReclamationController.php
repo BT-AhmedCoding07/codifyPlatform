@@ -57,7 +57,7 @@ class ReclamationController extends Controller
 
         } else {
             return response([
-                'Message: ' => 'We could not find the reclamation.',
+                'Message: ' => 'Nous n\'avons pas pu trouver la récupération.',
             ], 500);
         }
     }
@@ -78,11 +78,11 @@ class ReclamationController extends Controller
             $reclamation->delete();
 
             return response()->json([
-                'Message' => 'Reclamation deleted with success.',
+                'Message' => 'Reclamation supprimé avec success.',
             ], 200);
         } else {
             return response()->json([
-                'Message' => 'We could not find the reclamation.',
+                'Message' => 'Nous n\'avons pas pu trouver la réclamation.',
             ], 500);
         }
     }
@@ -105,6 +105,31 @@ class ReclamationController extends Controller
      *     @OA\Response(response="500", description="Erreur lors de la modification du statut de la réclamation."),
      * )
      */
+    // public function traiterUneReclamation(Request $request, $reclamationId)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'status' => 'required|in:Ouvert,Traité',
+    //         ]);
+
+    //         // Vérifier que l'ID de la réclamation est valide
+    //         $reclamation = Reclamation::findOrFail($reclamationId);
+
+    //         // Mettre à jour le statut de la réclamation
+    //         if ($reclamation->update(['status' => $request->input('status')])) {
+    //             return response()->json([
+    //                 "message" => "Réclamation traitée avec succès",
+    //                 "reclamation" => [$reclamation],
+    //             ]);
+    //         } else {
+    //             return response()->json(["message" => "Impossible de modifier le statut de la réclamation"]);
+    //         }
+    //     } catch (ValidationException $e) {
+    //         return response()->json([
+    //             'errors' => $e->errors(),
+    //         ], 422);
+    //     }
+    // }
     public function traiterUneReclamation(Request $request, $reclamationId)
     {
         try {
@@ -112,15 +137,17 @@ class ReclamationController extends Controller
                 'status' => 'required|in:Ouvert,Traité',
             ]);
 
+            // Vérifier que l'ID de la réclamation est valide
             $reclamation = Reclamation::findOrFail($reclamationId);
-
-            if ($reclamation->update(['status' => $request->input('status')])) {
+            // Mettre à jour le statut de la réclamation
+            $reclamation->status = $request->input('status');
+            if ($reclamation->save()) {
                 return response()->json([
                     "message" => "Réclamation traitée avec succès",
-                    "Réclamation" => [$reclamation],
+                    "reclamation" => $reclamation,
                 ]);
             } else {
-                return response()->json(["message" => "Impossible de traiter une réclamation"]);
+                return response()->json(["message" => "Impossible de modifier le statut de la réclamation"]);
             }
         } catch (ValidationException $e) {
             return response()->json([
@@ -130,6 +157,7 @@ class ReclamationController extends Controller
     }
 
     public function historiqueReclamation() {
+
         $user = auth()->user();
         $etudiant = Etudiant::where('users_id', $user->id)->first();
        // dd($etudiant);

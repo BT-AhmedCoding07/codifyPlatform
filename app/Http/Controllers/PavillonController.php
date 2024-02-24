@@ -63,15 +63,15 @@ class PavillonController extends Controller
 
         if ($pavillon->save()){
             return response()->json([
-                'Message' => 'Success!',
-                'Pavillon created' =>  $pavillon
+                'Message' => 'Ajout pavillon réussie avec Success!',
+                'Pavillon créé' =>  $pavillon
             ], 200);
 
         }else {
 
             return response([
 
-                'Message' => 'We could not create a new pavillon.',
+                'Message' => 'Nous ne pourrions pas créer un nouveau pavillon ou le pavillon existe.',
 
             ], 500);
         }
@@ -93,7 +93,7 @@ class PavillonController extends Controller
         if ($pavillon){
 
             return response()->json([
-                'Message' => 'Pavillon found.',
+                'Message' => 'Pavillon trouvé.',
                 'Pavillon' => $pavillon
             ], 200);
 
@@ -101,7 +101,7 @@ class PavillonController extends Controller
 
             return response([
 
-                'Message' => 'We could not find the pavillon.',
+                'Message' => 'Nous n\'avons pas trouvé le pavillon.',
 
             ], 500);
         }
@@ -147,7 +147,7 @@ class PavillonController extends Controller
 
                 return response()->json([
 
-                    'Message' => 'Pavillon updated with success.',
+                    'Message' => 'Pavillon mise à jour  avec success.',
                     'Pavillon' => $pavillon
 
                 ], 200);
@@ -157,7 +157,7 @@ class PavillonController extends Controller
 
                 return response([
 
-                    'Message' => 'We could not update the pavillon.',
+                    'Message' => 'Nous n\'avons pas pu mettre à jour le pavillon.',
 
                 ], 500);
 
@@ -166,7 +166,7 @@ class PavillonController extends Controller
 
             return response([
 
-                'Message' => 'We could not find the pavillon.',
+                'Message' => 'Nous n\'avons pas pu trouver le pavillon.',
 
             ], 500);
         }
@@ -192,7 +192,7 @@ class PavillonController extends Controller
 
             return response()->json([
 
-                'Message' => 'pavillon deleted with success.',
+                'Message' => 'pavillon supprimé avec  success.',
 
             ], 200);
 
@@ -200,7 +200,7 @@ class PavillonController extends Controller
 
             return response([
 
-                'Message' => 'We could not find the pavillon.',
+                'Message' => 'Nous n\'avons pas trouvé le pavillon.',
 
             ], 500);
         }

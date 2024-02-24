@@ -130,7 +130,7 @@ class UserController extends Controller
      *     @OA\Response(response="422", description="Erreur lors de l'ajout de l'étudiant."),
      * )
      */
-    public function ajoutEtudiantCasSocial(Request $request,Chambre $chambre)
+    public function ajoutEtudiantCasSocial(Request $request)
     {
         try {
             $request->validate([
@@ -168,25 +168,25 @@ class UserController extends Controller
             $etudiant->filiere  = $request->input('filiere');
             $etudiant->statuts_id = 2;
             $etudiant->users_id = $user->id;
-            if(!$chambre){
-                return response()->json([
-                    'message' => 'La chambre d\'ID saisi n\'existe pas.',
-                ], 404);
-            }else{
-                $etudiant->chambres_id =$chambre->id;
+            // if(!$chambre){
+            //     return response()->json([
+            //         'message' => 'La chambre d\'ID saisi n\'existe pas.',
+            //     ], 404);
+            // }
+            // else{
+               // $etudiant->chambres_id =$chambre->id;
                 // dd($etudiant);
-                if ($etudiant->save()) {
-                    $etudiant->update(['estAttribue' => 1]);
-                    return response()->json([
-                        "message" => " Etudiant ajouté avec success",
-                        "Etudiant" => array_merge(array($etudiant), array($user))
-                    ]);
-                } else {
-                    $user->delete();
-                    return response()->json(["message" => "impossible d'ajouter un etudiant "]);
-                }
+            if ($etudiant->save()) {
+                   // $etudiant->update(['estAttribue' => 1]);
+                return response()->json([
+                    "message" => " Etudiant ajouté avec success",
+                    "Etudiant" => array_merge(array($etudiant), array($user))
+                ]);
+            } else {
+                $user->delete();
+                return response()->json(["message" => "impossible d'ajouter un etudiant "]);
             }
-        } catch (ValidationException $e) {
+        }catch (ValidationException $e) {
             return response()->json([
                 'errors' => $e->errors(),
             ], 422);
@@ -228,7 +228,7 @@ class UserController extends Controller
                 'email' => 'required|string|email|max:255|unique:users',
                 'password' => 'required|string|min:6',
                 'roles_id' => 'integer', Rule::exists('roles','id'),
-                'telephone' => 'nullable|numeric|regex:/^[0-9]{9}$/',
+                'telephone' => 'nullable|numeric|unique:users|regex:/^[0-9]{9}$/',
                 'photo_profile' => 'image|mimes:jpeg,png,jpg.svg',
             ]);
 
@@ -461,7 +461,7 @@ class UserController extends Controller
     //Lister un/les utilisateur(s)
       //Lister un/les utilisateur(s)
       public function listesProfils(){
-        $users = User::whereIn('roles_id', [2, 3])
+        $users = User::whereIn('roles_id', [2, 3, 5])
             ->join('roles', 'users.roles_id', '=', 'roles.id')
             ->select('users.id','users.nom', 'users.prenom', 'users.email', 'users.telephone', 'users.status','roles.nomRole')
             ->get();
@@ -483,6 +483,18 @@ class UserController extends Controller
     public function detailProfilUtilisateurPavillon($id){
         try {
             $user = User::where('roles_id', 2)->get();
+
+            return response()->json([
+                "Profil" => $user
+            ], 200);
+        } catch (ModelNotFoundException $e) {
+            return response()->json(["message" => "Utilisateur non trouvé"], 404);
+        }
+
+    }
+    public function detailProfilUtilisateurDelegue($id){
+        try {
+            $user = User::where('roles_id', 5)->get();
 
             return response()->json([
                 "Profil" => $user
