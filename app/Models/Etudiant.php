@@ -10,6 +10,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Etudiant extends Model
 {
     use HasFactory;
+    protected $attributes =[
+        'estAttribue' => 0,
+    ];
     protected $fillable = [
         'INE',
         'date_naissance',
@@ -44,5 +47,20 @@ class Etudiant extends Model
     public function payements()
     {
         return $this->hasMany(Payment::class);
+    }
+    public function scopeEstAttribue($query)
+    {
+            return $query->where('estAttribue', 0)->get();
+    }
+    public function getEstAttribueAttribute($attribute){
+
+        return $this->getEstAttribueOptions()[$attribute];
+    }
+
+    public function getEstAttribueOptions(){
+        return [
+            '0' => 'Pas validé',
+            '1' => 'Validé',
+        ];
     }
 }

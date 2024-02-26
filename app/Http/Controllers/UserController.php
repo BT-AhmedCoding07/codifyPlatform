@@ -404,6 +404,7 @@ class UserController extends Controller
                 'adresse'=> $etudiant['adresse'],
                 'sexe'=> $etudiant['sexe'],
                 'niveau_etudes'=>$etudiant['niveau_etudes'],
+                'Etat'=>$etudiant['estAttribue'],
                 'filiere'=> $etudiant['filiere'],
             ];
         }
@@ -541,5 +542,8 @@ class UserController extends Controller
                 "errors" => $e->errors(),
             ], 422);
         }
+    }
+    public function listesBeneficiaires(){
+
     }
 }
