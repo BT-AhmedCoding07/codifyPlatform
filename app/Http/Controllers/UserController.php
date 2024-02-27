@@ -568,7 +568,7 @@ class UserController extends Controller
         $roles = Role::all();
 
         $filtreRole = $roles->reject(function ($role) {
-            return in_array($role->nomRole, ['admin', 'etudiants']);
+            return in_array($role->nomRole, ['admin']);
         });
 
         return response()->json([
