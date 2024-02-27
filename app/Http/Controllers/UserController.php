@@ -562,18 +562,34 @@ class UserController extends Controller
         }
     }
 
+    // public function listesRoles()
+    // {
+    //     // Récupérez tous les rôles
+    //     $roles = Role::all();
+    //     $filtreRole = $roles->reject(function ($role) {
+    //         return in_array($role->nomRole, ['admin']);
+    //     });
+    //     return response()->json([
+    //         'roles' => $filtreRole
+    //     ], 201);
+    // }
     public function listesRoles()
     {
-        // Récupérez tous les rôles
+        // Récupérer tous les rôles
         $roles = Role::all();
 
+        // Filtrer les rôles pour exclure "admin"
         $filtreRole = $roles->reject(function ($role) {
-            return in_array($role->nomRole, ['admin']);
+            return $role->nomRole === 'admin';
         });
 
+        // Convertir la collection en tableau
+        $rolesArray = $filtreRole->values()->all();
+
         return response()->json([
-            'roles' => $filtreRole,
+            'roles' => $rolesArray
         ], 201);
     }
+
 
 }
