@@ -562,11 +562,18 @@ class UserController extends Controller
         }
     }
 
-    public function listesRoles(){
+    public function listesRoles()
+    {
+        // Récupérez tous les rôles
         $roles = Role::all();
 
+        $filtreRole = $roles->reject(function ($role) {
+            return in_array($role->nomRole, ['admin', 'etudiants']);
+        });
+
         return response()->json([
-            'roles'=>$roles
-        ],201);
+            'roles' => $filtreRole,
+        ], 201);
     }
+
 }
