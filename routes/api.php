@@ -91,6 +91,8 @@ Route::get('/ListesDesPayements','\App\Http\Controllers\PayementController@liste
 
 Route::get('/listesRoles', '\App\Http\Controllers\UserController@listesRoles');
 
+//Lister les bénéficiaires listesBeneficiaires
+Route::get('/admin/Beneficiaires', '\App\Http\Controllers\UserController@listesBeneficiaires');
 
 });
 /**

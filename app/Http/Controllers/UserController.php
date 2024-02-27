@@ -329,13 +329,13 @@ class UserController extends Controller
         try {
             $etudiant = Etudiant::find($id);
             $user = User::where('id',$etudiant->users_id)->first();
-            dd($user);
+            // dd($user);
             if ($etudiant->estAttribue == 1) {
                 return response()->json([
                     "message" => "L'étudiant a déjà été attribué."
                 ], 400);
             }else{
-                $etudiant->update(['estAttribue' => 1]);
+                $etudiant->update(['estAttribue' => 1, 'performances' =>  'jaune']);
                 //dd($etudiant);
                 //Send To mail
                 Mail::to($user->email)->send(new Validation());
@@ -545,14 +545,28 @@ class UserController extends Controller
             ], 422);
         }
     }
-    public function listesBeneficiaires(){
 
+    public function listesBeneficiaires()
+    {
+        $etudiants = Etudiant::where('estAttribue', 1)
+            ->whereNotNull('chambres_id')
+            ->get();
+
+        foreach ($etudiants as $etudiant) {
+            if ($etudiant->performances == "jaune") {
+                return response()->json([
+                    "message" => "Liste des bénéficiaires.",
+                    "Bénéficiaires" => $etudiants,
+                ], 200);
+            }
+        }
     }
+
     public function listesRoles(){
         $roles = Role::all();
 
         return response()->json([
-            'roles: ' =>  $roles
+            "roles:" =>  $roles
         ],201);
     }
 }
