@@ -52,10 +52,10 @@ Route::get('/Utilisateurs/delegue/{id}','\App\Http\Controllers\UserController@de
 
 /**************************[Gestion des étudiants cas social ]**********************************/
 //Liste les étudiants par cas social
-Route::get('/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@listesEtudiantsCasSocial');
+Route::get('/admin/listesEtudiantsCasSocial','\App\Http\Controllers\UserController@listesEtudiantsCasSocial');
 //Lister  detail d'un etudiant
-Route::get('/detailEtudiant/CasSocial/{id}','\App\Http\Controllers\UserController@detailEtudiantCasSocial');
-/* Gestion des etudiants mérites */
+Route::get('/admin/detailEtudiant/CasSocial/{id}','\App\Http\Controllers\UserController@detailEtudiantCasSocial');
+/**************************[Gestion des étudiants mérites ]**********************************/
 //Lister les etudiants par mérites
 Route::get('/admin/listesEtudiantsMerites','\App\Http\Controllers\UserController@listesEtudiantsMerites');
 //Lister detail d'un étudiant
@@ -87,7 +87,11 @@ Route::delete('/admin/chambre/delete/{id}', '\App\Http\Controllers\ChambreContro
 Route::put('/ValiderEtudiant/update/{id}','\App\Http\Controllers\UserController@validerEtudiant');
 //Lister les etudiants payer
 Route::get('/ListesDesPayements','\App\Http\Controllers\PayementController@listesPayments');
-//
+//Gestion des roles
+
+Route::get('/listesRoles', '\App\Http\Controllers\UserController@listesRoles');
+
+
 });
 /**
  * Perspectives :

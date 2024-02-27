@@ -329,6 +329,7 @@ class UserController extends Controller
         try {
             $etudiant = Etudiant::find($id);
             $user = User::where('id',$etudiant->users_id)->first();
+            dd($user);
             if ($etudiant->estAttribue == 1) {
                 return response()->json([
                     "message" => "L'étudiant a déjà été attribué."
@@ -375,6 +376,7 @@ class UserController extends Controller
                     'sexe'=> $etudiant['sexe'],
                     'niveau_etudes'=>$etudiant['niveau_etudes'],
                     'filiere'=> $etudiant['filiere'],
+                    'Etat'=>$etudiant['estAttribue'],
                     'statuts_id' =>$etudiant['filiere']
                 ];
             }
@@ -545,5 +547,12 @@ class UserController extends Controller
     }
     public function listesBeneficiaires(){
 
+    }
+    public function listesRoles(){
+        $roles = Role::all();
+
+        return response()->json([
+            'roles: ' =>  $roles
+        ],201);
     }
 }

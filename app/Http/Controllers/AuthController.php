@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Etudiant;
 use Illuminate\Http\Request;
 /**
  * @OA\Tag(
@@ -47,15 +48,19 @@ class AuthController extends Controller
     {
         $email=request(['email']);
         $user = User::where('email',$email['email'])->first();
+        //$etudiants = Etudiant::with('users')->first();
+        //dd($etudiants);
         $credentials = request(['email', 'password']);
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Merci de vous connecter en renseignant votre email et mot de passe'], 401);
         }
         return $this->respondWithToken([
         'access_token' => $token,
-        'Utilisateur' => $user
+        'Utilisateur' => $user,
      ]);
     }
+
+
     /**
      * @OA\Get(
      *     path="/api/me",
@@ -115,6 +120,5 @@ class AuthController extends Controller
         ]);
     }
 
-    //Ajouter un rôle aux utilisateurs
 
 }
