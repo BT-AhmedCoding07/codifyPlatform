@@ -556,7 +556,7 @@ class UserController extends Controller
             if ($etudiant->performances == "jaune") {
                 return response()->json([
                     "message" => "Liste des bénéficiaires.",
-                    "Bénéficiaires" => $etudiants,
+                    'Bénéficiaires' => $etudiants,
                 ], 200);
             }
         }
@@ -566,7 +566,7 @@ class UserController extends Controller
         $roles = Role::all();
 
         return response()->json([
-            "roles:" =>  $roles
+            'roles:' =>  $roles
         ],201);
     }
 }
