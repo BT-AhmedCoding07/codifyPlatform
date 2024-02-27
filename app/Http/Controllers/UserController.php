@@ -566,7 +566,7 @@ class UserController extends Controller
         $roles = Role::all();
 
         return response()->json([
-            'roles:' =>  $roles
+            'roles'=>$roles
         ],201);
     }
 }
