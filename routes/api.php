@@ -199,3 +199,7 @@ Route::get('ipn', [PayementController::class, 'ipn'])->name('paytech-ipn');
 Route::get('payment-success/{code}', [PayementController::class, 'success'])->name('payment.success');
 Route::get('payment/{code}/success', [PayementController::class, 'paymentSuccessView'])->name('payment.success.view');
 Route::get('payment-cancel', [PayementController::class, 'cancel'])->name('paytech.cancel');
+
+
+// Listes des beneficiaire
+//Route::get('listes',[UserController::class, 'BenificiairesListes']);

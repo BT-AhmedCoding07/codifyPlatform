@@ -24,6 +24,7 @@ class Etudiant extends Model
         'statuts_id',
         'users_id',
         'estAttribue',
+        'performances',
         'chambres_id'
     ];
 

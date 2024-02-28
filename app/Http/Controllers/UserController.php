@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\EtudiantRessource;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\Statut;
@@ -545,22 +546,34 @@ class UserController extends Controller
             ], 422);
         }
     }
-
-    public function listesBeneficiaires()
-    {
-        $etudiants = Etudiant::where('estAttribue', 1)
-            ->whereNotNull('chambres_id')
-            ->get();
-
-        foreach ($etudiants as $etudiant) {
-            if ($etudiant->performances == "jaune") {
-                return response()->json([
-                    "message" => "Liste des bénéficiaires.",
-                    'Bénéficiaires' => $etudiants,
-                ], 200);
+    public function listesBeneficiaires(){
+    $etudiant = Etudiant::with('users')
+    ->where('estAttribue', 1)
+    ->whereNotNull('chambres_id')
+    ->get();
+    //dd($etudiant);
+    foreach ($etudiant as $etudiants) {
+        if( $etudiant->performances === "jaune"){
+               // dd($etudiants);
+                return response()->json(EtudiantRessource::collection($etudiants));
             }
         }
     }
+    // public function listesBeneficiaires()
+    // {
+    //     $user = User::with('etudiants')->where('id', auth()->user()->id)->get();
+    //     $etudiants = Etudiant::where('estAttribue', 1)
+    //         ->whereNotNull('chambres_id')
+    //         ->get();
+    //     foreach ($etudiants as $etudiant) {
+    //         if ($etudiant->performances == "jaune") {
+    //             return response()->json([
+    //                 "message" => "Liste des bénéficiaires.",
+    //                 'Bénéficiaires' => $etudiants,
+    //             ], 200);
+    //         }
+    //     }
+    // }
 
     // public function listesRoles()
     // {

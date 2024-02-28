@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 /**
  * @OA\Tag(
  *     name="Authentification de l'utilisateur",
@@ -44,20 +45,37 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+    // public function login()
+    // {
+    //     $email=request(['email']);
+    //     $user = User::where('email',$email['email'])->first();
+    //     $credentials = request(['email', 'password']);
+    //     if (! $token = auth()->attempt($credentials)) {
+    //         return response()->json(['error' => 'Merci de vous connecter en renseignant votre email et mot de passe'], 401);
+    //     }
+    //     return $this->respondWithToken([
+    //     'access_token' => $token,
+    //     'Utilisateur' => $user
+    //  ]);
+    // }
     public function login()
     {
-        $email=request(['email']);
-        $user = User::where('email',$email['email'])->first();
-       // $etudiants = Etudiant::with('users')->first();
-        $credentials = request(['email', 'password']);
-        if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Merci de vous connecter en renseignant votre email et mot de passe'], 401);
-        }
-        return $this->respondWithToken([
-        'access_token' => $token,
-        'Utilisateur' => $user
+        $validator = Validator::make(request()->all(), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
 
-     ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
+
+        $credentials = request(['email', 'password']);
+
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['error' => 'Merci de saisir un mail ou mot de passe valide'], 401);
+        }
+
+        return $this->respondWithToken($token);
     }
 
 
@@ -110,15 +128,19 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
     protected function respondWithToken($token)
     {
+        $user = User::with('etudiants')->where('id', auth()->user()->id)->get();
+
         return response()->json([
-            'Results' => $token,
+            'access_token' => $token,
             'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 100 . ' secondes',
-            'message' => "vous vous êtes connecté avec succés"
+            'expires_in' => auth()->factory()->getTTL() * 120,
+            'user' =>  $user,
+            'message' => "Vous êtes connecté avez succés...",
+            // 'user' => UserRessouce::collection($user)
         ]);
     }
-
 
 }
