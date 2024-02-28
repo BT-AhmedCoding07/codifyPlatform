@@ -548,55 +548,18 @@ class UserController extends Controller
     }
     public function listesBeneficiaires(){
     $etudiant = Etudiant::with('users')
-    ->where('estAttribue', 1)
-    ->whereNotNull('chambres_id')
+    ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL]])
     ->get();
-    //dd($etudiant);
-    foreach ($etudiant as $etudiants) {
-        if( $etudiant->performances === "jaune"){
-               // dd($etudiants);
-                return response()->json(EtudiantRessource::collection($etudiants));
-            }
-        }
+    return response()->json(EtudiantRessource::collection($etudiant));
     }
-    // public function listesBeneficiaires()
-    // {
-    //     $user = User::with('etudiants')->where('id', auth()->user()->id)->get();
-    //     $etudiants = Etudiant::where('estAttribue', 1)
-    //         ->whereNotNull('chambres_id')
-    //         ->get();
-    //     foreach ($etudiants as $etudiant) {
-    //         if ($etudiant->performances == "jaune") {
-    //             return response()->json([
-    //                 "message" => "Liste des bénéficiaires.",
-    //                 'Bénéficiaires' => $etudiants,
-    //             ], 200);
-    //         }
-    //     }
-    // }
 
-    // public function listesRoles()
-    // {
-    //     // Récupérez tous les rôles
-    //     $roles = Role::all();
-    //     $filtreRole = $roles->reject(function ($role) {
-    //         return in_array($role->nomRole, ['admin']);
-    //     });
-    //     return response()->json([
-    //         'roles' => $filtreRole
-    //     ], 201);
-    // }
+    //Lister Role
     public function listesRoles()
     {
-        // Récupérer tous les rôles
         $roles = Role::all();
-
-        // Filtrer les rôles pour exclure "admin"
         $filtreRole = $roles->reject(function ($role) {
             return $role->nomRole === 'admin';
         });
-
-        // Convertir la collection en tableau
         $rolesArray = $filtreRole->values()->all();
 
         return response()->json([
