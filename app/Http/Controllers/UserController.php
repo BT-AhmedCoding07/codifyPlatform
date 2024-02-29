@@ -546,6 +546,7 @@ class UserController extends Controller
             ], 422);
         }
     }
+    //
     public function listesBeneficiaires(){
     $etudiant = Etudiant::with('users')
     ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL]])

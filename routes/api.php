@@ -10,6 +10,7 @@ use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\PavillonController;
 use App\Http\Controllers\PayementController;
 use App\Http\Controllers\ReclamationController;
+use App\Http\Controllers\PasswordResetRequestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -186,6 +187,8 @@ Route::post('/refresh', '\App\Http\Controllers\AuthController@refresh');
 Route::post('/me', '\App\Http\Controllers\AuthController@me');
 //Utilisateur connecté
 Route::get('/me', '\App\Http\Controllers\AuthController@me');
+//Réinitialiser mot de passe
+Route::post('/ResetPassword', 'App\Http\Controllers\PasswordResetRequestController@sendEmail');
 
 });
 
@@ -200,6 +203,6 @@ Route::get('payment-success/{code}', [PayementController::class, 'success'])->na
 Route::get('payment/{code}/success', [PayementController::class, 'paymentSuccessView'])->name('payment.success.view');
 Route::get('payment-cancel', [PayementController::class, 'cancel'])->name('paytech.cancel');
 
+//Reset Mot de passe
+Route::post('/reset-password-request', [PasswordResetRequestController::class, 'sendPasswordResetEmail']);
 
-// Listes des beneficiaire
-//Route::get('listes',[UserController::class, 'BenificiairesListes']);
