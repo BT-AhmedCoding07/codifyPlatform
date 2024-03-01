@@ -147,7 +147,7 @@ class ReclamationController extends Controller
             $reclamation->objet = $request->input('objet');
             $reclamation->message = $request->input('message');
             $reclamation->etudiants_id = $etudiant->id;
-            dd($reclamation);
+            //dd($reclamation);
             if ($reclamation->save()) {
                 return response()->json([
                     'Message' => 'Success!',
