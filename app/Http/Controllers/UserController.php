@@ -142,7 +142,7 @@ class UserController extends Controller
                 'telephone' => 'nullable|numeric|regex:/^[0-9]{9}$/',
                 'photo_profile' => '',
                 'INE'=> 'required|string|max:13|unique:etudiants',
-                'date_naissance'=> 'date',
+                'date_naissance'=> 'date |before:today',
                 'lieu_naissance'=> 'required|string|max:255',
                 'adresse'=> 'required|string|max:255',
                 'sexe'=> 'required|string|max:255',
@@ -546,14 +546,34 @@ class UserController extends Controller
             ], 422);
         }
     }
-    //
+    //Lister tous les bénéficiaires
     public function listesBeneficiaires(){
     $etudiant = Etudiant::with('users')
     ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL]])
     ->get();
     return response()->json(EtudiantRessource::collection($etudiant));
     }
-
+  //Lister tous les bénéficiaires de la licence 1
+    public function listesBeneficiaireslicenceUn(){
+    $etudiant = Etudiant::with('users')
+    ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL], ['niveau_etudes', 'Licence 1']])
+    ->get();
+    return response()->json(EtudiantRessource::collection($etudiant));
+    }
+    //Lister tous les bénéficiaires de la licence 2
+    public function listesBeneficiaireslicenceDeux(){
+        $etudiant = Etudiant::with('users')
+        ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL], ['niveau_etudes', 'Licence 2']])
+        ->get();
+        return response()->json(EtudiantRessource::collection($etudiant));
+    }
+    //Lister les Bénéficiaires de la licence 3
+    public function listesBeneficiaireslicenceTrois(){
+        $etudiant = Etudiant::with('users')
+        ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL], ['niveau_etudes', 'Licence 3']])
+        ->get();
+        return response()->json(EtudiantRessource::collection($etudiant));
+    }
     //Lister Role
     public function listesRoles()
     {
@@ -567,6 +587,8 @@ class UserController extends Controller
             'roles' => $rolesArray
         ], 201);
     }
+
+
 
 
 }

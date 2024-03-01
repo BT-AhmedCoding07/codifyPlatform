@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "CODIFY PLATFORM",
-        "description": "Un Api de Mise en place d'une plateforme de gestion de codification de L'UCAD ",
+        "description": "La plateforme de gestion de codification et attribution de chambre des étudiants de l'Université Cheikh Anta Diop",
         "version": "1.0.0"
     },
     "security": [
@@ -23,9 +23,9 @@
         "multipart/form-data"
     ],
     "paths": {
-        "/api/payment": {
+        "/api/admin/BeneficiairesLicenceUn": {
             "get": {
-                "summary": "http://127.0.0.1:8000/api/payment",
+                "summary": "Lister les bénéficiaires Par Niveau",
                 "description": "",
                 "responses": {
                     "200": {
@@ -57,14 +57,14 @@
                     }
                 },
                 "tags": [
-                    "Paiement"
+                    "Gestion de BENEFICIAIRES"
                 ],
                 "parameters": []
             }
         },
-        "/api/FairePayement": {
+        "/api/admin/Beneficiaires": {
             "get": {
-                "summary": "Paiement",
+                "summary": "Lister les BENEFICIAIRE",
                 "description": "",
                 "responses": {
                     "200": {
@@ -96,14 +96,187 @@
                     }
                 },
                 "tags": [
-                    "Paiement"
+                    "Gestion de BENEFICIAIRES"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/traiterReclamation/{id}": {
+            "put": {
+                "summary": "Traiter une réclamations",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion de réclamations de ETUDIANTS(Bénéficiares)"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "status": "Traité"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/detailReclamation/read/{id}": {
+            "get": {
+                "summary": "Voir détail réclamation",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion de réclamations de ETUDIANTS(Bénéficiares)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/listerDesReclamations": {
+            "get": {
+                "summary": "Lister les réclamations",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion de réclamations de ETUDIANTS(Bénéficiares)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/historiquesReclamations": {
+            "get": {
+                "summary": "Historique de réclamation",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion de réclamations de ETUDIANTS(Bénéficiares)"
                 ],
                 "parameters": []
             }
         },
         "/api/auth/login": {
             "post": {
-                "summary": "Se connecter un User (Profil)",
+                "summary": "Connexion Admin",
                 "description": "",
                 "responses": {
                     "201": {
@@ -144,7 +317,7 @@
                     }
                 },
                 "tags": [
-                    "User Chef de Service Pédagogique"
+                    "Authentification Admin"
                 ],
                 "parameters": [],
                 "requestBody": {
@@ -162,8 +335,736 @@
                                 }
                             },
                             "example": {
-                                "email": "ChefPedaogique1@gmail.com",
-                                "password": "ChefPedaogique1@"
+                                "email": "admin@gmail.com",
+                                "password": "Admin123@"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/faireReclamations": {
+            "post": {
+                "summary": "Faire RECLAMATION",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion de réclamations de ETUDIANTS(Bénéficiares)"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "objet": {
+                                        "type": "string"
+                                    },
+                                    "message": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "objet": "Robinet chambre B2",
+                                "message": "Merci de bien nous aider à réparer le robinet de la chambre B2, nous notons que l'eau  coule  ne fonctionne pas depuis deux jours"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ValiderEtudiant/update/{id}": {
+            "put": {
+                "summary": "Valider les étudiants",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion de validation des étudiants"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/chambre/{id}": {
+            "get": {
+                "summary": "Détail CHAMBRE",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des CHAMBRES (chef de pavillon)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/chambres": {
+            "get": {
+                "summary": "Lister les chambres",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des CHAMBRES (chef de pavillon)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/admin/chambre/delete/{id}": {
+            "delete": {
+                "summary": "Supprimer une CHAMBRE",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des CHAMBRES (ADMIN)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/admin/chambre/update/{id}": {
+            "put": {
+                "summary": "Mettre à jour une chambre",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des CHAMBRES (ADMIN)"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_chambre": {
+                                        "type": "string"
+                                    },
+                                    "nombres_lits": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_limites": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "A Chambre 5",
+                                "type_chambre": "Partagée",
+                                "nombres_lits": 2,
+                                "nombres_limites": 6
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/admin/chambre/read/{id}": {
+            "get": {
+                "summary": "Detail CHAMBRE",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des CHAMBRES (ADMIN)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/admin/chambres": {
+            "get": {
+                "summary": "Lister les CHAMBRES",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des CHAMBRES (ADMIN)"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/admin/chambre/create/6": {
+            "post": {
+                "summary": "Ajouter une CHAMBRE",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des CHAMBRES (ADMIN)"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_chambre": {
+                                        "type": "string"
+                                    },
+                                    "nombres_lits": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_limites": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "F Chambre 2",
+                                "type_chambre": "Partagée",
+                                "nombres_lits": 3,
+                                "nombres_limites": 12
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pavillon/delete/{id}": {
+            "delete": {
+                "summary": "Supprimer un PAVILLON",
+                "description": "",
+                "responses": {
+                    "204": {
+                        "description": "Deleted successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des PAVILLONS"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/pavillon/update/{id}": {
+            "put": {
+                "summary": "Modifier un PAVILLON",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des PAVILLONS"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "type_pavillon": {
+                                        "type": "string"
+                                    },
+                                    "nombres_etages": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_chambres": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "Pavillon E",
+                                "type_pavillon": "Femme",
+                                "nombres_etages": 4,
+                                "nombres_chambres": 350
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/pavillon/read/{id}": {
+            "get": {
+                "summary": "Voir detail PAVILLON",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des PAVILLONS"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/pavillons": {
+            "get": {
+                "summary": "Lister les PAVILLONS",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des PAVILLONS"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/pavillon/create": {
+            "post": {
+                "summary": "Ajouter un pavillon",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion des PAVILLONS"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "libelle": {
+                                        "type": "string"
+                                    },
+                                    "nombres_chambres": {
+                                        "type": "integer"
+                                    },
+                                    "nombres_etages": {
+                                        "type": "integer"
+                                    },
+                                    "type_pavillon": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "libelle": "Pavillon H",
+                                "nombres_chambres": 350,
+                                "nombres_etages": 4,
+                                "type_pavillon": "Mixte"
                             }
                         }
                     }
@@ -172,7 +1073,7 @@
         },
         "/api/detailEtudiant/Merite/{id}": {
             "get": {
-                "summary": "Detail etudiant Merite",
+                "summary": "Détail un ETUDIANT PAR MERITES",
                 "description": "",
                 "responses": {
                     "200": {
@@ -204,35 +1105,14 @@
                     }
                 },
                 "tags": [
-                    "Etudiants par mérites"
+                    "Gestion des utilisateurs  ETUDIANTS MERITES"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "etudiant2@gmail.com",
-                                "password": "Etudiant1@"
-                            }
-                        }
-                    }
-                }
+                "parameters": []
             }
         },
         "/api/listesEtudiantsMerites": {
             "get": {
-                "summary": "Lister Les étudiants (par mérite)",
+                "summary": "Lister les ETUDIANTS PAR MERITES",
                 "description": "",
                 "responses": {
                     "200": {
@@ -264,25 +1144,14 @@
                     }
                 },
                 "tags": [
-                    "Etudiants par mérites"
+                    "Gestion des utilisateurs  ETUDIANTS MERITES"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {}
-                            },
-                            "example": {}
-                        }
-                    }
-                }
+                "parameters": []
             }
         },
         "/api/ajoutEtudiant/Merite": {
             "post": {
-                "summary": "Ajouter un Etudiant",
+                "summary": "Ajouter les ETUDIANTS MERITES",
                 "description": "",
                 "responses": {
                     "201": {
@@ -323,7 +1192,7 @@
                     }
                 },
                 "tags": [
-                    "Etudiants par mérites"
+                    "Gestion des utilisateurs  ETUDIANTS MERITES"
                 ],
                 "parameters": [],
                 "requestBody": {
@@ -344,9 +1213,6 @@
                                     "password": {
                                         "type": "string"
                                     },
-                                    "INE": {
-                                        "type": "string"
-                                    },
                                     "date_naissance": {
                                         "type": "string"
                                     },
@@ -356,46 +1222,49 @@
                                     "adresse": {
                                         "type": "string"
                                     },
-                                    "sexe": {
-                                        "type": "string"
-                                    },
                                     "niveau_etudes": {
                                         "type": "string"
                                     },
                                     "filiere": {
                                         "type": "string"
                                     },
-                                    "telephone": {
+                                    "moyennes": {
+                                        "type": "integer"
+                                    },
+                                    "sexe": {
                                         "type": "string"
                                     },
-                                    "moyennes": {
+                                    "telephone": {
+                                        "type": "integer"
+                                    },
+                                    "INE": {
                                         "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "prenom": "Aly",
-                                "nom": "Diop",
-                                "email": "alydiop@gmail.com",
+                                "prenom": "Babacar",
+                                "nom": "Coly",
+                                "email": "colybabacar@gmail.com",
                                 "password": "password",
-                                "INE": "N01662320203",
-                                "date_naissance": "12/01/1999",
-                                "lieu_naissance": "Dakar",
-                                "adresse": "Dakar",
+                                "date_naissance": "1999-05-05",
+                                "lieu_naissance": "Thies",
+                                "adresse": "Thies",
+                                "niveau_etudes": "Licence 2",
+                                "filiere": "droit",
+                                "moyennes": 17.8,
                                 "sexe": "Homme",
-                                "niveau_etudes": "Master",
-                                "filiere": "CyberSécurité",
-                                "telephone": "771334565",
-                                "moyennes": "15.00"
+                                "telephone": 775678913,
+                                "INE": "N01662320216"
                             }
                         }
                     }
                 }
             }
         },
-        "/api/user": {
+        "/api/delegues/detailEtudiant/CasSocial/1": {
             "get": {
-                "summary": "Utilisateur connecter",
+                "summary": "Voir détail ETUDIANT CAS SOCIALES fait par le delgue",
                 "description": "",
                 "responses": {
                     "200": {
@@ -427,242 +1296,14 @@
                     }
                 },
                 "tags": [
-                    "Etudiants par cas social"
+                    "Gestion des Utilisateurs ETUDIANT SOCIAL"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "etudiant2@gmail.com",
-                                "password": "Etudiant1@"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/auth/logout": {
-            "post": {
-                "summary": "Se déconnecter profil Admin",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Admin"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "admin@gmail.com",
-                                "password": "Admin123@"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/auth/refresh": {
-            "post": {
-                "summary": "Rafraichir  profil Admin",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Admin"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "admin@gmail.com",
-                                "password": "Admin123@"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/auth/me": {
-            "post": {
-                "summary": "Afficher profil Admin",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Admin"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "admin@gmail.com",
-                                "password": "Admin123@"
-                            }
-                        }
-                    }
-                }
+                "parameters": []
             }
         },
         "/api/detailEtudiant/CasSocial/{id}": {
             "get": {
-                "summary": "detail étudiant Cas social",
+                "summary": "Voir détail ETUDIANT CAS SOCIALES fait par l'admin",
                 "description": "",
                 "responses": {
                     "200": {
@@ -694,35 +1335,14 @@
                     }
                 },
                 "tags": [
-                    "Etudiants par cas social"
+                    "Gestion des Utilisateurs ETUDIANT SOCIAL"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "etudiant2@gmail.com",
-                                "password": "Etudiant1@"
-                            }
-                        }
-                    }
-                }
+                "parameters": []
             }
         },
         "/api/listesEtudiantsCasSocial": {
             "get": {
-                "summary": "Lister les étudiants (par cas social)",
+                "summary": "Lister les ETUDIANTS CAS SOCIALES fait par l'admin",
                 "description": "",
                 "responses": {
                     "200": {
@@ -754,35 +1374,53 @@
                     }
                 },
                 "tags": [
-                    "Etudiants par cas social"
+                    "Gestion des Utilisateurs ETUDIANT SOCIAL"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "email": "etudiant2@gmail.com",
-                                "password": "Etudiant1@"
+                "parameters": []
+            }
+        },
+        "/api/delegues/listesEtudiantsCasSocial": {
+            "get": {
+                "summary": "Lister les ETUDIANTS CAS SOCIALES fait par le DELEGUE",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
                             }
                         }
                     }
-                }
+                },
+                "tags": [
+                    "Gestion des Utilisateurs ETUDIANT SOCIAL"
+                ],
+                "parameters": []
             }
         },
-        "/api/ajoutEtudiant/CasSocial/{id}": {
+        "/api/ajoutEtudiant/CasSocial": {
             "post": {
-                "summary": "Ajouter un User (Etudiant cas social)",
+                "summary": "Ajouter ETUDIANT CAS SOCIAL",
                 "description": "",
                 "responses": {
                     "201": {
@@ -823,15 +1461,9 @@
                     }
                 },
                 "tags": [
-                    "Etudiants par cas social"
+                    "Gestion des Utilisateurs ETUDIANT SOCIAL"
                 ],
-                "parameters": [
-                    {
-                        "in": "header",
-                        "name": "Accept",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -850,9 +1482,6 @@
                                     "password": {
                                         "type": "string"
                                     },
-                                    "INE": {
-                                        "type": "string"
-                                    },
                                     "date_naissance": {
                                         "type": "string"
                                     },
@@ -862,37 +1491,245 @@
                                     "adresse": {
                                         "type": "string"
                                     },
-                                    "sexe": {
-                                        "type": "string"
-                                    },
                                     "niveau_etudes": {
                                         "type": "string"
                                     },
                                     "filiere": {
                                         "type": "string"
                                     },
-                                    "telephone": {
+                                    "sexe": {
                                         "type": "string"
                                     },
-                                    "chambres_id": {
+                                    "telephone": {
+                                        "type": "integer"
+                                    },
+                                    "INE": {
                                         "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "prenom": "Saly",
+                                "prenom": "Fatou",
                                 "nom": "Diop",
-                                "email": "salydiop@gmail.com",
+                                "email": "fatoudiop@gmail.com",
                                 "password": "password",
-                                "INE": "N01662320221",
-                                "date_naissance": "1990-01-12",
-                                "lieu_naissance": "Dakar",
-                                "adresse": "Dakar",
-                                "sexe": "Homme",
-                                "niveau_etudes": "Licence 3",
-                                "filiere": "Informatique",
-                                "telephone": "770000001",
-                                "chambres_id": "1"
+                                "date_naissance": "2000-02-01",
+                                "lieu_naissance": "Kaolack",
+                                "adresse": "Sebikhotane",
+                                "niveau_etudes": "Licence 2",
+                                "filiere": "philosophie",
+                                "sexe": "Femme",
+                                "telephone": 771234506,
+                                "INE": "N01662320228"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/Utilisateurs/delegue/{id}": {
+            "get": {
+                "summary": "detail DELEGUE",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentification DELEGUE"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/auth/me": {
+            "get": {
+                "summary": "Voir l'utilisateur ADMIN Connecté",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentification Admin"
+                ],
+                "parameters": []
+            },
+            "post": {
+                "summary": "Voir profil ADMIN",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentification Admin"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/AjouterUtilisateur": {
+            "post": {
+                "summary": "Ajouter un utilisateur chef de pavillon",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentification CHEF DE PAVILLON"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "prenom": {
+                                        "type": "string"
+                                    },
+                                    "nom": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "telephone": {
+                                        "type": "integer"
+                                    },
+                                    "roles_id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "prenom": "Chef de pavillon G",
+                                "nom": "UCAD G",
+                                "email": "chefpavillonG@gmail.com",
+                                "password": "password",
+                                "telephone": 770000007,
+                                "roles_id": 2
                             }
                         }
                     }
@@ -933,14 +1770,14 @@
                     }
                 },
                 "tags": [
-                    "User Chef de Service Pédagogique"
+                    "Authentification CHEF DE PAVILLON"
                 ],
                 "parameters": []
             }
         },
-        "/api/modifierProfil/{id}": {
-            "put": {
-                "summary": "Modifier un statut d'un User (Profil)",
+        "/api/Utilisateurs/ChefPedagogique/{id}": {
+            "get": {
+                "summary": "Voir détail Chef Pédagogique",
                 "description": "",
                 "responses": {
                     "200": {
@@ -972,31 +1809,14 @@
                     }
                 },
                 "tags": [
-                    "User Chef de Service Pédagogique"
+                    "Authentification CHEF DE SERVICE PEDAGOGIQUE"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "status": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "status": "Inactif"
-                            }
-                        }
-                    }
-                }
+                "parameters": []
             }
         },
-        "/api/AjouterUtilisateur": {
+        "/api/auth/resetPassword": {
             "post": {
-                "summary": "Ajouter un User (Profil)",
+                "summary": "Changer un mot de passe",
                 "description": "",
                 "responses": {
                     "201": {
@@ -1037,55 +1857,35 @@
                     }
                 },
                 "tags": [
-                    "User Chef de Service Pédagogique"
+                    "Authentification CHEF DE PAVILLON"
                 ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "prenom": {
-                                        "type": "string"
-                                    },
-                                    "nom": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "roles_id": {
-                                        "type": "string"
-                                    },
-                                    "sexe": {
-                                        "type": "string"
-                                    },
-                                    "telephone": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "prenom": "ChefPedaogique 1",
-                                "nom": "UCAD",
-                                "email": "ChefPedaogique1@gmail.com",
-                                "password": "ChefPedaogique1@",
-                                "roles_id": "3",
-                                "sexe": "Homme",
-                                "telephone": "770000001"
-                            }
-                        }
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "resetToken",
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "email",
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "password",
+                        "type": "string"
+                    },
+                    {
+                        "in": "path",
+                        "name": "password_confirmation",
+                        "type": "string"
                     }
-                }
+                ]
             }
         },
-        "/api/Utilisateurs/ChefPedagogique/{id}": {
+        "/api/Utilisateurs/ChefPavillon/{id}": {
             "get": {
-                "summary": "voir detail utilisateur",
+                "summary": "detail chef de pavillon",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1117,14 +1917,14 @@
                     }
                 },
                 "tags": [
-                    "User Chef de Service Pédagogique"
+                    "Authentification CHEF DE PAVILLON"
                 ],
                 "parameters": []
             }
         },
-        "/api/me": {
-            "get": {
-                "summary": "User login",
+        "/api/modifierProfil/{id}": {
+            "put": {
+                "summary": "Modifier statut  profil",
                 "description": "",
                 "responses": {
                     "200": {
@@ -1156,60 +1956,119 @@
                     }
                 },
                 "tags": [
-                    "User Chef de Service Pédagogique"
+                    "Authentification Admin"
                 ],
                 "parameters": [],
                 "requestBody": {
                     "content": {
-                        "multipart/form-data": {
+                        "application/x-www-form-urlencoded": {
                             "schema": {
                                 "type": "object",
                                 "properties": {
-                                    "prenom": {
-                                        "type": "string"
-                                    },
-                                    "nom": {
-                                        "type": "string"
-                                    },
-                                    "email": {
-                                        "type": "string"
-                                    },
-                                    "password": {
-                                        "type": "string"
-                                    },
-                                    "roles_id": {
-                                        "type": "string"
-                                    },
-                                    "photo_profile": {
-                                        "type": "string"
-                                    },
-                                    "sexe": {
-                                        "type": "string"
-                                    },
-                                    "telephone": {
+                                    "status": {
                                         "type": "string"
                                     }
                                 }
                             },
                             "example": {
-                                "prenom": "chef de Service Pédagogique",
-                                "nom": "UCAD",
-                                "email": "chefservicepedagogique1@gmail.com",
-                                "password": "ChefServicepedagogique1@gmail",
-                                "roles_id": "3",
-                                "photo_profile": "image.jpg",
-                                "sexe": "Homme",
-                                "telephone": "770123456"
+                                "status": "Inactif"
                             }
                         }
                     }
                 }
             }
         },
+        "/api/auth/refresh": {
+            "post": {
+                "summary": "Rafraichir Le profil ADMIN",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Authentification Admin"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/listesRoles": {
+            "get": {
+                "summary": "Listes Roles",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Role"
+                ],
+                "parameters": []
+            }
+        },
         "/api/AjouterRole": {
             "post": {
-                "summary": "Ajouter un role",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
+                "summary": "Ajouter un PROFIL UTILISATEUR",
+                "description": "",
                 "responses": {
                     "201": {
                         "description": "Created successfully",
@@ -1251,13 +2110,7 @@
                 "tags": [
                     "Role"
                 ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
+                "parameters": [],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -1275,1013 +2128,6 @@
                         }
                     }
                 }
-            }
-        },
-        "/api/historiquesReclamations": {
-            "get": {
-                "summary": "Historiques réclamations",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/listerDesReclamations": {
-            "get": {
-                "summary": "Lister  les reclamations",
-                "description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/traiterReclamation/{id}": {
-            "put": {
-                "summary": "Traiter une réclamation",
-                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "status": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "status": "Traité"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/SupprimerReclamation/delete/{id}": {
-            "delete": {
-                "summary": "SupprimerRéclamation",
-                "description": "Deletes a collection.",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/detailReclamation/read/{id}": {
-            "get": {
-                "summary": "Show une reclamation",
-                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "access_key",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/faireReclamations": {
-            "post": {
-                "summary": "Faire une réclamation",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Réclamation"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "objet": {
-                                        "type": "string"
-                                    },
-                                    "message": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "objet": "Réparation lampe  chambre A1",
-                                "message": "Je viens au prés de vous pour faire ma réclamation de réparation de la lampe"
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/chambre/{id}": {
-            "get": {
-                "summary": "Show une chambre",
-                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "gestions de chambres (chef de Pavillon)"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "access_key",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/chambres": {
-            "get": {
-                "summary": "Lister  les chambres",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "gestions de chambres (chef de Pavillon)"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_chambre": {
-                                        "type": "string"
-                                    },
-                                    "nombres_lits": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_limites": {
-                                        "type": "integer"
-                                    },
-                                    "pavillons_id": {
-                                        "type": "integer"
-                                    },
-                                    "etudiants_id": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "A Chambre A3",
-                                "type_chambre": "Partagée",
-                                "nombres_lits": 2,
-                                "nombres_limites": 4,
-                                "pavillons_id": 1,
-                                "etudiants_id": 3
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/admin/chambre/update/{id}": {
-            "put": {
-                "summary": "Mettre à jour une chambre",
-                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Gestion des chambres (Admin)"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_chambre": {
-                                        "type": "string"
-                                    },
-                                    "nombres_lits": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_limites": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "Chambre C3",
-                                "type_chambre": "Individuelle",
-                                "nombres_lits": 1,
-                                "nombres_limites": 2
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/admin/chambre/delete/{id}": {
-            "delete": {
-                "summary": "Delete Chambre",
-                "description": "Deletes a collection.",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Gestion des chambres (Admin)"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/admin/chambre/read/{id}": {
-            "get": {
-                "summary": "Show une chambre",
-                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Gestion des chambres (Admin)"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "access_key",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/admin/chambre/create/{pavillon}": {
-            "post": {
-                "summary": "Creer une chambre",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Gestion des chambres (Admin)"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_chambre": {
-                                        "type": "string"
-                                    },
-                                    "nombres_lits": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_limites": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "Chambre B2",
-                                "type_chambre": "Partagée",
-                                "nombres_lits": 4,
-                                "nombres_limites": 8
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/pavillons": {
-            "get": {
-                "summary": "Lister tous les  pavillons",
-                "description": "Gets all of your [collections](https://www.getpostman.com/docs/collections). The response includes all of your subscribed collections.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pavillon/update/{id}": {
-            "put": {
-                "summary": "Mettre à jour le pavillon",
-                "description": "Updates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n- `info` — An **object** that contains the following properties:\n    - `name` — A **string** value that contains the collection's name.\n    - `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n- `item` — An **object** that contains the HTTP request and response information.\n    - `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n- For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    - `info` object — Use the `definitions.info` entry.\n    - `item` object — Use the `definitions.items` entry.\n- For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).\n    \n\n### Important\n\nUse caution when using this endpoint. The system will replace the existing collection with the values passed in the request body.",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [],
-                "requestBody": {
-                    "content": {
-                        "application/x-www-form-urlencoded": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_pavillon": {
-                                        "type": "string"
-                                    },
-                                    "nombres_etages": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_chambres": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "Pavillon C1",
-                                "type_pavillon": "Mixte",
-                                "nombres_etages": 3,
-                                "nombres_chambres": 200
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/pavillon/delete/{id}": {
-            "delete": {
-                "summary": "Supprimer le pavillon",
-                "description": "Deletes a collection.",
-                "responses": {
-                    "204": {
-                        "description": "Deleted successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": []
-            }
-        },
-        "/api/pavillon/read/{id}": {
-            "get": {
-                "summary": "Lister un pavillon",
-                "description": "Gets information about a collection. For a complete list of this endpoint's possible values, use the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "access_key",
-                        "type": "string"
-                    }
-                ]
-            }
-        },
-        "/api/pavillon/create": {
-            "post": {
-                "summary": "Créer un pavillon",
-                "description": "Creates a collection using the [Postman Collection v2 schema format](https://schema.postman.com/json/collection/v2.1.0/docs/index.html). Include a `collection` object in the request body that contains the following required properties:\n\n*   `info` — An **object** that contains the following properties:\n    *   `name` — A **string** value that contains the collection's name.\n    *   `schema` — A **string** that contains a URL to the collection's schema. For example, the `https://schema.getpostman.com/collection/v1` URL.\n*   `item` — An **object** that contains the HTTP request and response information.\n    *   `request` — An **object** that contains the collection's request information. For a complete list of values, refer to the `definitions.request` entry in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json). If you pass an empty object for this value, the system defaults to an untitled GET request.\n\n**Note:**\n\n*   For a complete list of available property values for this endpoint, use the following references available in the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json):\n    *   `info` object — Use the `definitions.info` entry.\n    *   `item` object — Use the `definitions.items` entry.\n*   For all other possible values, refer to the [collection.json schema file](https://schema.postman.com/json/collection/v2.1.0/collection.json).",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Pavillon"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "workspace",
-                        "type": "string"
-                    }
-                ],
-                "requestBody": {
-                    "content": {
-                        "multipart/form-data": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "libelle": {
-                                        "type": "string"
-                                    },
-                                    "type_pavillon": {
-                                        "type": "string"
-                                    },
-                                    "nombres_etages": {
-                                        "type": "integer"
-                                    },
-                                    "nombres_chambres": {
-                                        "type": "integer"
-                                    }
-                                }
-                            },
-                            "example": {
-                                "libelle": "Pavillon E",
-                                "type_pavillon": "Homme",
-                                "nombres_etages": 4,
-                                "nombres_chambres": 250
-                            }
-                        }
-                    }
-                }
-            }
-        },
-        "/api/ValiderEtudiant/update/1": {
-            "put": {
-                "summary": "Valider un étudiant",
-                "description": "",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "404": {
-                        "description": "Not Found",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "500": {
-                        "description": "Internal Server Error",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Validation atrribubtion Chambre Par Admin"
-                ],
-                "parameters": []
             }
         }
     }

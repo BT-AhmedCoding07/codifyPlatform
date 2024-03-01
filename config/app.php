@@ -16,7 +16,7 @@ return [
     |
     */
 
-    'name' => env('APP_NAME', 'Administration COUD - Tidiane BADJI'),
+    'name' => env('APP_NAME', 'Administration COUD'),
 
     /*
     |--------------------------------------------------------------------------

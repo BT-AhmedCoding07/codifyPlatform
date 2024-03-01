@@ -11,7 +11,6 @@ use App\Http\Controllers\PavillonController;
 use App\Http\Controllers\PayementController;
 use App\Http\Controllers\ReclamationController;
 use App\Http\Controllers\PasswordResetRequestController;
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -92,8 +91,16 @@ Route::get('/ListesDesPayements','\App\Http\Controllers\PayementController@liste
 
 Route::get('/listesRoles', '\App\Http\Controllers\UserController@listesRoles');
 
-//Lister les bénéficiaires listesBeneficiaires
+//Lister les bénéficiaires
 Route::get('/admin/Beneficiaires', '\App\Http\Controllers\UserController@listesBeneficiaires');
+
+//Lister les bénéficiaires Licence 1
+Route::get('/admin/BeneficiairesLicenceUn', '\App\Http\Controllers\UserController@listesBeneficiaireslicenceUn');
+
+//Lister les bénéficiaires Licence 2
+Route::get('/admin/BeneficiairesLicenceDeux', '\App\Http\Controllers\UserController@listesBeneficiaireslicenceDeux');
+//Lister les bénéficiaires Licence 3
+Route::get('/admin/BeneficiairesLicenceTrois', '\App\Http\Controllers\UserController@listesBeneficiaireslicenceTrois');
 
 });
 /**
@@ -188,7 +195,9 @@ Route::post('/me', '\App\Http\Controllers\AuthController@me');
 //Utilisateur connecté
 Route::get('/me', '\App\Http\Controllers\AuthController@me');
 //Réinitialiser mot de passe
-Route::post('/ResetPassword', 'App\Http\Controllers\PasswordResetRequestController@sendEmail');
+//Route::post('/ResetPassword', 'App\Http\Controllers\PasswordResetRequestController@sendEmail');
+Route::post('/EnvoyerMailMdpOublier', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
+Route::post('/resetPassword', 'App\Http\Controllers\ChangePasswordController@passwordResetProcess');
 
 });
 
@@ -203,6 +212,4 @@ Route::get('payment-success/{code}', [PayementController::class, 'success'])->na
 Route::get('payment/{code}/success', [PayementController::class, 'paymentSuccessView'])->name('payment.success.view');
 Route::get('payment-cancel', [PayementController::class, 'cancel'])->name('paytech.cancel');
 
-//Reset Mot de passe
-Route::post('/reset-password-request', [PasswordResetRequestController::class, 'sendPasswordResetEmail']);
 
