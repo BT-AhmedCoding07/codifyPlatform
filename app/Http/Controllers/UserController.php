@@ -546,34 +546,46 @@ class UserController extends Controller
             ], 422);
         }
     }
-    //Lister tous les bénéficiaires
-    public function listesBeneficiaires(){
-    $etudiant = Etudiant::with('users')
-    ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL]])
-    ->get();
-    return response()->json(EtudiantRessource::collection($etudiant));
-    }
-  //Lister tous les bénéficiaires de la licence 1
-    public function listesBeneficiaireslicenceUn(){
-    $etudiant = Etudiant::with('users')
-    ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL], ['niveau_etudes', 'Licence 1']])
-    ->get();
-    return response()->json(EtudiantRessource::collection($etudiant));
-    }
-    //Lister tous les bénéficiaires de la licence 2
-    public function listesBeneficiaireslicenceDeux(){
+
+// Fonction générique pour lister les bénéficiaires en fonction du niveau d'études
+    public function listesBeneficiairesParNiveau($niveauEtudes) {
         $etudiant = Etudiant::with('users')
-        ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL], ['niveau_etudes', 'Licence 2']])
-        ->get();
+            ->where('estAttribue', 1)
+            ->where('performances', 'jaune')
+            ->where('chambres_id', '!=', NULL)
+            ->where('niveau_etudes', $niveauEtudes)
+            ->get();
         return response()->json(EtudiantRessource::collection($etudiant));
     }
-    //Lister les Bénéficiaires de la licence 3
-    public function listesBeneficiaireslicenceTrois(){
-        $etudiant = Etudiant::with('users')
-        ->where([['estAttribue', 1],['performances', 'jaune'],['chambres_id', '!=', NULL], ['niveau_etudes', 'Licence 3']])
-        ->get();
-        return response()->json(EtudiantRessource::collection($etudiant));
+
+    // Utilisation de la fonction générique pour lister tous les bénéficiaires
+    public function listesBeneficiaires() {
+        return $this->listesBeneficiairesParNiveau(null);
     }
+
+    // Utilisation de la fonction générique pour lister les bénéficiaires de la licence 1
+    public function listesBeneficiaireslicenceUn() {
+        return $this->listesBeneficiairesParNiveau('Licence 1');
+    }
+
+    // Utilisation de la fonction générique pour lister les bénéficiaires de la licence 2
+    public function listesBeneficiaireslicenceDeux() {
+        return $this->listesBeneficiairesParNiveau('Licence 2');
+    }
+
+     // Utilisation de la fonction générique pour lister les bénéficiaires de la licence 3
+     public function listesBeneficiaireslicenceTrois() {
+        return $this->listesBeneficiairesParNiveau('Licence 3');
+    }
+    // Utilisation de la fonction générique pour lister les bénéficiaires de la licence 3
+     public function listesBeneficiaireslicenceMasterUn() {
+        return $this->listesBeneficiairesParNiveau('Master 1');
+    }
+     // Utilisation de la fonction générique pour lister les bénéficiaires de la licence 3
+     public function listesBeneficiaireslicenceMasterDeux() {
+        return $this->listesBeneficiairesParNiveau('Master 2');
+    }
+
     //Lister Role
     public function listesRoles()
     {
