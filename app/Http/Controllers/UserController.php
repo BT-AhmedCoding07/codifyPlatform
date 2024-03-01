@@ -560,7 +560,12 @@ class UserController extends Controller
 
     // Utilisation de la fonction générique pour lister tous les bénéficiaires
     public function listesBeneficiaires() {
-        return $this->listesBeneficiairesParNiveau(null);
+        $etudiant = Etudiant::with('users')
+            ->where('estAttribue', 1)
+            ->where('performances', 'jaune')
+            ->where('chambres_id', '!=', NULL)
+            ->get();
+        return response()->json(EtudiantRessource::collection($etudiant));
     }
 
     // Utilisation de la fonction générique pour lister les bénéficiaires de la licence 1
