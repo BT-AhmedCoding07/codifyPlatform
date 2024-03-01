@@ -101,7 +101,6 @@ Route::get('/admin/BeneficiairesLicenceUn', '\App\Http\Controllers\UserControlle
 Route::get('/admin/BeneficiairesLicenceDeux', '\App\Http\Controllers\UserController@listesBeneficiaireslicenceDeux');
 //Lister les bénéficiaires Licence 3
 Route::get('/admin/BeneficiairesLicenceTrois', '\App\Http\Controllers\UserController@listesBeneficiaireslicenceTrois');
-
 });
 /**
  * Perspectives :
@@ -196,10 +195,15 @@ Route::post('/me', '\App\Http\Controllers\AuthController@me');
 Route::get('/me', '\App\Http\Controllers\AuthController@me');
 //Réinitialiser mot de passe
 //Route::post('/ResetPassword', 'App\Http\Controllers\PasswordResetRequestController@sendEmail');
-Route::post('/EnvoyerMailMdpOublier', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
-Route::post('/resetPassword', 'App\Http\Controllers\ChangePasswordController@passwordResetProcess');
-
+// Route::post('/EnvoyerMailMdpOublier', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
+// Route::post('/resetPassword', 'App\Http\Controllers\ChangePasswordController@passwordResetProcess');
 });
+
+// Route::post('forget-password', [PasswordResetRequestController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+// Route::get('reset-password/{token}', [PasswordResetRequestController::class, 'showResetPasswordForm'])->name('reset.password.get');
+// Route::post('reset-password', [PasswordResetRequestController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+
+
 
 /**
  * ********************************[Paiement]*************************************
