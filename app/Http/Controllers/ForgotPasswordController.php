@@ -13,17 +13,17 @@ use Illuminate\Support\Str;
 class ForgotPasswordController extends Controller
 {
     /**
-     * Show the forget password form.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    * Show the forget password form.
+    *
+    * @return \Illuminate\Http\JsonResponse
+    */
 
-    /**
-     * Submit the forget password form.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
-     */
+   /**
+    * Submit the forget password form.
+    *
+    * @param  \Illuminate\Http\Request  $request
+    * @return \Illuminate\Http\JsonResponse
+    */
     public function submitForgetPasswordForm(Request $request)
     {
         $request->validate([
@@ -38,11 +38,10 @@ class ForgotPasswordController extends Controller
         $token = Str::random(64);
         $expiry = Carbon::now()->addMinutes(5);
 
-
         DB::table('password_reset_tokens')->insert([
             'email' => $request->email,
             'token' => $token,
-            'expired_at' => $expiry,
+            'expires_at' => $expiry,
             'created_at' => Carbon::now(),
         ]);
 
