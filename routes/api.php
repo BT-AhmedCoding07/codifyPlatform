@@ -174,6 +174,9 @@ Route::post('/faireReclamations', '\App\Http\Controllers\ReclamationController@f
 //Historique réclamation
 Route::get('/historiquesReclamations', '\App\Http\Controllers\ReclamationController@historiqueReclamation');
 
+//Supprimer une reclamation
+Route::delete('/etudiant/SupprimerReclamation/delete/{id}', '\App\Http\Controllers\ReclamationController@destroy');
+
 //Faire un paiement
 Route::get('/FairePayement','\App\Http\Controllers\PayementController@fairePayement');
 //Historique de payement
