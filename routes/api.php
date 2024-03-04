@@ -10,7 +10,7 @@ use App\Http\Controllers\ChambreController;
 use App\Http\Controllers\PavillonController;
 use App\Http\Controllers\PayementController;
 use App\Http\Controllers\ReclamationController;
-use App\Http\Controllers\PasswordResetRequestController;
+use App\Http\Controllers\ForgotPasswordController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -193,19 +193,16 @@ Route::post('/refresh', '\App\Http\Controllers\AuthController@refresh');
 Route::post('/me', '\App\Http\Controllers\AuthController@me');
 //Utilisateur connecté
 Route::get('/me', '\App\Http\Controllers\AuthController@me');
-//Réinitialiser mot de passe
-//Route::post('/ResetPassword', 'App\Http\Controllers\PasswordResetRequestController@sendEmail');
-// Route::post('/EnvoyerMailMdpOublier', '\App\Http\Controllers\PasswordResetRequestController@sendEmail');
-// Route::post('/resetPassword', 'App\Http\Controllers\ChangePasswordController@passwordResetProcess');
+
 });
 
-// Route::post('forget-password', [PasswordResetRequestController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-// Route::get('reset-password/{token}', [PasswordResetRequestController::class, 'showResetPasswordForm'])->name('reset.password.get');
-// Route::post('reset-password', [PasswordResetRequestController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+/*Routes api*/
+Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
+Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
+Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::get('/password/reset/success', [ForgotPasswordController::class,'showResetPasswordSuccess'])->name('password.reset.success');
 
-
-
-/**
+/**submitForgetPasswordForm
  * ********************************[Paiement]*************************************
  */
 
