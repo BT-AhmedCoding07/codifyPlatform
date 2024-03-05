@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
@@ -13,17 +14,17 @@ use Illuminate\Support\Str;
 class ForgotPasswordController extends Controller
 {
     /**
-    * Show the forget password form.
-    *
-    * @return \Illuminate\Http\JsonResponse
-    */
+     * Show the forget password form.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
 
-   /**
-    * Submit the forget password form.
-    *
-    * @param  \Illuminate\Http\Request  $request
-    * @return \Illuminate\Http\JsonResponse
-    */
+    /**
+     * Submit the forget password form.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function submitForgetPasswordForm(Request $request)
     {
         $request->validate([
@@ -41,18 +42,19 @@ class ForgotPasswordController extends Controller
         DB::table('password_reset_tokens')->insert([
             'email' => $request->email,
             'token' => $token,
-            'expires_at' => $expiry,
+            'expired_at' => $expiry,
             'created_at' => Carbon::now(),
         ]);
 
         Mail::send('forgetPassword', ['token' => $token], function ($message) use ($request) {
             $message->to($request->email);
-            $message->subject('Reset Password');
+            $message->subject('Réinitialisation mot de passe');
         });
 
         return response()->json(['message' => 'Nous vous avons envoyé un email de récupération!']);
     }
-        /**
+
+    /**
      * Show the reset password form.
      *
      * @param  string  $token
@@ -67,9 +69,7 @@ class ForgotPasswordController extends Controller
     {
         return view('successResetPassword');
     }
-
-
-     /**
+    /**
      * Submit the reset password form.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -96,7 +96,7 @@ class ForgotPasswordController extends Controller
             return response()->json(['error' => 'données invalides!'], 422);
         }
 
-        if (now()->gt($tokenData->expired_at)) {
+        if (now()->gt($tokenData->expire_at)) {
             DB::table('password_reset_tokens')
             ->where('token', $request->token)
             ->delete();

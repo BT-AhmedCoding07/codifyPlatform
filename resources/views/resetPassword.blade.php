@@ -10,45 +10,6 @@
 </head>
 
 <body>
-    {{-- <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card text-center mt-5">
-                    <div class="card-header">Réinitialisation du mot de passe</div>
-                    <div class="card-body ">
-                        <form action="{{ route('reset.password.post') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="token" value="{{ $token }}">
-
-                            <div class="form-group row">
-                                <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
-                                <div class="col-md-6">
-                                    <input type="password" id="password" class="form-control" name="password" required
-                                        autofocus>
-                                </div>
-                            </div>
-
-                            <div class="form-group row">
-                                <label for="password-confirm" class="col-md-4 col-form-label text-md-right">Confirm
-                                    Password</label>
-                                <div class="col-md-6">
-                                    <input type="password" id="password-confirm" class="form-control"
-                                        name="password_confirmation" required autofocus>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Réinitialiser
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
 
     <div class="container">
         <div class=" text-center mt-5 ">
@@ -80,8 +41,8 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6 offset-md-4 mb-4 text-center ">
-                                    <button type="submit" class="btn btn-primary text-md-right">
+                                <div class="col-md-6 offset-md-4 mb-4 text-center">
+                                    <button type="submit" style="background-color: #a41034" #a41034 class="btn btn-primary text-md-right">
                                         Réinitialiser mot de passe
                                     </button>
                                 </div>

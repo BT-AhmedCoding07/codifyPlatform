@@ -1,93 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <title>Codify platform - Réinitialisation de mot de passe</title>
-        <style>
-        body{
-            letter-spacing: 0.7px;
-            background-color: #eee;
-            width: 50%;
-            height: 30%;
-        }
-
-        .container{
-            margin-top: 120px;
-            margin-bottom: 120px;
-        }
-
-        .btn-lg, a:focus, a:active {
-            outline: none !important;
-            box-shadow: none !important;
-        }
-
-        .card-1{
-            box-shadow: 2px 4px 15px 0px #a41034;
-        }
-
-        p{
-            font-size: 13px ;
-        }
-
-        .small{
-            font-size: 9px !important;
-        }
-
-        .cursor-pointer{
-            cursor: pointer;
-        }
-
-        .btn-round-lg {
-            border-radius: 22.5px;
-            background-color: #eee;
-            color: #a41034;
-            font-size: 14px;
-            font-weight: 600;
-            letter-spacing: 0.9px;
-            padding: 8px 20px  8px  20px !important;
-            border: 1px solid #fff;
-        }
-
-        .btn-round-lg:hover{
-            background-color: #fff;
-            color: #a41034;
-            border: 1px solid #fff;
-        }
-
-        .btn-round-lg:focus{
-            border: 1px solid #fff !important;
-        }
-
-        .card{
-            background-color: #a41034 !important;
-            color: white;
-        }
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="x-apple-disable-message-reformatting">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="format-detection" content="telephone=no, date=no, address=no, email=no">
+    <style type="text/css">
+      body,table,td{font-family:Helvetica,Arial,sans-serif !important}.ExternalClass{width:100%}.ExternalClass,.ExternalClass p,.ExternalClass span,.ExternalClass font,.ExternalClass td,.ExternalClass div{line-height:150%}a{text-decoration:none}*{color:inherit}a[x-apple-data-detectors],u+#body a,#MessageViewBody a{color:inherit;text-decoration:none;font-size:inherit;font-family:inherit;font-weight:inherit;line-height:inherit}img{-ms-interpolation-mode:bicubic}table:not([class^=s-]){font-family:Helvetica,Arial,sans-serif;mso-table-lspace:0pt;mso-table-rspace:0pt;border-spacing:0px;border-collapse:collapse}table:not([class^=s-]) td{border-spacing:0px;border-collapse:collapse}@media screen and (max-width: 600px){.w-full,.w-full>tbody>tr>td{width:100% !important}.w-24,.w-24>tbody>tr>td{width:96px !important}.w-40,.w-40>tbody>tr>td{width:160px !important}.p-lg-10:not(table),.p-lg-10:not(.btn)>tbody>tr>td,.p-lg-10.btn td a{padding:0 !important}.p-3:not(table),.p-3:not(.btn)>tbody>tr>td,.p-3.btn td a{padding:12px !important}.p-6:not(table),.p-6:not(.btn)>tbody>tr>td,.p-6.btn td a{padding:24px !important}*[class*=s-lg-]>tbody>tr>td{font-size:0 !important;line-height:0 !important;height:0 !important}.s-4>tbody>tr>td{font-size:16px !important;line-height:16px !important;height:16px !important}.s-6>tbody>tr>td{font-size:24px !important;line-height:24px !important;height:24px !important}.s-10>tbody>tr>td{font-size:40px !important;line-height:40px !important;height:40px !important}}
     </style>
-</head>
-<body>
-    <div class="col-12 container">
-        <div class="alert bg-success mb-5 py-4" role="alert">
-           <div class="d-flex">
-                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
-                    <path d="M22 5.08V19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5.08a2 2 0 0 1 .293-1.105l9.023 8.724a1 1 0 0 0 1.353 0l9.023-8.724A2 2 0 0 1 22 5.08z"></path>
-                </svg>
-              <div class="px-3">
-                 <h5 class="alert-heading">Réinitialisation de mot de passe</h5>
-                 <p>Pour réinitialiser votre mot de passe,veillez cliquer sur le lien ci-aprés:</p>
-                 <button type="button" class="btn btn-primary btn-round-lg btn-lg"><a href="{{ route('reset.password.get', $token) }}">Réinitialiser</a></button>
-              </div>
-           </div>
-        </div>
-     </div>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
-        integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
-        integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
-        crossorigin="anonymous"></script>
+  </head>
+  <body class="bg-light" style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 16px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #000000; margin: 0; padding: 0; border-width: 0;" bgcolor="#f7fafc">
+    <table class="bg-light body" valign="top" role="presentation" border="0" cellpadding="0" cellspacing="0" style="outline: 0; width: 100%; min-width: 100%; height: 100%; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; font-family: Helvetica, Arial, sans-serif; line-height: 24px; font-weight: normal; font-size: 16px; -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; color: #000000; margin: 0; padding: 0; border-width: 0;" bgcolor="#f7fafc">
+      <tbody>
+        <tr>
+          <td valign="top" style="line-height: 24px; font-size: 16px; margin: 0;" align="left" bgcolor="#f7fafc">
+            <table class="container" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;">
+              <tbody>
+                <tr>
+                  <td align="center" style="line-height: 24px; font-size: 16px; margin: 0; padding: 0 16px;">
 
-</body>
+                    <table align="center" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%; max-width: 600px; margin: 0 auto;">
+                      <tbody>
+                        <tr>
+                          <td style="line-height: 24px; font-size: 16px; margin: 0;" align="left">
+                            <table class="s-10 w-full mb-5" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+                              <tbody>
+                                <tr>
+                                  <td style="line-height: 40px; font-size: 40px; width: 100%; height: 40px; margin: 0;" align="left" width="100%" height="40" >
+                                    &#160;
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <table class="card p-6 p-lg-10 space-y-4" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 6px; border-collapse: separate !important; width: 100%; overflow: hidden; border: 1px solid #e2e8f0;" bgcolor="#ffffff">
+
+                                <tbody>
+                                <tr>
+                                  <td style="line-height: 24px; font-size: 16px; width: 100%; margin: 0; padding: 40px;" align="left" bgcolor="#ffffff">
+                                    <h5 class="h3 fw-700 text-center" style="padding-top: 0; padding-bottom: 0; font-weight: 700 !important; vertical-align: baseline; font-size: 28px; line-height: 33.6px; margin: 0;" align="left">
+                                      Réinitialisation mot de passe
+                                    </h5>
+                                    <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+                                      <tbody>
+                                        <tr>
+                                          <td style="line-height: 16px; font-size: 16px; width: 100%; height: 16px; margin: 0;" align="left" width="100%" height="16">
+                                            &#160;
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <p class="" style="line-height: 24px; font-size: 16px; width: 100%; margin: 0;" align="left">
+                                        Pour réinitialiser votre mot de passe,cliquez sur le lien ci-aprés:
+                                    </p>
+                                    <table class="s-4 w-full" role="presentation" border="0" cellpadding="0" cellspacing="0" style="width: 100%;" width="100%">
+                                      <tbody>
+                                        <tr>
+                                          <td style="line-height: 16px; font-size: 16px; width: 100%; height: 16px; margin: 0;" align="left" width="100%" height="16">
+                                            &#160;
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <table class="btn btn-primary p-3 fw-700" role="presentation" border="0" cellpadding="0" cellspacing="0" style="border-radius: 6px; border-collapse: separate !important; font-weight: 700 !important;">
+                                      <tbody>
+                                        <tr>
+                                          <td style="line-height: 24px; font-size: 16px; border-radius: 6px; font-weight: 700 !important; margin: 0;" align="center" bgcolor="#0d6efd">
+                                            <a href="{{ route('reset.password.get', $token) }}" style="color: #ffffff; font-size: 16px; font-family: Helvetica, Arial, sans-serif; text-decoration: none; border-radius: 6px; line-height: 20px; display: block; font-weight: 700 !important; white-space: nowrap; background-color: #a41034; padding: 12px; border: 1px solid #a41034;">Réinitialiser votre mot de passe</a>
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
 </html>
