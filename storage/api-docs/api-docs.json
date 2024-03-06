@@ -23,6 +23,71 @@
         "multipart/form-data"
     ],
     "paths": {
+        "/api/forget-password": {
+            "post": {
+                "summary": "Réinitialiser mot de passe",
+                "description": "",
+                "responses": {
+                    "201": {
+                        "description": "Created successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthenticated",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "Unauthorize",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion Réinitialisation mot de passe"
+                ],
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "multipart/form-data": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                }
+                            },
+                            "example": {
+                                "email": "fallastou012@gmail.com"
+                            }
+                        }
+                    }
+                }
+            }
+        },
         "/api/admin/BeneficiairesLicenceUn": {
             "get": {
                 "summary": "Lister les bénéficiaires Par Niveau",
@@ -97,6 +162,45 @@
                 },
                 "tags": [
                     "Gestion de BENEFICIAIRES"
+                ],
+                "parameters": []
+            }
+        },
+        "/api/FairePayement": {
+            "get": {
+                "summary": "Faire un payement",
+                "description": "",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {},
+                                "example": ""
+                            }
+                        }
+                    }
+                },
+                "tags": [
+                    "Gestion de payement"
                 ],
                 "parameters": []
             }
@@ -319,7 +423,13 @@
                 "tags": [
                     "Authentification Admin"
                 ],
-                "parameters": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "",
+                        "type": "string"
+                    }
+                ],
                 "requestBody": {
                     "content": {
                         "multipart/form-data": {
@@ -404,15 +514,15 @@
                                 }
                             },
                             "example": {
-                                "objet": "Robinet chambre B2",
-                                "message": "Merci de bien nous aider à réparer le robinet de la chambre B2, nous notons que l'eau  coule  ne fonctionne pas depuis deux jours"
+                                "objet": "Porte défectueuse",
+                                "message": "Merci de bien nous aider à réparer la porte de la chambre  1 B , nous notons que les cellures de la porte sont gatés"
                             }
                         }
                     }
                 }
             }
         },
-        "/api/ValiderEtudiant/update/{id}": {
+        "/api/ValiderEtudiant/update/21": {
             "put": {
                 "summary": "Valider les étudiants",
                 "description": "",
@@ -448,7 +558,22 @@
                 "tags": [
                     "Gestion de validation des étudiants"
                 ],
-                "parameters": []
+                "parameters": [],
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
             }
         },
         "/api/chambre/{id}": {
@@ -723,13 +848,13 @@
                 "parameters": []
             }
         },
-        "/api/admin/chambre/create/6": {
+        "/api/admin/chambre/create/{id}": {
             "post": {
                 "summary": "Ajouter une CHAMBRE",
                 "description": "",
                 "responses": {
                     "201": {
-                        "description": "Created successfully",
+                        "description": "Chambre créé avec success",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -790,10 +915,10 @@
                                 }
                             },
                             "example": {
-                                "libelle": "F Chambre 2",
+                                "libelle": "E Chambre 3",
                                 "type_chambre": "Partagée",
-                                "nombres_lits": 3,
-                                "nombres_limites": 12
+                                "nombres_lits": 5,
+                                "nombres_limites": 10
                             }
                         }
                     }
@@ -806,7 +931,7 @@
                 "description": "",
                 "responses": {
                     "204": {
-                        "description": "Deleted successfully",
+                        "description": "Pavillon supprimé avec success",
                         "content": {
                             "application/json": {
                                 "schema": {},
@@ -848,7 +973,7 @@
                 "parameters": []
             }
         },
-        "/api/pavillon/update/{id}": {
+        "/api/pavillon/update/8": {
             "put": {
                 "summary": "Modifier un PAVILLON",
                 "description": "",
@@ -906,7 +1031,7 @@
                                 }
                             },
                             "example": {
-                                "libelle": "Pavillon E",
+                                "libelle": "Pavillon H",
                                 "type_pavillon": "Femme",
                                 "nombres_etages": 4,
                                 "nombres_chambres": 350
@@ -1061,8 +1186,8 @@
                                 }
                             },
                             "example": {
-                                "libelle": "Pavillon H",
-                                "nombres_chambres": 350,
+                                "libelle": "Pavillon PM",
+                                "nombres_chambres": 400,
                                 "nombres_etages": 4,
                                 "type_pavillon": "Mixte"
                             }
@@ -1243,19 +1368,19 @@
                                 }
                             },
                             "example": {
-                                "prenom": "Babacar",
-                                "nom": "Coly",
-                                "email": "colybabacar@gmail.com",
+                                "prenom": "Astou",
+                                "nom": "Diouf",
+                                "email": "dioufastou702@gmail.com",
                                 "password": "password",
-                                "date_naissance": "1999-05-05",
-                                "lieu_naissance": "Thies",
-                                "adresse": "Thies",
-                                "niveau_etudes": "Licence 2",
-                                "filiere": "droit",
-                                "moyennes": 17.8,
-                                "sexe": "Homme",
-                                "telephone": 775678913,
-                                "INE": "N01662320216"
+                                "date_naissance": "1999-02-28",
+                                "lieu_naissance": "Kouguel",
+                                "adresse": "Kouguel",
+                                "niveau_etudes": "Licence 1",
+                                "filiere": "Biologie",
+                                "moyennes": 16,
+                                "sexe": "Femme",
+                                "telephone": 765678015,
+                                "INE": "N01662020118"
                             }
                         }
                     }
@@ -1340,7 +1465,7 @@
                 "parameters": []
             }
         },
-        "/api/listesEtudiantsCasSocial": {
+        "/api/admin/listesEtudiantsCasSocial": {
             "get": {
                 "summary": "Lister les ETUDIANTS CAS SOCIALES fait par l'admin",
                 "description": "",
@@ -1509,18 +1634,18 @@
                                 }
                             },
                             "example": {
-                                "prenom": "Fatou",
-                                "nom": "Diop",
-                                "email": "fatoudiop@gmail.com",
+                                "prenom": "",
+                                "nom": "Ndecky",
+                                "email": "ndeckyantoine@gmail.com",
                                 "password": "password",
-                                "date_naissance": "2000-02-01",
-                                "lieu_naissance": "Kaolack",
-                                "adresse": "Sebikhotane",
-                                "niveau_etudes": "Licence 2",
-                                "filiere": "philosophie",
-                                "sexe": "Femme",
-                                "telephone": 771234506,
-                                "INE": "N01662320228"
+                                "date_naissance": "2004-11-04",
+                                "lieu_naissance": "Velingara",
+                                "adresse": "Keur Mbaye Fall",
+                                "niveau_etudes": "Licence 3",
+                                "filiere": "Anglais",
+                                "sexe": "Homme",
+                                "telephone": 771325783,
+                                "INE": "N01112022017"
                             }
                         }
                     }
@@ -1724,11 +1849,11 @@
                                 }
                             },
                             "example": {
-                                "prenom": "Chef de pavillon G",
-                                "nom": "UCAD G",
-                                "email": "chefpavillonG@gmail.com",
+                                "prenom": "Chef de pavillon ",
+                                "nom": "H UCAD",
+                                "email": "chefpavillonH@gmail.com",
                                 "password": "password",
-                                "telephone": 770000007,
+                                "telephone": 700000001,
                                 "roles_id": 2
                             }
                         }
@@ -1812,75 +1937,6 @@
                     "Authentification CHEF DE SERVICE PEDAGOGIQUE"
                 ],
                 "parameters": []
-            }
-        },
-        "/api/auth/resetPassword": {
-            "post": {
-                "summary": "Changer un mot de passe",
-                "description": "",
-                "responses": {
-                    "201": {
-                        "description": "Created successfully",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "400": {
-                        "description": "Bad Request",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "401": {
-                        "description": "Unauthenticated",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    },
-                    "403": {
-                        "description": "Unauthorize",
-                        "content": {
-                            "application/json": {
-                                "schema": {},
-                                "example": ""
-                            }
-                        }
-                    }
-                },
-                "tags": [
-                    "Authentification CHEF DE PAVILLON"
-                ],
-                "parameters": [
-                    {
-                        "in": "path",
-                        "name": "resetToken",
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "email",
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "password",
-                        "type": "string"
-                    },
-                    {
-                        "in": "path",
-                        "name": "password_confirmation",
-                        "type": "string"
-                    }
-                ]
             }
         },
         "/api/Utilisateurs/ChefPavillon/{id}": {
@@ -2123,7 +2179,7 @@
                                 }
                             },
                             "example": {
-                                "nomRole": "Gestionnaire de compte"
+                                "nomRole": "Caissier"
                             }
                         }
                     }

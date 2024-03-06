@@ -329,7 +329,7 @@ class UserController extends Controller
 
         try {
             $etudiant = Etudiant::find($id);
-            $user = User::where('id',$etudiant->users_id)->first();
+            $user = User::where('id', $etudiant->users_id)->first();
             // dd($user);
             if ($etudiant->estAttribue == 1) {
                 return response()->json([

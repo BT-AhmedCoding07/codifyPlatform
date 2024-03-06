@@ -202,7 +202,7 @@ Route::get('/me', '\App\Http\Controllers\AuthController@me');
 /*Routes api*/
 Route::get('reset-password/{token}', [ForgotPasswordController::class, 'showResetPasswordForm'])->name('reset.password.get');
 Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-Route::post('forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
+Route::post('/forget-password', [ForgotPasswordController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
 Route::get('/password/reset/success', [ForgotPasswordController::class,'showResetPasswordSuccess'])->name('password.reset.success');
 
 /**submitForgetPasswordForm
